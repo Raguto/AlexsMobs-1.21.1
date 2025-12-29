@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
@@ -26,27 +27,24 @@ public class BlossomLootModifier implements IGlobalLootModifier {
     public static final Supplier<MapCodec<BlossomLootModifier>> CODEC =
             () -> MapCodec.unit(() -> new BlossomLootModifier(new net.minecraft.world.level.storage.loot.predicates.LootItemCondition[0]));
 
-    private final LootItemCondition[] conditions;
+    // Hardcoded loot table ID since codec doesn't load conditions from JSON
+    private static final ResourceLocation ACACIA_LEAVES = ResourceLocation.withDefaultNamespace("blocks/acacia_leaves");
 
-    private final Predicate<LootContext> orConditions;
+    private final LootItemCondition[] conditions;
 
     public BlossomLootModifier(LootItemCondition[] conditionsIn) {
         this.conditions = conditionsIn;
-        // In 1.21, we manually create the OR predicate
-        this.orConditions = (ctx) -> {
-            for (LootItemCondition condition : conditionsIn) {
-                if (condition.test(ctx)) {
-                    return true;
-                }
-            }
-            return conditionsIn.length == 0; // If no conditions, always pass
-        };
     }
 
     @NotNull
     @Override
     public ObjectArrayList<ItemStack> apply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        return this.orConditions.test(context) ? this.doApply(generatedLoot, context) : generatedLoot;
+        // Hardcoded check for acacia leaves
+        ResourceLocation lootTableId = context.getQueriedLootTableId();
+        if (lootTableId.equals(ACACIA_LEAVES)) {
+            return this.doApply(generatedLoot, context);
+        }
+        return generatedLoot;
     }
 
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {

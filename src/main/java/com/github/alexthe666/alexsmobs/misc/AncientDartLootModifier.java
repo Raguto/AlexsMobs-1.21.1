@@ -6,8 +6,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
@@ -22,6 +24,10 @@ public class AncientDartLootModifier implements IGlobalLootModifier {
     public static final Supplier<MapCodec<AncientDartLootModifier>> CODEC =
             () -> MapCodec.unit(() -> new AncientDartLootModifier(new net.minecraft.world.level.storage.loot.predicates.LootItemCondition[0]));
 
+    // Hardcoded loot table IDs since codec doesn't load conditions from JSON
+    private static final ResourceLocation JUNGLE_TEMPLE = ResourceLocation.withDefaultNamespace("chests/jungle_temple");
+    private static final ResourceLocation JUNGLE_TEMPLE_DISPENSER = ResourceLocation.withDefaultNamespace("chests/jungle_temple_dispenser");
+
     private final LootItemCondition[] conditions;
 
     public AncientDartLootModifier(LootItemCondition[] conditionsIn) {
@@ -31,20 +37,17 @@ public class AncientDartLootModifier implements IGlobalLootModifier {
     @NotNull
     @Override
     public ObjectArrayList<ItemStack> apply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        // Check all conditions
-        for (LootItemCondition condition : this.conditions) {
-            if (!condition.test(context)) {
-                return generatedLoot;
-            }
+        // Hardcoded check for jungle temple chests
+        ResourceLocation lootTableId = context.getQueriedLootTableId();
+        if (lootTableId.equals(JUNGLE_TEMPLE) || lootTableId.equals(JUNGLE_TEMPLE_DISPENSER)) {
+            return this.doApply(generatedLoot, context);
         }
-        return this.doApply(generatedLoot, context);
+        return generatedLoot;
     }
 
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         if (AMConfig.addLootToChests) {
-            if (context.getRandom().nextInt(1) == 0) {
-                generatedLoot.add(new ItemStack(AMItemRegistry.ANCIENT_DART.get()));
-            }
+            generatedLoot.add(new ItemStack(AMItemRegistry.ANCIENT_DART.get()));
         }
         return generatedLoot;
     }
