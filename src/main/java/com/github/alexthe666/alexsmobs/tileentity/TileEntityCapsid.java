@@ -72,12 +72,25 @@ public class TileEntityCapsid extends BaseContainerBlockEntity implements Worldl
             BlockEntity up = level.getBlockEntity(this.worldPosition.above());
             if (up instanceof Container) {
                 if (floatUpProgress >= 1) {
-                                        // TODO 1.21: IItemHandler API changed
-                                            if (false /* handler.orElse(null) != null */) {
-                        if (false /* ItemHandlerHelper.insertItem(handler.orElse(null), this.getItem(0), true).isEmpty() */) {
-                            // ItemHandlerHelper.insertItem(handler.orElse(null), this.getItem(0).copy(), false);
-                            this.setItem(0, ItemStack.EMPTY);
+                    // Try to insert item into container above
+                    Container containerAbove = (Container) up;
+                    ItemStack toInsert = this.getItem(0).copy();
+                    boolean inserted = false;
+                    for (int i = 0; i < containerAbove.getContainerSize() && !toInsert.isEmpty(); i++) {
+                        ItemStack slotStack = containerAbove.getItem(i);
+                        if (slotStack.isEmpty()) {
+                            containerAbove.setItem(i, toInsert.copy());
+                            toInsert = ItemStack.EMPTY;
+                            inserted = true;
+                        } else if (ItemStack.isSameItemSameComponents(slotStack, toInsert) && slotStack.getCount() < slotStack.getMaxStackSize()) {
+                            int canAdd = Math.min(toInsert.getCount(), slotStack.getMaxStackSize() - slotStack.getCount());
+                            slotStack.grow(canAdd);
+                            toInsert.shrink(canAdd);
+                            inserted = true;
                         }
+                    }
+                    if (inserted && toInsert.isEmpty()) {
+                        this.setItem(0, ItemStack.EMPTY);
                     }
                     yawTarget = 0F;
                     floatUpProgress = 0F;

@@ -1,9 +1,9 @@
 package com.github.alexthe666.alexsmobs.entity.util;
 
+import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexthe666.alexsmobs.network.MessageSyncEntityData;
 import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
-import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -30,13 +30,7 @@ public class RockyChestplateUtil {
         }
         CitadelEntityData.setCitadelTag(roller, lassoedTag);
         if (!roller.level().isClientSide) {
-            // TODO 1.21: Citadel API changed
-
-            // Citadel.sendMSGToAll(new PropertiesMessage("CitadelPatreonConfig", lassoedTag, roller.getId()));
-        }else{
-            // TODO 1.21: Citadel API changed
-
-            // Citadel.sendMSGToServer(new PropertiesMessage("CitadelPatreonConfig", lassoedTag, roller.getId()));
+            AlexsMobs.sendMSGToAll(new MessageSyncEntityData(roller.getId(), lassoedTag));
         }
     }
 
@@ -115,9 +109,7 @@ public class RockyChestplateUtil {
         }
         if (!roller.level().isClientSide && update) {
             CitadelEntityData.setCitadelTag(roller, tag);
-            // TODO 1.21: Citadel API changed
-
-            // Citadel.sendMSGToAll(new PropertiesMessage("CitadelPatreonConfig", tag, roller.getId()));
+            AlexsMobs.sendMSGToAll(new MessageSyncEntityData(roller.getId(), tag));
         }
     }
 

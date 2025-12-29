@@ -1,8 +1,8 @@
 package com.github.alexthe666.alexsmobs.entity.util;
 
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexthe666.alexsmobs.AlexsMobs;
+import com.github.alexthe666.alexsmobs.network.MessageSyncEntityData;
 import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
-import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -36,9 +36,7 @@ public class VineLassoUtil {
         lassoedTag.putBoolean(LASSO_PACKET, true);
         CitadelEntityData.setCitadelTag(lassoed, lassoedTag);
         if(!lassoed.level().isClientSide){
-            // TODO 1.21: Citadel API changed
-
-            // Citadel.sendMSGToAll(new PropertiesMessage("CitadelPatreonConfig", lassoedTag, lassoed.getId()));
+            AlexsMobs.sendMSGToAll(new MessageSyncEntityData(lassoed.getId(), lassoedTag));
         }
     }
 
@@ -86,9 +84,7 @@ public class VineLassoUtil {
             if (tag.contains(LASSO_PACKET) || tag.getBoolean(LASSO_REMOVED)) {
                 tag.putBoolean(LASSO_PACKET, false);
                 CitadelEntityData.setCitadelTag(lassoed, tag);
-                // TODO 1.21: Citadel API changed
-
-                // Citadel.sendMSGToAll(new PropertiesMessage("CitadelPatreonConfig", tag, lassoed.getId()));
+                AlexsMobs.sendMSGToAll(new MessageSyncEntityData(lassoed.getId(), tag));
             }
         }
         Entity lassoedOwner = VineLassoUtil.getLassoedTo(lassoed);

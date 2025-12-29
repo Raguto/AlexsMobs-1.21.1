@@ -103,8 +103,8 @@ public class EntityCatfish extends WaterAnimal implements FlyingAnimal, Bucketab
     }
 
 
-    public boolean removeWhenFarAway(double p_27492_) {
-        return !this.fromBucket() && !requiresCustomPersistence() && !this.hasCustomName();
+    public boolean removeWhenFarAway(double distanceSquared) {
+        return !this.fromBucket() && !this.hasCustomName();
     }
 
     private void initCatfishInventory() {
@@ -145,7 +145,13 @@ public class EntityCatfish extends WaterAnimal implements FlyingAnimal, Bucketab
     }
 
     public static boolean canCatfishSpawn(EntityType<EntityCatfish> entityType, ServerLevelAccessor iServerWorld, MobSpawnType reason, BlockPos pos, RandomSource random) {
-        return reason == MobSpawnType.SPAWNER || iServerWorld.getBlockState(pos).getFluidState().is(Fluids.WATER) && random.nextInt(1) == 0;
+        // Must be in water, and have water above (not at surface)
+        if (reason == MobSpawnType.SPAWNER) {
+            return true;
+        }
+        return iServerWorld.getFluidState(pos).is(Fluids.WATER) 
+            && iServerWorld.getFluidState(pos.above()).is(Fluids.WATER)
+            && iServerWorld.getBlockState(pos).isAir() == false;
     }
 
     public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType spawnReasonIn) {
@@ -386,6 +392,11 @@ public class EntityCatfish extends WaterAnimal implements FlyingAnimal, Bucketab
             case 2 -> LARGE_SIZE;
             default -> SMALL_SIZE;
         };
+    }
+
+    @Override
+    public EntityDimensions getDefaultDimensions(Pose pose) {
+        return getDimsForCatfish();
     }
 
     @Nullable

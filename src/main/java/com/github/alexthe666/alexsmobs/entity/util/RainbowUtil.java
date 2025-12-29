@@ -1,11 +1,11 @@
 package com.github.alexthe666.alexsmobs.entity.util;
 
+import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.item.ItemRainbowJelly;
 import com.github.alexthe666.alexsmobs.misc.AMSimplexNoise;
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexthe666.alexsmobs.network.MessageSyncEntityData;
 import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
-import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,11 +23,7 @@ public class RainbowUtil {
         tag.putInt(RAINBOW_TYPE, type);
         CitadelEntityData.setCitadelTag(fabulous, tag);
         if (!fabulous.level().isClientSide) {
-            // TODO 1.21: Citadel API changed - sendMSGToAll removed
-            // Citadel.sendMSGToAll(new PropertiesMessage("CitadelPatreonConfig", tag, fabulous.getId()));
-        }else{
-            // TODO 1.21: Citadel API changed - sendMSGToServer removed
-            // Citadel.sendMSGToServer(new PropertiesMessage("CitadelPatreonConfig", tag, fabulous.getId()));
+            AlexsMobs.sendMSGToAll(new MessageSyncEntityData(fabulous.getId(), tag));
         }
     }
 

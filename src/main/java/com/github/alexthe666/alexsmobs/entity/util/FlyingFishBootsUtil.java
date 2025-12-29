@@ -1,9 +1,9 @@
 package com.github.alexthe666.alexsmobs.entity.util;
 
+import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexthe666.alexsmobs.network.MessageSyncEntityData;
 import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
-import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -25,11 +25,7 @@ public class FlyingFishBootsUtil {
 
         CitadelEntityData.setCitadelTag(entity, lassoedTag);
         if (!entity.level().isClientSide) {
-            // TODO 1.21: Citadel API changed - sendMSGToAll removed
-            // Citadel.sendMSGToAll(new PropertiesMessage("CitadelPatreonConfig", lassoedTag, entity.getId()));
-        }else{
-            // TODO 1.21: Citadel API changed - sendMSGToServer removed
-            // Citadel.sendMSGToServer(new PropertiesMessage("CitadelPatreonConfig", lassoedTag, entity.getId()));
+            AlexsMobs.sendMSGToAll(new MessageSyncEntityData(entity.getId(), lassoedTag));
         }
     }
 

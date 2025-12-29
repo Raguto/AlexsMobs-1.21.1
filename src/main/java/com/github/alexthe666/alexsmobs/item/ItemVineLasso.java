@@ -29,21 +29,14 @@ public class ItemVineLasso extends Item {
     }
 
     public static boolean isItemInUse(ItemStack stack){
-        return false /* TODO 1.21: NBT API changed - use DataComponents */;
+        return true; // Lasso is always usable
     }
 
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int i, boolean b) {
-        if(entity instanceof LivingEntity){
-            if(/* TODO 1.21: getTag() removed */ null != null){
-                // TODO 1.21: NBT API changed - use DataComponents
-            }else{
-                // TODO 1.21: setTag removed - use DataComponents
-                // stack.setTag(new CompoundTag());
-            }
-        }
+        // No longer need NBT tracking - use duration handles this
     }
 
-    public int getUseDuration(ItemStack p_40680_) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 72000;
     }
 
@@ -67,16 +60,13 @@ public class ItemVineLasso extends Item {
             if (livingEntityIn.getUsedItemHand() == InteractionHand.OFF_HAND && livingEntityIn.getMainArm() == HumanoidArm.RIGHT || livingEntityIn.getUsedItemHand() == InteractionHand.MAIN_HAND && livingEntityIn.getMainArm() == HumanoidArm.LEFT) {
                 left = true;
             }
-            int power = this.getUseDuration(stack) - i;
+            int power = this.getUseDuration(stack, livingEntityIn) - i;
             EntityVineLasso lasso = new EntityVineLasso(worldIn, livingEntityIn);
             Vec3 vector3d = livingEntityIn.getViewVector(1.0F);
             lasso.shoot((double) vector3d.x(), (double) vector3d.y(), (double) vector3d.z(), getPowerForTime(power), 1);
-            if (!worldIn.isClientSide) {
-                worldIn.addFreshEntity(lasso);
-            }
+            worldIn.addFreshEntity(lasso);
             stack.shrink(1);
         }
-        //livingEntityIn.awardStat(Stats.ITEM_USED.get(this));
     }
 
     public static float getPowerForTime(int p) {

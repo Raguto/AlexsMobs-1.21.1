@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 // TODO 1.21: ToolAction system changed
 // import net.neoforged.neoforge.common.ToolAction;
@@ -20,17 +21,16 @@ public class ItemShieldOfTheDeep extends Item {
         super(group);
     }
 
-    // TODO 1.21: ToolAction system changed
-    /*@Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+    @Override
+    public boolean canPerformAction(ItemStack stack, net.neoforged.neoforge.common.ItemAbility toolAction) {
         return ItemAbilities.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
-    }*/
+    }
 
     public UseAnim getUseAnimation(ItemStack p_77661_1_) {
         return UseAnim.BLOCK;
     }
 
-    public int getUseDuration(ItemStack p_77626_1_) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 72000;
     }
 

@@ -111,10 +111,10 @@ public class ItemTendonWhip extends SwordItem implements ILeftClick {
         return false;
     }
 
-    // TODO 1.21: ToolAction system changed
-    /*public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+    @Override
+    public boolean canPerformAction(ItemStack stack, net.neoforged.neoforge.common.ItemAbility toolAction) {
         return toolAction != ItemAbilities.SWORD_SWEEP && super.canPerformAction(stack, toolAction);
-    }*/
+    }
 
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         return !ItemStack.isSameItem(oldStack, newStack);

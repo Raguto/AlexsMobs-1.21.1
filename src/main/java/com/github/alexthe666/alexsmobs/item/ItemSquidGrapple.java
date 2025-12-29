@@ -29,7 +29,7 @@ public class ItemSquidGrapple extends Item {
         super(properties);
     }
 
-    public int getUseDuration(ItemStack p_40680_) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 72000;
     }
 
@@ -59,7 +59,7 @@ public class ItemSquidGrapple extends Item {
             if (livingEntityIn.getUsedItemHand() == InteractionHand.OFF_HAND && livingEntityIn.getMainArm() == HumanoidArm.RIGHT || livingEntityIn.getUsedItemHand() == InteractionHand.MAIN_HAND && livingEntityIn.getMainArm() == HumanoidArm.LEFT) {
                 left = true;
             }
-            int power = this.getUseDuration(stack) - i;
+            int power = this.getUseDuration(stack, livingEntityIn) - i;
             EntitySquidGrapple hook = new EntitySquidGrapple(worldIn, livingEntityIn, !left);
             Vec3 vector3d = livingEntityIn.getViewVector(1.0F);
             hook.shoot((double) vector3d.x(), (double) vector3d.y(), (double) vector3d.z(), getPowerForTime(power) * 3, 1);

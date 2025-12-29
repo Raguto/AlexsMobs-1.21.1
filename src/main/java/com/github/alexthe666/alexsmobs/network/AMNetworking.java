@@ -85,6 +85,11 @@ public class AMNetworking {
             MessageUpdateTransmutablesToDisplay.CODEC,
             MessageUpdateTransmutablesToDisplay::handleClient
         );
+        registrar.playToClient(
+            MessageSyncEntityData.ID,
+            MessageSyncEntityData.CODEC,
+            MessageSyncEntityData::handleClient
+        );
 
         // Client -> Server packets
         registrar.playToServer(

@@ -2,6 +2,7 @@ package com.github.alexthe666.alexsmobs.item;
 
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
+import com.github.alexthe666.alexsmobs.item.data.CarverPortalPos;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -49,7 +50,7 @@ public class ItemDimensionalCarver extends Item {
     }
 
     public int getItemStackLimit(ItemStack stack) {
-        return 1; // fix for incompatibility with other mods
+        return 1;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
@@ -58,30 +59,29 @@ public class ItemDimensionalCarver extends Item {
             return InteractionResultHolder.fail(itemstack);
         } else {
             playerIn.startUsingItem(handIn);
-            HitResult raytraceresult = rayTracePortal(worldIn, playerIn, ClipContext.Fluid.ANY);
-            Direction dir = Direction.orderedByNearest(playerIn)[0];
+            
+            // Only set the portal position if not already active
+            CarverPortalPos currentPos = itemstack.get(AMDataComponents.CARVER_PORTAL_POS.get());
+            if (currentPos == null || !currentPos.active()) {
+                HitResult raytraceresult = rayTracePortal(worldIn, playerIn, ClipContext.Fluid.ANY);
+                Direction dir = Direction.orderedByNearest(playerIn)[0];
 
-            double x = raytraceresult.getLocation().x - dir.getNormal().getX() * 0.1F;
-            double y = raytraceresult.getLocation().y - dir.getNormal().getY() * 0.1F;
-            double z = raytraceresult.getLocation().z - dir.getNormal().getZ() * 0.1F;
-            if (false /* TODO: Use DataComponents */) {
-                x = 0.0 /* TODO: Use DataComponents */;
-                y = 0.0 /* TODO: Use DataComponents */;
-                z = 0.0 /* TODO: Use DataComponents */;
-            } else {
-                /* TODO: Use DataComponents */;
-                /* TODO: Use DataComponents */;
-                /* TODO: Use DataComponents */;
-                /* TODO: Use DataComponents */;
-                /* TODO: Use DataComponents */;
+                double x = raytraceresult.getLocation().x - dir.getNormal().getX() * 0.1F;
+                double y = raytraceresult.getLocation().y - dir.getNormal().getY() * 0.1F;
+                double z = raytraceresult.getLocation().z - dir.getNormal().getZ() * 0.1F;
+                
+                itemstack.set(AMDataComponents.CARVER_PORTAL_POS.get(), new CarverPortalPos(x, y, z, true));
             }
-            worldIn.addParticle(AMParticleRegistry.INVERT_DIG.get(), x, y, z, playerIn.getId(), 0, 0);
+            
+            CarverPortalPos portalPos = itemstack.get(AMDataComponents.CARVER_PORTAL_POS.get());
+            if (portalPos != null && portalPos.active()) {
+                worldIn.addParticle(AMParticleRegistry.INVERT_DIG.get(), portalPos.x(), portalPos.y(), portalPos.z(), playerIn.getId(), 0, 0);
+            }
             return InteractionResultHolder.consume(itemstack);
         }
-
     }
 
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 200;
     }
 
@@ -97,10 +97,11 @@ public class ItemDimensionalCarver extends Item {
             player.playSound(SoundEvents.NETHERITE_BLOCK_HIT, 1, 0.5F + random.nextFloat());
         }
         boolean flag = false;
-        if (false /* TODO: Use DataComponents */) {
-            double x = 0.0 /* TODO: Use DataComponents */;
-            double y = 0.0 /* TODO: Use DataComponents */;
-            double z = 0.0 /* TODO: Use DataComponents */;
+        CarverPortalPos portalPos = itemstack.get(AMDataComponents.CARVER_PORTAL_POS.get());
+        if (portalPos != null && portalPos.active()) {
+            double x = portalPos.x();
+            double y = portalPos.y();
+            double z = portalPos.z();
             if (random.nextFloat() < 0.2) {
                 player.level().addParticle(AMParticleRegistry.WORM_PORTAL.get(), x + random.nextGaussian() * 0.1F, y + random.nextGaussian() * 0.1F, z + random.nextGaussian() * 0.1F, random.nextGaussian() * 0.1F, -0.1F, random.nextGaussian() * 0.1F);
             }
@@ -131,29 +132,19 @@ public class ItemDimensionalCarver extends Item {
         }
         if (flag) {
             player.stopUsingItem();
-            /* TODO: Use DataComponents */;
-            /* TODO: Use DataComponents */;
-            /* TODO: Use DataComponents */;
-            /* TODO: Use DataComponents */;
-            /* TODO: Use DataComponents */;
+            itemstack.set(AMDataComponents.CARVER_PORTAL_POS.get(), CarverPortalPos.EMPTY);
         }
     }
 
-
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-        /* TODO: Use DataComponents */;
-        /* TODO: Use DataComponents */;
-        /* TODO: Use DataComponents */;
-        /* TODO: Use DataComponents */;
-        /* TODO: Use DataComponents */;
-
+        stack.set(AMDataComponents.CARVER_PORTAL_POS.get(), CarverPortalPos.EMPTY);
     }
 
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         return !ItemStack.isSameItem(oldStack, newStack);
     }
 
-    public void onPortalOpen(Level worldIn, LivingEntity player, EntityVoidPortal portal, Direction dir){
+    public void onPortalOpen(Level worldIn, LivingEntity player, EntityVoidPortal portal, Direction dir) {
         portal.setLifespan(1200);
         ResourceKey<Level> respawnDimension = Level.OVERWORLD;
         BlockPos respawnPosition = player.getSleepingPos().isPresent() ? player.getSleepingPos().get() : player.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, BlockPos.ZERO);

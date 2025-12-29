@@ -1,7 +1,14 @@
 {
   "replace": false,
   "values": [
-    "#c:crops/banana",
-    "#c:fruits/banana"
+    "alexsmobs:banana",
+    {
+      "id": "#c:crops/banana",
+      "required": false
+    },
+    {
+      "id": "#c:fruits/banana",
+      "required": false
+    }
   ]
 }

@@ -1,9 +1,9 @@
 package com.github.alexthe666.alexsmobs.entity.util;
 
+import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.entity.EntityTendonSegment;
-import com.github.alexthe666.citadel.Citadel;
+import com.github.alexthe666.alexsmobs.network.MessageSyncEntityData;
 import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
-import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,13 +19,9 @@ public class TendonWhipUtil {
     private static void sync(LivingEntity enchanted, CompoundTag tag) {
         CitadelEntityData.setCitadelTag(enchanted, tag);
         if (!enchanted.level().isClientSide) {
-            // TODO 1.21: Citadel API changed
-
-            // Citadel.sendMSGToAll(new PropertiesMessage("CitadelTagUpdate", tag, enchanted.getId()));
+            AlexsMobs.sendMSGToAll(new MessageSyncEntityData(enchanted.getId(), tag));
         } else {
-            // TODO 1.21: Citadel API changed
-
-            // Citadel.sendMSGToServer(new PropertiesMessage("CitadelTagUpdate", tag, enchanted.getId()));
+            // Client-to-server sync not needed for tendon whip - server is authoritative
         }
     }
 

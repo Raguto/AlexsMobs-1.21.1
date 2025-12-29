@@ -1,6 +1,7 @@
 package com.github.alexthe666.alexsmobs.item;
 
 import com.github.alexthe666.alexsmobs.AlexsMobs;
+import com.github.alexthe666.alexsmobs.item.data.CarverPortalPos;
 import com.github.alexthe666.alexsmobs.item.data.TabIconDisplay;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -15,5 +16,11 @@ public class AMDataComponents {
             DATA_COMPONENTS.register("tab_icon_display", () -> DataComponentType.<TabIconDisplay>builder()
                     .persistent(TabIconDisplay.CODEC)
                     .networkSynchronized(TabIconDisplay.STREAM_CODEC)
+                    .build());
+    
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CarverPortalPos>> CARVER_PORTAL_POS = 
+            DATA_COMPONENTS.register("carver_portal_pos", () -> DataComponentType.<CarverPortalPos>builder()
+                    .persistent(CarverPortalPos.CODEC)
+                    .networkSynchronized(CarverPortalPos.STREAM_CODEC)
                     .build());
 }

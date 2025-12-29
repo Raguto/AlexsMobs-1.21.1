@@ -52,8 +52,11 @@ public class RenderStraddleboard extends EntityRenderer<EntityStraddleboard> {
         BOARD_MODEL.animateBoard(entityIn, entityIn.tickCount + partialTicks);
         VertexConsumer ivertexbuilder2 = bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE_OVERLAY));
         BOARD_MODEL.renderToBuffer(matrixStackIn, ivertexbuilder2, packedLightIn, NO_OVERLAY);
-        VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
-        BOARD_MODEL.renderToBuffer(matrixStackIn, null, 0, 0);
+        // Render the colored base texture
+        VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucentCull(TEXTURE));
+        // Pack color as ARGB int: alpha=255, r, g, b
+        int color = (255 << 24) | ((int)(r * 255) << 16) | ((int)(g * 255) << 8) | (int)(b * 255);
+        BOARD_MODEL.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, NO_OVERLAY, color);
         matrixStackIn.popPose();
         matrixStackIn.popPose();
 

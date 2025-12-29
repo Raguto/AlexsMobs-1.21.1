@@ -138,6 +138,13 @@ public class EntityGrizzlyBear extends TamableAnimal implements NeutralMob, IAni
         return AMSoundRegistry.GRIZZLY_BEAR_DIE.get();
     }
 
+    @Override
+    protected void dropFromLootTable(DamageSource damageSource, boolean hitByPlayer) {
+        System.out.println("[GRIZZLY DEBUG] dropFromLootTable called! hitByPlayer=" + hitByPlayer);
+        System.out.println("[GRIZZLY DEBUG] Loot table: " + this.getLootTable());
+        super.dropFromLootTable(damageSource, hitByPlayer);
+    }
+
     public void positionRider(Entity passenger, Entity.MoveFunction moveFunc) {
         if (this.hasPassenger(passenger)) {
             float sitAdd = -0.065F * this.sitProgress;

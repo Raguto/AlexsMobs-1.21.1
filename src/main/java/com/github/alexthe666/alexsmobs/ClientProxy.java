@@ -47,6 +47,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -98,6 +99,7 @@ public class ClientProxy extends CommonProxy {
         IEventBus bus = net.neoforged.fml.ModLoadingContext.get().getActiveContainer().getEventBus();
         bus.addListener(ClientProxy::onBakingCompleted);
         bus.addListener(ClientProxy::onItemColors);
+        bus.addListener(ClientProxy::onRegisterClientExtensions);
         bus.addListener(ClientProxy::onBlockColors);
         bus.addListener(ClientLayerRegistry::onAddLayers);
         bus.addListener(ClientProxy::setupParticles);
@@ -286,6 +288,61 @@ public class ClientProxy extends CommonProxy {
                 e.getModels().put(id, new GhostlyPickaxeBakedModel(entry.getValue()));
             }
         }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
+        // Register armor render properties for all armor items
+        CustomArmorRenderProperties armorExtensions = new CustomArmorRenderProperties();
+        
+        // Register for all armor items that need custom rendering
+        if (AMItemRegistry.ROADDRUNNER_BOOTS.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.ROADDRUNNER_BOOTS.get());
+        }
+        if (AMItemRegistry.CROCODILE_CHESTPLATE.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.CROCODILE_CHESTPLATE.get());
+        }
+        if (AMItemRegistry.CENTIPEDE_LEGGINGS.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.CENTIPEDE_LEGGINGS.get());
+        }
+        if (AMItemRegistry.MOOSE_HEADGEAR.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.MOOSE_HEADGEAR.get());
+        }
+        if (AMItemRegistry.FRONTIER_CAP.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.FRONTIER_CAP.get());
+        }
+        if (AMItemRegistry.SOMBRERO.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.SOMBRERO.get());
+        }
+        if (AMItemRegistry.SPIKED_TURTLE_SHELL.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.SPIKED_TURTLE_SHELL.get());
+        }
+        if (AMItemRegistry.EMU_LEGGINGS.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.EMU_LEGGINGS.get());
+        }
+        if (AMItemRegistry.FEDORA.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.FEDORA.get());
+        }
+        if (AMItemRegistry.FROSTSTALKER_HELMET.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.FROSTSTALKER_HELMET.get());
+        }
+        if (AMItemRegistry.ROCKY_CHESTPLATE.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.ROCKY_CHESTPLATE.get());
+        }
+        if (AMItemRegistry.FLYING_FISH_BOOTS.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.FLYING_FISH_BOOTS.get());
+        }
+        if (AMItemRegistry.TARANTULA_HAWK_ELYTRA.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.TARANTULA_HAWK_ELYTRA.get());
+        }
+        if (AMItemRegistry.NOVELTY_HAT.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.NOVELTY_HAT.get());
+        }
+        if (AMItemRegistry.UNSETTLING_KIMONO.isBound()) {
+            event.registerItem(armorExtensions, AMItemRegistry.UNSETTLING_KIMONO.get());
+        }
+        
+        AlexsMobs.LOGGER.info("Registered custom armor render extensions");
     }
 
     public void openBookGUI(ItemStack itemStackIn) {

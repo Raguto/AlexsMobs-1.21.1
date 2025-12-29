@@ -122,7 +122,7 @@ public class ModelCatfishLarge extends AdvancedEntityModel<EntityCatfish> {
 
     @Override
     public Iterable<AdvancedModelBox> getAllParts() {
-        return ImmutableList.of(root);
+        return ImmutableList.of(root, body, left_fin, right_fin, dorsal_fin, tail, tail_fin, head, left_BigWhisker, right_BigWhisker, left_SmallWhisker, right_SmallWhisker);
     }
 
     public void setRotationAngle(AdvancedModelBox AdvancedModelBox, float x, float y, float z) {

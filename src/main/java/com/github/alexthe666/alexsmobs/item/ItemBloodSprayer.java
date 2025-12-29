@@ -29,7 +29,7 @@ public class ItemBloodSprayer extends Item {
         super(properties);
     }
 
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return isUsable(stack) ? Integer.MAX_VALUE : 0;
     }
 

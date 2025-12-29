@@ -8,6 +8,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -35,17 +36,16 @@ public class ItemSkelewagSword extends SwordItem {
         return 3.5F;
     }
 
-    // TODO 1.21: ToolAction system changed
-    /*@Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+    @Override
+    public boolean canPerformAction(ItemStack stack, net.neoforged.neoforge.common.ItemAbility toolAction) {
         return ItemAbilities.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
-    }*/
+    }
 
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.BLOCK;
     }
 
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 72000;
     }
 
