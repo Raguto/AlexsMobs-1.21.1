@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "alexsmobs:maggot"
+    },
+    {
+      "item": "alexsmobs:mosquito_proboscis"
+    }
+  ],
+  "result": { "id": "alexsmobs:mosquito_larva"
+  }
+}

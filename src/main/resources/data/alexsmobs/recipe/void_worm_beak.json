@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "alexsmobs:void_worm_mandible"
+    },
+    {
+      "item": "alexsmobs:void_worm_mandible"
+    }
+  ],
+  "result": { "id": "alexsmobs:void_worm_beak"
+  }
+}

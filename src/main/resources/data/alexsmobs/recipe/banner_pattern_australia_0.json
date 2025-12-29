@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "alexsmobs:kangaroo_hide"
+    }
+  ],
+  "result": { "id": "alexsmobs:banner_pattern_australia_0"
+  }
+}

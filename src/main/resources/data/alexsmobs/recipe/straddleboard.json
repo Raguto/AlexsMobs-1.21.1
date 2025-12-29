@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " SN",
+    "SNS",
+    "NS "
+  ],
+  "key": {
+    "S": {
+      "item": "alexsmobs:straddlite"
+    },
+    "N": {
+      "tag": "c:ingots/netherite"
+    }
+  },
+  "result": { "id": "alexsmobs:straddleboard",
+    "count": 1
+  }
+}
