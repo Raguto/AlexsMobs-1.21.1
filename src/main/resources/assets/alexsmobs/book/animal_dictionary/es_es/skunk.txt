@@ -1,0 +1,13 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Las mofetas son mamíferos que ocasionalmente se pueden avistar deambulando por los bosques. Son naturalmente muy asustadizos e intentarán huir de cualquier depredador grande que vean.
+Si la persiguen implacablemente por el bosque o la lastiman de alguna manera, la mofeta se defenderá rociando un líquido sobre su perseguidor, provocándole náuseas.
+<NEWLINE>
+Parte de esta esencia fétida puede incluso permanecer en el mundo, adhiriéndose a las superficies sobre las que ha rociado la mofeta. Se puede embotellar en un frasco, que luego se utiliza como combustible para el rociador de peste.
+<NEWLINE>
+El rociador de peste es una herramienta excepcionalmente poderosa que puede usarse para distraer enjambres de criaturas. Si se dispara contra una criatura, las criaturas neutrales y hostiles cercanas la culparán por el horrendo olor y comenzarán a atacarla, mientras que los animales pacíficos intentarán huir.
+Por lo tanto, el rociador de peste se puede utilizar para causar estragos rápidamente entre un grupo de criaturas. Cada frasco consumido sólo proporciona cinco usos.
+<NEWLINE>
+Las mofetas se pueden criar con bayas dulces. Si una mofeta está bajo el efecto de una poción mientras rocía, se creará una nube persistente del efecto cerca. Sólo las mofetas adultas pueden rociar.

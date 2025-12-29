@@ -1,0 +1,13 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Los calamares gigantes son grandes invertebrados que sólo se encuentran en los biomas oceánicos más profundos. Aunque temibles, los calamares gigantes son neutrales con la mayoría de criaturas, a menos que sean un guardián o un pez.
+Estos invertebrados poseen el ojo más grande del reino animal. Si se lo mata, un calamar gigante arrojará poco más que unos pocos sacos de tinta. Sin embargo, si es atacado por uno de sus únicos depredadores, los cachalotes, este calamar puede perder un tentáculo en la batalla subsiguiente.
+<NEWLINE>
+<NEWLINE>
+Se puede reunir estos tentáculos perdidos y crear un lanzador de tentáculos con ellos.
+Este dispositivo de agarre permite disparar hasta cuatro tentáculos a la vez, fijándose en cualquier superficie y tirando de ellos hacia ella. Es muy conveniente para la espeleología y la exploración del océano.
+<NEWLINE>
+El calamar gigante puede despresurizarse si se encuentra bajo menos de diez bloques de agua y adquirirá una coloración pálida.
+En raras ocasiones, si un calamar normal es alcanzado por un rayo, puede transformarse en un calamar gigante azul único.

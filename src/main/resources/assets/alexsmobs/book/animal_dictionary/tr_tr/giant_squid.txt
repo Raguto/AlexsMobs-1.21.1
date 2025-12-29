@@ -1,0 +1,13 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Dev Kalamarlar yalnızca okyanus biyomlarının en derinlerinde bulunan büyük omurgasızlardır. Korkunç olmalarına rağmen Dev Kalamarlar, bir gardiyan veya balık olmadıkları sürece çoğu canlıya karşı tarafsızdır.
+Bu omurgasızlar hayvanlar alemindeki en büyük göze sahiptir. Bir dev kalamar öldürüldüğünde birkaç mürekkep kesesinden biraz daha fazlasını bırakır. Bununla birlikte, tek avcılarından biri olan İspermeçet Balinası tarafından saldırıya uğrarsa, bu kalamar savaş sırasında bir dokunaç yitirebilir.
+Bu Yitik Dokunaçlar bir oyuncu tarafından bir araya getirilerek Squok Kancası oluşturulabilir.
+<NEWLINE>
+<NEWLINE>
+Bu kanca aparatı, kişinin bir seferde dört dokunaç fırlatmasına, herhangi bir yüzeye kilitlenmesine ve onları kendisine doğru çekmesine olanak tanır. Mağaracılık ve okyanus keşifleri için çok kullanışlıdır..
+<NEWLINE>
+Dev Kalamar, on bloktan daha az su altında kalırsa basınçsız hale gelebilir ve soluk bir renk alır.
+Nadiren, normal bir mürekkep balığına yıldırım çarparsa, benzersiz bir mavi Dev Kalamar'a dönüşebilir.

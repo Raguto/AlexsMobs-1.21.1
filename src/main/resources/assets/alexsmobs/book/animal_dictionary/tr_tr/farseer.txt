@@ -1,0 +1,23 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Farseer boyutlar ötesinden gelen, bizimkine dik evrenlerde yaşayan bir varlıktır. Anlaşılmaz ana gezegenlerinden yalnızca dünyanın sınırlarında geçiş yapabilirler, bu da bu yaratıklarla karşılaşmaların son derece nadir olmasına neden olur.
+<NEWLINE>
+Ancak bu, bulunmalarının imkansız olduğu anlamına gelmez. Biraz özveri ile, bir Boyutsal Yontucu'yu bir Kapsit'e yerleştirerek bir Kırılmış Boyutsal Yontucu oluşturulabilir. Bu aletin normal varyantından farklı olarak, parçalanmış oymacı herhangi bir yönde bir milyon blok açan bir geçit oluşturacaktır.
+Bu aleti aynı yönde birden fazla kez kullanmak, Farseer'ın menziline girmenize yardımcı olabilir.
+<NEWLINE>
+Av dünya sınırına yaklaştığında, Farseer'ın bir geçit açıp tam yanında belirme ve onu hızla şaşırtma şansı vardır.
+<NEWLINE>
+Eğer bir Farseer ile karşılaşılırsa, şüphesiz son derece düşmanca davranacaktır. Hızlı pençelerini ya da gözünden fırlattığı yıkıcı bir ışını kullanarak herhangi bir rakibi saf statik hale getirmeye çalışacaktır. Bu saldırılar savuşturulamaz ya da atlatılamazsa, Farseer'ın başarılı olma ihtimali çok yüksektir - Saldırıları zırhları ve büyüleri delip geçer.
+<NEWLINE>
+Bir Farseer öldürüldüğünde, birçok kolundan birini düşürebilir. Bunlar, biraz obsidiyen ve bir nether yıldızı ile birlikte bir Dönüşüm Masası yapmak için kullanılabilir.
+<NEWLINE>
+<NEWLINE>
+Farseer'ların maddeyi yokluğa dönüştürmek için kullandıkları büyünün aynısını kullanan bu masa, kişinin tüm eşya istiflerini farklı eşyalara dönüştürmesini sağlar.
+Açıldığında, bu masanın herhangi bir istiflenebilir eşya ile doldurulabilecek bir yuvası vardır. Bu yapıldığında, tüm eşya yığınını seçilen eşyaya dönüştürmek için deneyim bedeli karşılığında seçilebilecek üç olasılık belirecektir.
+Bir nesne başka bir nesneye dönüştürüldüğünde, gelecekteki dönüştürme olasılıklarının önceki nesne olması için küçük bir şans vardır; bu şans, sırasıyla o nesnenin ne sıklıkta dönüştürüldüğüne ve ne sıklıkta seçildiğine bağlı olarak artar ve azalır.
+<NEWLINE>
+Dönüşüm Masası, eşyaların biçimini değiştirmek için yalnızca basit, doğal eşyalarla çalışmaya başlayabilir, ancak hızlı bir şekilde diğer kaynak türleriyle doldurulabilir.
+Eğer yok edilirse, Dönüşüm Masası önceki tüm eşya bilgisini kaybeder ve geriye sadece bir nether yıldızı kalır, ardından şiddetli bir patlama olur.

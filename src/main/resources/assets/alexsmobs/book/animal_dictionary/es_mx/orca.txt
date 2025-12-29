@@ -1,0 +1,11 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+La orca es un gran cetáceo parecido a un delfín que se encuentra en los océanos fríos de la Superficie. A menudo se le puede ver subiendo y bajando fuera del agua y lanzando ataques contra las poblaciones nativas de osos polares. También matan bancos de peces golpeándolos con sus enormes colas.
+A diferencia de sus primos delfines, estas ballenas no son tan amigables: lastimar a una de ellas podría hacer que toda la manada te ataque.
+<NEWLINE>
+El color y la apariencia de una orca pueden variar según si la manada es del sur, norte, este u oeste.
+<NEWLINE>
+Nadar con un grupo de orcas te otorgará el efecto de Fortaleza de orca. Este efecto brinda mayor velocidad de ataque. Las orcas suelen utilizar su fuerza nata contra los ahogados y guardianes.

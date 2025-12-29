@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AIA",
+    "S S"
+  ],
+  "key": {
+    "A": {
+      "item": "alexsmobs:moose_antler"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "S": {
+      "tag": "c:strings"
+    }
+  },
+  "result": {
+    "item": "alexsmobs:moose_headgear",
+    "count": 1
+  }
+}

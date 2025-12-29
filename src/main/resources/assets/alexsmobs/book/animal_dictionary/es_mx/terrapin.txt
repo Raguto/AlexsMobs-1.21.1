@@ -1,0 +1,12 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Las tortugas de río son pequeños reptiles que ocasionalmente se encuentran sumergidos en biomas de río sin hielo.
+Son completamente pacíficas y dependen de su caparazón para protegerse. Las tortugas de río salvajes pueden recogerse con una cubeta de agua.
+<NEWLINE>
+Si se salta sobre una tortuga de río, ésta se esconderá en su caparazón. Si se salta de nuevo, la tortuga girará en la dirección del salto, rebotando en las paredes.
+Si choca con otra criatura, la veloz tortuga causará una cantidad decente de daño. Sin embargo, esta criatura podría volverse agresiva con quien lanzara la tortuga.
+<NEWLINE>
+Las tortugas de río vienen en una amplia gama de patrones y colores, muchos de los cuales no aparecen en la naturaleza.
+Estas tortugas se pueden criar con planta marina para producir de 1 a 4 huevos. Aunque la mayoría de estos huevos deberían ser un cruce directo entre sus padres, existe la posibilidad de que una tortuga bebé mute en un color completamente aleatorio.
+Si la tortuga no ha mutado, entonces su color puede ser el de uno de sus padres o una mezcla de los dos.

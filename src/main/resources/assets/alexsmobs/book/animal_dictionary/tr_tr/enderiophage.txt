@@ -1,0 +1,14 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Enderiyofaj, End Midlands'da nadiren bulunan korkunç bir biyokimyasal otomattır. Bu doğal olmayan yaratık tek bir amaç için yaratılmış gibi görünüyor: End'in yerli Endergrade'lerini ortadan kaldırmak.
+Bununla birlikte, seyrek nüfusları nedeniyle, yaratıcılarının Endeavour'larında başarılı olmaları pek olası değildir. Enderiyofaj'ın saldırısı, avı üzerinde Ender Gribi olarak bilinen bir etki oluşturmasına bağlıdır. On dakika sürmesine rağmen, etki geçtiğinde konakçı yeni, daha küçük fazlarla patlayacak ve büyük hasar nedeniyle derhal ölecektir.
+Bu etki nakarat meyvesi veya sütü tüketilerek giderilebilir. Etkilenen diğer yaratıklara da iyileşmeleri için meyve verilebilir.
+<NEWLINE>
+Enderiyofaj, çoğu kişiye karşı tarafsız olsa da, Enderman'lere karşı düşmancıldır. Avına Ender Gribi bulaştırdıktan sonra, fajın içindeki Ender Gözü paramparça olur ve onları bir Enderman'in görüşünü aramaya bırakır.
+Bu yeteneği geri kazanmak için, bir Enderman'a yapışacak ve onu körlüğe maruz bırakırken, gözünü geri kazanmış olarak gizlice kaçmaya çalışacaktır. Bir Enderiyofaj gözü olmadan saldıramaz.
+<NEWLINE>
+Enderiyofaj yok edildiğinde Kapsit adı verilen benzersiz bir blok bırakabilir. Bu kapsit, içinde bir istif dolusu eşya tutabilir ve üzerine başka bir kapsit veya envanter yerleştirildiğinde, eşya yukarı doğru hareket eder.
+Bu şekilde, Kapsit eşyaları yukarı taşımak için kullanılabilir. Kapsit ayrıca Elitra ile uçarken Havai Fişek Roketi yerine kullanılabilecek bir Enderiyofaj Roketi oluşturmak için demir külçeleri ve uç taşı ile işlenebilir.
+Bir Ender Gözü dikey bir End Çubuğunun üzerindeki bir Kapsit üzerine yerleştirilirse, bir Enderiyofaj'a dönüşecektir! Bu şekilde inşa edilmemişse, doğal olarak var olan Enderiyofaj'lar bulundukları boyutta yaygın olan malzemelerden yapılmış gibi görünür. Belki de bu varlıklar böyle ortaya çıkmıştır...

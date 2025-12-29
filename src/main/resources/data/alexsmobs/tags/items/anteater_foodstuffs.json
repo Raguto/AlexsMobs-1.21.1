@@ -1,0 +1,7 @@
+{
+  "__comment": "Will follow with these items in your hand and heals when given",
+  "replace": false,
+  "values": [
+    "#alexsmobs:insect_items"
+  ]
+}

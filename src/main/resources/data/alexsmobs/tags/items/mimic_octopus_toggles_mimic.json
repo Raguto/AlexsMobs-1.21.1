@@ -1,0 +1,7 @@
+{
+  "__comment": "Toggles whether or not it can change form",
+  "replace": false,
+  "values": [
+    "minecraft:ink_sac"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "id": "alexsmobs:tab_icon"
+    },
+        "title": {
+            "translate": "advancements.alexsmobs.rainbow_jelly.title"
+        },
+        "description": {
+            "translate": "advancements.alexsmobs.rainbow_jelly.desc"
+        }
+    },
+    "parent": "alexsmobs:alexsmobs/root",
+    "criteria": {
+        "gustmaker": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": ["alexsmobs:rainbow_jelly"]
+                    }
+                ]
+            }
+        }
+    }
+}

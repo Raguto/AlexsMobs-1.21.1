@@ -1,0 +1,10 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Mağara Çıyanı, mağaraların derinliklerinde bulunabilen nadir bir yeraltı eklembacaklısıdır. Kendisini etki alanında bulan herkese karşı düşmanca davranır.
+Yavaş olmasına rağmen, bu hantal ve dev eklembacaklı tehlikeli miktarda hasar verebilir ve zehirli bir ısırığı vardır.
+<NEWLINE>
+Öldürüldüklerinde, bir veya daha fazla bacaklarını düşürme şansları vardır.
+Bu bacaklar, kullanıcısına duvarlara tırmanma yeteneği ve artırılmış savunma sağlayan bir çift tozluk yapmak için kullanılabilir.
+Ayrıca bir Zehirli Esans veya Komodo Ejderi Tükürüğü ile demlenerek bir Zehir Direnci İksiri elde edilebilir.
+Bu, kullanıcısının zehirin etkilerine maruz kalmamasını sağlar.

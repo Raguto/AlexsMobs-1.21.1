@@ -1,0 +1,7 @@
+{
+  "__comments": "Digs around in the ocean if given any 3 of these items",
+  "replace": false,
+  "values": [
+    "#minecraft:fishes"
+  ]
+}

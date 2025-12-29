@@ -1,0 +1,36 @@
+{
+    "display": {
+        "icon": {
+            "id": "citadel:fancy_item",
+            "components": {
+            "citadel:fancy_item_display": {
+              "display_item": "alexsmobs:falconry_glove",
+              "display_bob": true,
+              "display_zoom": false,
+              "display_scale": 1,
+              "display_spin": false,
+              "display_shake": false
+            }
+          }
+        },
+        "title": {
+            "translate": "advancements.alexsmobs.falconry_glove.title"
+        },
+        "description": {
+            "translate": "advancements.alexsmobs.falconry_glove.desc"
+        }
+    },
+    "parent": "alexsmobs:alexsmobs/tame_bald_eagle",
+    "criteria": {
+        "falconry_glove": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": ["alexsmobs:falconry_glove"]
+                    }
+                ]
+            }
+        }
+    }
+}

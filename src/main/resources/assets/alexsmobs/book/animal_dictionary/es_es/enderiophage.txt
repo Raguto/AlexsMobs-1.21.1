@@ -1,0 +1,14 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+El enderiófago es un monstruoso autómata bioquímico que se encuentra con poca frecuencia en las islas medias del End. Esta criatura antinatural parece haber sido creada con un propósito en mente: eliminar a los enderígrados nativos del End.
+Sin embargo, debido a su escasa población, es poco probable que sus creadores tuvieran éxito en su esfuerzo. El ataque del enderiófago depende de que inflija un efecto conocido como gripe de ender en su presa. Aunque dura diez minutos, cuando el efecto acaba, pequeños fagos saldrán violentamente del cuerpo del infectado, que morirá rápidamente a causa del daño masivo.
+Este efecto se puede eliminar consumiendo fruta chorus o leche. A otras criaturas afligidas también se les puede dar el fruto para que las sanen.
+<NEWLINE>
+El enderiófago, aunque neutral para el resto de criaturas, también es hostil hacia los Enderman. Después de infectar a su presa, el ojo de ender dentro del fago se romperá, volviéndolo inofensivo.
+Para restaurar su habilidad, se aferrará a un Enderman y lo afligirá con ceguera, mientras intenta escabullirse con su ojo recuperado. Un enderiófago no puede atacar sin un ojo.
+<NEWLINE>
+Al ser destruido, el enderiófago puede soltar un bloque único llamado cápside. Esta cápside puede contener hasta una pila completa de elementos en su interior, y cuando se coloca otra cápside o inventario encima, el elemento flotará.
+De esta manera, la cápside se puede utilizar para transportar objetos hacia arriba. La cápside también se puede combinar con pepitas de hierro y piedra del End para crear un cohete de enderiófago, que se puede usar en lugar de los cohetes convencionales mientras se vuela con los élitros.
+Si se coloca un ojo de ender en una cápside encima de una vara del End vertical, ¡se transformará en un enderiófago! Si no se construye de esta manera, cualquier enderiófago existente de forma natural parece estar hecho de materiales comunes a la dimensión en la que apareció. Quizás así surgieron estos seres...

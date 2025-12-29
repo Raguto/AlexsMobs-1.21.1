@@ -1,0 +1,8 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+El bacalao cósmico es un pez que se puede encontrar en el vacío entre las islas del End, incluida la isla principal.
+A diferencia de cualquier otro pez conocido, el bacalao cósmico es hidrofóbico y se daña con el agua. En cambio, flotan en el vacío del End en cardúmenes de tamaño decente.
+Si un pez del cardumen es atacado, todos los demás intentarán teletransportarse lo antes posible.
+<NEWLINE>
+Estos peces son presa frecuente de los cosmaw y pueden usarse para domesticarlos. El bacalao cósmico también se puede atrapar con un cubo.

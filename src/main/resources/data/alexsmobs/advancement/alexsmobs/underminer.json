@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "id": "alexsmobs:tab_icon"
+    },
+    "title": {
+      "translate": "advancements.alexsmobs.underminer.title"
+    },
+    "description": {
+      "translate": "advancements.alexsmobs.underminer.desc"
+    }
+  },
+  "parent": "alexsmobs:alexsmobs/root",
+  "criteria": {
+    "ex": {
+      "trigger": "alexsmobs:undermine_underminer"
+    }
+  },
+  "requirements": [
+    [
+      "ex"
+    ]
+  ]
+}

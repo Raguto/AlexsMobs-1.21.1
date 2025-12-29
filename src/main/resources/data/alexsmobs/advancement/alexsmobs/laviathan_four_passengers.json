@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "id": "alexsmobs:tab_icon"
+    },
+    "title": {
+      "translate": "advancements.alexsmobs.laviathan_four_passengers.title"
+    },
+    "description": {
+      "translate": "advancements.alexsmobs.laviathan_four_passengers.desc"
+    }
+  },
+  "parent": "alexsmobs:alexsmobs/straddle_saddle",
+  "criteria": {
+    "ex": {
+      "trigger": "alexsmobs:laviathan_four_passengers"
+    }
+  },
+  "requirements": [
+    [
+      "ex"
+    ]
+  ]
+}

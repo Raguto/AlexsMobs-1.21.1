@@ -1,0 +1,14 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+El bagre es un pez letárgico que se encuentra en pantanos y ríos. Aunque en un río pueden verse ejemplares bastante pesados, los bagres más grandes sólo se encuentran en los pantanos.
+<NEWLINE>
+Como se alimentan en el fondo del agua, los bagres no son exigentes con su comida. Los bagres pequeños y medianos intentarán aspirar cualquier ítem que vean. En cambio, el bagre grande intentará comerse cualquier criatura de menos de un metro.
+Un bagre pequeño solo puede almacenar tres pilas de ítems en su vientre, mientras que uno mediano puede almacenar nueve. Un bagre grande sólo puede tener una criatura en su vientre a la vez.
+El bagre regurgitará cualquier ítem o criatura que haya comido si se lastima o si encuentra un pepino de mar, ya que odia su sabor.
+<NEWLINE>
+Aunque tienen mala visión, algo en la luz intermitente de una linterna del mar les resulta llamativo. Estas se pueden usar para atraer bagres a áreas específicas.
+<NEWLINE>
+Todos los bagres, incluso los grandes, se pueden capturar con un balde de agua. El contenido del vientre del bagre se conservará, por lo que se puede utilizar eficazmente el bagre para transportar ítems o una criatura colocándolo en un balde después de alimentarlo.
+Los bagres que hayan comido ítems o hayan sido metidos en baldes no desaparecerán.

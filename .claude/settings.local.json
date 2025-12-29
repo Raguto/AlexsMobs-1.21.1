@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew build:*)",
+      "Bash(./gradlew:*)",
+      "Bash(dir \"C:\\\\WINDOWS\\\\Minidump\")",
+      "Bash(wevtutil qe:*)",
+      "Bash(powershell:*)",
+      "Bash(where:*)",
+      "Bash(find:*)",
+      "Bash(dir /s /b \"C:\\\\Users\\\\Raguto\\\\Desktop\\\\MyModsSourceCode\\\\cobblemon-secret-base-trainer-1.21.1-fabric-neoforge\")",
+      "Bash(findstr:*)",
+      "Bash(ls:*)",
+      "Bash(unzip:*)"
+    ]
+  }
+}

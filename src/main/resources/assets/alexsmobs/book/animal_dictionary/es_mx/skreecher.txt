@@ -1,0 +1,16 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+El skreecher es un primate extraño y horriblemente mutado que se encuentra aferrado al techo del bioma de oscuridad profunda.
+Dado que su bioma nativo es tan oscuro, a menudo sólo se le puede distinguir por sus ojos gigantes y brillantes.
+<NEWLINE>
+Aunque se le considera un monstruo hostil, el skreecher no puede luchar en ningún sentido típico. En cambio, al detectar una presa, comenzará a crear un ruido extremadamente fuerte, tanto aullando como golpeando sus dos grandes patas.
+En unos pocos segundos, un ruido tan fuerte en un bioma tan sensible al sonido seguramente despertará a un warden justo debajo de su objetivo.
+<NEWLINE>
+Por suerte para los aventureros, el skreecher tiene una salud extremadamente limitada y cualquier proyectil puede impedirle temporalmente llamar a un warden, además de hacerlo caer en picado hacia el suelo.
+La parte más difícil de enfrentarte a estas bestias es encontrarlas antes de que te encuentren a ti.
+<NEWLINE>
+Si es asesinado, un skreecher tiene una probabilidad de soltar su alma. Esta alma se puede utilizar para crear un bramador de sculk.
+<NEWLINE>
+Cuando se activa mediante un sensor de sculk cercano, este bloque emitirá un fuerte estallido que puede dañar a las criaturas cercanas que se encuentren a 3 bloques horizontales del bramador. Se puede desactivar temporalmente con una señal de redstone y los propios booms tienen un ligero tiempo de reutilización, lo que hace que el bramador de sculk sea útil para trampas.

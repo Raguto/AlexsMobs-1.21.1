@@ -1,0 +1,8 @@
+{
+  "__comment": "If fed and treasure map is in offhand, it will look for the treasure chest",
+  "replace": false,
+  "values": [
+    "alexsmobs:lobster_tail",
+    "alexsmobs:cooked_lobster_tail"
+  ]
+}

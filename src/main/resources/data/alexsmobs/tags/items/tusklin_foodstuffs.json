@@ -1,0 +1,7 @@
+{
+  "__comment": "Pacifies when given",
+  "replace": false,
+  "values": [
+    "minecraft:brown_mushroom"
+  ]
+}

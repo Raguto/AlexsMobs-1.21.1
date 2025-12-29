@@ -1,0 +1,7 @@
+{
+  "__comment": "Give to destroys blocks in the #alexsmobs:gelada_monkey_grass tag",
+  "replace": false,
+  "values": [
+    "minecraft:wheat"
+  ]
+}

@@ -1,0 +1,15 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Kel Kartallar ormanlık dağ biyomlarında bulunan büyük, tarafsız yırtıcı kuşlardır. Yakındaki gölleri sık sık ziyaret ederler ve burada suya dalıp somonları yakalamaya çalışırlar.
+Aynı şekilde tavşanlara saldırmayı da severler. Daha büyük canlılara saldırırken, Kel Kartal daire çizmeyi, pençeleriyle kesmeyi ve tekrarlamayı tercih edecektir.
+<NEWLINE>
+Balığa olan sevgilerinden dolayı, Kel Kartallar Balık Yağı ile cezbedilebilir ve evcilleştirilebilir. Evcilleştirilmiş bir kel kartala diğer birçok hayvan gibi kalması, takip etmesi ve dolaşması emredilebilir, ancak şahincilik için de kullanılabilirler.
+Şahinciliğe başlamak için Şahincilik Eldiveni yapmak gerekir. Bu eldiven ana elde ya da diğer ele takıldığında kartalları yakalamak ve elde tutmak için kullanılabilir. Elden bir kartal fırlatmak için yumruk atmanız yeterlidir.
+Bir mob'a bakarken fırlatılırsa, kartal bu mob'a uçacak, saldıracak ve hayatta kalırsa ele geri dönecektir. Herhangi bir mob seçilmezse kartal eldivenden atlayacaktır.
+<NEWLINE>
+Kişinin şahincilik becerisini geliştirmek için bir Şahin Başlığı üretilebilir. Başlık bir kartala takılabilir ve başlıklı bir kartal bir eldivenden fırlatıldığında sahibinin doğrudan komutunu takip eder.
+Bu da kartalın sahibi tarafından etkin bir şekilde yönlendirilebileceği anlamına gelir. Eğer kartal sahibinden 150 bloktan daha uzağa uçarsa, geri dönmeye çalışacaktır. Sahibi kartalı kontrol etmeyi bırakmak için eğilebilir.
+Başlık kartaldan makasla çıkarılabilir.
+<NEWLINE>
+Kartallar avlanırken genellikle avları tarafından yaralanırlar. Evcilleştirilmiş bir kartal herhangi bir balıkla iyileştirilebilir. Kel Kartallar çürük et ile çiftleştirilebilir.

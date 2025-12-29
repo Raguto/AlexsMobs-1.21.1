@@ -1,0 +1,10 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+El mosquito carmesí es un horrible insecto volador mutante que se encuentra en los bosques carmesí del Nether. Esta bestia voraz buscará casi cualquier animal de sangre caliente como aperitivo, incluidas las personas.
+Primero se abalanza sobre su presa y se aferra, succionándola hasta dejarla seca. Una vez que se ha saciado, comenzará a volar y usará la sangre de su presa contra ella, escupiéndosela de regreso.
+<NEWLINE>
+Si se mata mientras está inflado con sangre, el mosquito carmesí puede dejar caer un saco de sangre. También puede dejar caer su probóscide. Con ambos materiales se puede crear un rociador de sangre, un arma única que usa sangre de mosquito para causar daño de área de efecto. El rociador de sangre utiliza sacos de sangre como munición.
+<NEWLINE>
+Si una mosca común de la Superficie es llevada al Nether, mutará en un mosquito carmesí.

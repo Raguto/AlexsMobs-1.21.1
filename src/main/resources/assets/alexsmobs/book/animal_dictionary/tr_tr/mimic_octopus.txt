@@ -1,0 +1,15 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Taklitçi Ahtapot, sıcak okyanuslarda bulunan meraklı, uysal bir kafadanbacaklıdır. Diğer birçok hayvanın avı olan Taklitçi Ahtapot, hayatta kalmak için hızlı yenilenme ve şekil ve renk değiştirme yeteneğine güvenir.
+Ahtapot, istediği herhangi bir bloğa uyacak şekilde renk değiştirebilir ve yakınlarda varsa Kirpi Balığı, Creeper ve Gardiyanları taklit ettiği bilinmektedir. Bir bloğu taklit ederken, yaratık herhangi bir avcı için neredeyse görünmezdir.
+<NEWLINE>
+Taklitçi Ahtapotlar bir oyuncu tarafından beş ila sekiz Istakoz kuyruğu ile beslenerek evcilleştirilebilir, ancak yalnızca aktif olarak kamufle olmadıkları zaman. Doğal olarak pasif olmalarına rağmen, evcilleştirilen Taklitçiler sahiplerine saldırmak isteyenleri korkutmak için şekil değiştirerek genellikle bir canavara dönüşürler.
+Ahtapot evcilleştirildikten sonra sahibini karada takip edebilir, ancak bu zehirli ortamda kuruyabilecekleri unutulmamalıdır. Bunu etkisiz hale getirmek için birkaç günde bir balçık topu uygulanabilir. Bir mürekkep kesesi ile evcilleştirilmiş bir Taklitçi Ahtapot ile etkileşime girerek, rastgele form değiştirip değiştirmeyeceği ayarlanabilir.
+Bir ahtapot üzerinde bir Prizmarin parçacığı kullanıldığında, ahtapot hatırlayarak bir Gardiyan şeklini alabilir. Aynı şey Kirpi Balığı ve Creeperlardan düşenler için de geçerlidir. Bu 'hatırlatıcıların' hiçbiri eşyayı tüketmez.
+<NEWLINE>
+Diğer evcilleştirilebilir yaratıklar gibi, bu ahtapotlara da oturmaları, dolaşmaları veya takip etmeleri emredilebilir. Bir Taklitçi Ahtapot'a beş ila sekiz mimikrem uygulanırsa, sadece yaratıkların şeklini değil, aynı zamanda savaştaki yeteneklerini de taklit etmeyi öğrenebilir.
+Bu ahtapotlar Gardiyanlar gibi ışınlar fırlatabilir, Kirpi Balığı gibi zehirli sivri uçlarını saplayabilir ve Creeper'lar gibi patlayabilir.
+<NEWLINE>
+Evcilleştirilmiş Taklitçi Ahtapotlar kovayla alınabilir ve tropikal balıklarla çiftleştirilebilir. Taklitçi Ahtapotları, doğal avcıları olan köpekbalıkları veya Peygamberdevesi Karideslerinin yakınında tutmamaya dikkat edilmelidir.

@@ -1,0 +1,6 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Las moscas son insectos pequeños y muy molestos, comunes en la Superficie. Naturalmente atraídos por los muertos y moribundos, se las puede encontrar persiguiendo y mordiendo zombis casi hasta la muerte. Las moscas pueden criarse con carne podrida y, al morir, tienen la posibilidad de soltar gusanos. Estos gusanos de mosca se pueden utilizar para criar otras criaturas, como correcaminos y monos capuchinos, y, en caso de necesidad, como aperitivo.
+<NEWLINE>
+Si una mosca se encuentra en el Nether, la diminuta criatura se transformará en el monstruoso mosquito carmesí.

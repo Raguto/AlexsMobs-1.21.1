@@ -1,0 +1,12 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Taraklı Denizanaları, hayvan yaşamı tanımının en sınırında yer alan basit jelatinimsi yaratıklardır.
+Geceleri donmuş okyanuslarda, yanıp sönen prizmatik renklerinin mavi derinliğe karşı kontrast oluşturduğu yerlerde bulunabilirler.
+Zekadan uzak olan Taraklı Denizanaları, mikroskobik avlarını eleyerek suyun içinde sürüklenirler. Bir su kovası ile yakalanabilirler ve farklı renklerde olabilirler.
+<NEWLINE>
+Eğer öldürülürse, Taraklı Denizanaları Gökkuşağı Jölesi düşürebilir. Bu Gökkuşağı Jölesi, Taraklı Denizanası'na benzer şekilde yanıp sönen bir gökkuşağı deseninde renklendirmek için hemen hemen her mob üzerinde kullanılabilir.
+Bu gökkuşağı yaratığın üzerinde bir sünger kullanılarak çıkarılabilir. Kişi bu etkiyi kendisine de uygulamak için jöleyi yiyebilir.
+<NEWLINE>
+Gökkuşağı Jölesi, dünyadaki konumuna göre renk değiştiren Gökkuşağı Camı oluşturmak için 8 camla da işlenebilir. Koyu camın aksine Gökkuşağı Camı ışık da yayar.

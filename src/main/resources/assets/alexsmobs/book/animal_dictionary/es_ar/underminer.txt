@@ -1,0 +1,12 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Los mineros espectrales son habitantes raros y fantasmales de las minas abandonados. Debido a su naturaleza etérea, pueden atravesar paredes con facilidad y solo pueden dañarse con magia, como pociones arrojadizas.
+La mayoría de los mineros espectrales solo comenzarán a aparecer si se pasa mucho tiempo en una mina.
+Sin embargo, no representan ninguna amenaza para los vivos, siempre y cuando no sean atacados primero. Sin embargo, su desconfianza hacia los recién llegados es evidente: desaparecerán temporalmente si se les acerca. Los mineros se contentan con acechar los pasillos de las minas abandonadas, como lo han estado haciendo durante cientos de años.
+<NEWLINE>
+Ocasionalmente se puede ver a los mineros minando bloques con sus picos fantasmales. Debido a que existen en el plano espiritual, no pueden destruir estos bloques, pero sus acciones pueden revelar minerales ocultos en las paredes circundantes de la mina.
+Si un mineral en específico se deja caer cerca de un minero espectral, dejará de ser invisible y comenzará a buscar y extraer bloques que coincidan con ese mineral escondidos en el área circundante, lo que podría revelar vetas de mineral.
+<NEWLINE>
+Si es exterminado con magia, el minero espectral puede soltar su pico fantasmal. Este pico, aunque inmaterial, es bastante poderoso, pero su verdadero poder es que puede almacenar hasta 9 pilas de bloques minados dentro de sí mismo, solo si su usuario tiene un inventario completo. Una vez que haya espacio en el inventario, los ítems se devolverán desde el pico. El pico fantasmal se puede reparar con membranas de phantom.

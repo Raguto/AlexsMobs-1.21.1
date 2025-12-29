@@ -1,0 +1,11 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Fırtınacılar, sadece çöllerdeki fırtınalar sırasında ortaya çıkan intikamcı çöl ruhlarıdır.
+Bu yaratıklar doğaları gereği saldırgandır ve hedeflerini havaya fırlatmaya veya üzerlerine kum akıtmaya çalışırlar.
+Fırtınacılar ayrıca düşen herhangi bir eşyayı kaldırıp fırlatabilir, bu da canavardan düşen eşyaların toplanmasını zorlaştırır.
+Fırtınacılar yerel kumlardan oluşur ve eğer ruh kumu veya kırmızı kum bulunan bir bölgedeyseler, bu çökeltilerin renklerini alacaklardır.
+Güçlü olmalarına rağmen, Fırtınacılar çok dayanıklı yaratıklar değildir. Bununla birlikte, onların neredeyse ruhani varlıkları, onları çoğu canavardan daha fazla uzun menzilli saldırılara karşı dirençli kılar.
+Fırtınacılar öldürüldüklerinde kum ve bazen de gözlerinden birini düşürürler. Bu gözler, redstone ile güçlendirildiğinde küçük bir toz fırtınası çıkaran bir blok olan Fırtına Yapıcı'yı yapmak için kullanılabilir.
+Bu küçük fırtına yaratıkları ve eşyaları etrafa itebilir. Göz ayrıca silah olarak kullanılabilen bir Kum Kesesi oluşturmak için de kullanılabilir.

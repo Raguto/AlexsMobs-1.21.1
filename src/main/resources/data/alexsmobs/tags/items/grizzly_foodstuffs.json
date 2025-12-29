@@ -1,0 +1,11 @@
+{
+  "__comment": "Will follow with these items in your hand and heals 4 HP when given",
+  "replace": false,
+  "values": [
+    "#alexsmobs:grizzly_honey",
+    "#alexsmobs:grizzly_breedables",
+    "#alexsmobs:grizzly_tameables",
+    "minecraft:bee_nest",
+    "minecraft:beetroot"
+  ]
+}

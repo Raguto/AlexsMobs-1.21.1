@@ -1,0 +1,598 @@
+package com.github.alexthe666.alexsmobs.entity;
+
+import com.github.alexthe666.alexsmobs.config.AMConfig;
+import com.github.alexthe666.alexsmobs.entity.ai.*;
+import com.github.alexthe666.alexsmobs.entity.util.Maths;
+import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
+import com.github.alexthe666.citadel.animation.Animation;
+import com.github.alexthe666.citadel.animation.AnimationHandler;
+import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.UUID;
+
+public class EntityGorilla extends TamableAnimal implements IAnimatedEntity, ITargetsDroppedItems {
+    public static final Animation ANIMATION_BREAKBLOCK_R = Animation.create(20);
+    public static final Animation ANIMATION_BREAKBLOCK_L = Animation.create(20);
+    public static final Animation ANIMATION_POUNDCHEST = Animation.create(40);
+    public static final Animation ANIMATION_ATTACK = Animation.create(20);
+    protected static final EntityDimensions SILVERBACK_SIZE = EntityDimensions.scalable(1.35F, 1.95F);
+    private static final EntityDataAccessor<Boolean> SILVERBACK = SynchedEntityData.defineId(EntityGorilla.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> STANDING = SynchedEntityData.defineId(EntityGorilla.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(EntityGorilla.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(EntityGorilla.class, EntityDataSerializers.BOOLEAN);
+    public int maxStandTime = 75;
+    public float prevStandProgress;
+    public float prevSitProgress;
+    public float standProgress;
+    public float sitProgress;
+    public boolean forcedSit = false;
+    private int animationTick;
+    private Animation currentAnimation;
+    private int standingTime = 0;
+    private int eatingTime;
+    @Nullable
+    private EntityGorilla caravanHead;
+    @Nullable
+    private EntityGorilla caravanTail;
+    private int sittingTime = 0;
+    private int maxSitTime = 75;
+    @Nullable
+    private UUID bananaThrowerID = null;
+    private boolean hasSilverbackAttributes = false;
+    public int poundChestCooldown = 0;
+
+    protected EntityGorilla(EntityType type, Level worldIn) {
+        super(type, worldIn);
+        this.setPathfindingMalus(PathType.WATER, -1.0F);
+        this.setPathfindingMalus(PathType.LEAVES, 0.0F);
+        // setMaxUpStep removed in 1.21
+    }
+
+    protected PathNavigation createNavigation(Level worldIn) {
+        return new AdvancedPathNavigateNoTeleport(this, worldIn, false);
+    }
+
+    public static AttributeSupplier.Builder bakeAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ARMOR, 0.0D).add(Attributes.ATTACK_DAMAGE, 7.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.5F).add(Attributes.MOVEMENT_SPEED, 0.25F);
+    }
+
+    public static boolean isTameableFood(ItemStack stack) {
+        return stack.is(AMTagRegistry.BANANAS);
+    }
+
+    public static boolean canGorillaSpawn(EntityType<EntityGorilla> gorilla, LevelAccessor worldIn, MobSpawnType reason, BlockPos p_223317_3_, RandomSource random) {
+        BlockState blockstate = worldIn.getBlockState(p_223317_3_.below());
+        return (blockstate.is(AMTagRegistry.GORILLA_SPAWNS) || blockstate.is(Blocks.AIR)) && worldIn.getRawBrightness(p_223317_3_, 0) > 8;
+    }
+
+    public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType spawnReasonIn) {
+        return AMEntityRegistry.rollSpawn(AMConfig.gorillaSpawnRolls, this.getRandom(), spawnReasonIn);
+    }
+
+    public boolean isFood(ItemStack stack) {
+        Item item = stack.getItem();
+        return isTame() && stack.is(AMTagRegistry.GORILLA_BREEDABLES);
+    }
+
+    public int getMaxSpawnClusterSize() {
+        return 8;
+    }
+
+    public boolean isMaxGroupSizeReached(int sizeIn) {
+        return false;
+    }
+
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.isInvulnerableTo(source)) {
+            return false;
+        } else {
+            Entity entity = source.getEntity();
+            this.setOrderedToSit(false);
+            if (entity != null && this.isTame() && !(entity instanceof Player) && !(entity instanceof AbstractArrow)) {
+                amount = (amount + 1.0F) / 2.0F;
+            }
+            return super.hurt(source, amount);
+        }
+    }
+
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, true));
+        this.goalSelector.addGoal(2, new GorillaAIFollowCaravan(this, 0.8D));
+        this.goalSelector.addGoal(3, new GorillaAIChargeLooker(this, 1.6D));
+        this.goalSelector.addGoal(4, new TameableAITempt(this, 1.1D, Ingredient.of(AMTagRegistry.GORILLA_TAMEABLES), false));
+        this.goalSelector.addGoal(4, new AnimalAIRideParent(this, 1.25D));
+        this.goalSelector.addGoal(6, new AIWalkIdle(this, 0.8D));
+        this.goalSelector.addGoal(5, new GorillaAIForageLeaves(this));
+        this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new CreatureAITargetItems(this, false));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
+        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return AMSoundRegistry.GORILLA_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return AMSoundRegistry.GORILLA_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return AMSoundRegistry.GORILLA_HURT.get();
+    }
+
+    public boolean doHurtTarget(Entity entityIn) {
+        if (this.getAnimation() == NO_ANIMATION) {
+            this.setAnimation(ANIMATION_ATTACK);
+        }
+        return true;
+    }
+
+    public void travel(Vec3 vec3d) {
+        if (this.isSitting()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            vec3d = Vec3.ZERO;
+        }
+        super.travel(vec3d);
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn) {
+        if (spawnDataIn instanceof AgeableMob.AgeableMobGroupData) {
+            AgeableMob.AgeableMobGroupData lvt_6_1_ = (AgeableMob.AgeableMobGroupData) spawnDataIn;
+            if (lvt_6_1_.getGroupSize() == 0) {
+                this.setSilverback(true);
+            }
+        } else {
+            this.setSilverback(this.getRandom().nextBoolean());
+        }
+
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
+    }
+
+    @Nullable
+    public EntityGorilla getNearestSilverback(LevelAccessor world, double dist) {
+        List<? extends EntityGorilla> list = world.getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(dist, dist / 2, dist));
+        if (list.isEmpty()) {
+            return null;
+        }
+        EntityGorilla gorilla = null;
+        double d0 = Double.MAX_VALUE;
+        for (EntityGorilla gorrila2 : list) {
+            if (gorrila2.isSilverback()) {
+                double d1 = this.distanceToSqr(gorrila2);
+                if (!(d1 > d0)) {
+                    d0 = d1;
+                    gorilla = gorrila2;
+                }
+            }
+        }
+        return gorilla;
+    }
+
+    // getDimensions is now final in 1.21, removed override
+
+    public void positionRider(Entity passenger, Entity.MoveFunction moveFunc) {
+        if (this.hasPassenger(passenger)) {
+            this.setOrderedToSit(false);
+            if (passenger instanceof EntityGorilla) {
+                EntityGorilla babyGorilla = (EntityGorilla) passenger;
+                babyGorilla.setStanding(this.isStanding());
+                babyGorilla.setOrderedToSit(this.isSitting());
+                babyGorilla.yBodyRot = this.yBodyRot;
+            }
+            float sitAdd = -0.03F * this.sitProgress;
+            float standAdd = -0.03F * this.standProgress;
+            float radius = standAdd + sitAdd;
+            float angle = (Maths.STARTING_ANGLE * this.yBodyRot);
+            double extraX = radius * Mth.sin(Mth.PI + angle);
+            double extraZ = radius * Mth.cos(angle);
+            passenger.setPos(this.getX() + extraX, this.getY() + this.getBbHeight() * 0.75 + 0, this.getZ() + extraZ);
+        }
+    }
+
+    public double getPassengersRidingOffset() {
+        return (double) this.getBbHeight() * 0.65F * getGorillaScale() * (isSilverback() ? 0.75F : 1.0F);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SILVERBACK, false);
+        builder.define(STANDING, false);
+        builder.define(SITTING, false);
+        builder.define(EATING, false);
+    }
+
+    public boolean isSilverback() {
+        return this.entityData.get(SILVERBACK);
+    }
+
+    public void setSilverback(boolean silver) {
+        this.entityData.set(SILVERBACK, silver);
+    }
+
+    public boolean isStanding() {
+        return this.entityData.get(STANDING);
+    }
+
+    public void setStanding(boolean standing) {
+        this.entityData.set(STANDING, standing);
+    }
+
+    public boolean isSitting() {
+        return this.entityData.get(SITTING);
+    }
+
+    public void setOrderedToSit(boolean sit) {
+        this.entityData.set(SITTING, sit);
+    }
+
+    public boolean isEating() {
+        return this.entityData.get(EATING);
+    }
+
+    public void setEating(boolean eating) {
+        this.entityData.set(EATING, eating);
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Silverback", this.isSilverback());
+        compound.putBoolean("Standing", this.isStanding());
+        compound.putBoolean("GorillaSitting", this.isSitting());
+        compound.putBoolean("ForcedToSit", this.forcedSit);
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setSilverback(compound.getBoolean("Silverback"));
+        this.setStanding(compound.getBoolean("Standing"));
+        this.setOrderedToSit(compound.getBoolean("GorillaSitting"));
+        this.forcedSit = compound.getBoolean("ForcedToSit");
+    }
+
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+        if (itemstack.getItem() == Items.NAME_TAG) {
+            return super.mobInteract(player, hand);
+        }
+        if (isTame() && isTameableFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+            this.heal(5);
+            this.usePlayerItem(player, hand, itemstack);
+            this.gameEvent(GameEvent.EAT);
+            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+            return InteractionResult.SUCCESS;
+        }
+        InteractionResult type = super.mobInteract(player, hand);
+        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
+        if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player) && !isFood(itemstack)) {
+            if (this.isSitting()) {
+                this.forcedSit = false;
+                this.setOrderedToSit(false);
+                return InteractionResult.SUCCESS;
+            } else {
+                this.forcedSit = true;
+                this.setOrderedToSit(true);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return type;
+    }
+
+    @Override
+    public Animation getAnimation() {
+        return currentAnimation;
+    }
+
+    @Override
+    public void setAnimation(Animation animation) {
+        currentAnimation = animation;
+        if (animation == ANIMATION_POUNDCHEST) {
+            this.maxStandTime = 45;
+            this.setStanding(true);
+        }
+        if (animation == ANIMATION_ATTACK) {
+            this.maxStandTime = 10;
+            this.setStanding(true);
+        }
+    }
+
+    public void tick() {
+        super.tick();
+        if (!this.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() && this.canTargetItem(this.getItemInHand(InteractionHand.MAIN_HAND))) {
+            this.setEating(true);
+            this.setOrderedToSit(true);
+            this.setStanding(false);
+        }
+        if (isEating() && !this.canTargetItem(this.getItemInHand(InteractionHand.MAIN_HAND))) {
+            this.setEating(false);
+            eatingTime = 0;
+            if (!forcedSit) {
+                this.setOrderedToSit(true);
+            }
+        }
+        if (isEating()) {
+            eatingTime++;
+            if (!this.getMainHandItem().is(ItemTags.LEAVES)) {
+                for (int i = 0; i < 3; i++) {
+                    double d2 = this.random.nextGaussian() * 0.02D;
+                    double d0 = this.random.nextGaussian() * 0.02D;
+                    double d1 = this.random.nextGaussian() * 0.02D;
+                    this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItemInHand(InteractionHand.MAIN_HAND)), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
+                }
+            }
+            if (eatingTime % 5 == 0) {
+                this.gameEvent(GameEvent.EAT);
+                this.playSound(SoundEvents.PANDA_EAT, this.getSoundVolume(), this.getVoicePitch());
+            }
+            if (eatingTime > 100) {
+                ItemStack stack = this.getItemInHand(InteractionHand.MAIN_HAND);
+                if (!stack.isEmpty()) {
+                    this.heal(4);
+                    if (isTameableFood(stack) && bananaThrowerID != null) {
+                        if (getRandom().nextFloat() < 0.3F) {
+                            this.setTame(true, true);
+                            this.setOwnerUUID(this.bananaThrowerID);
+                            Player player = level().getPlayerByUUID(bananaThrowerID);
+                            if (player instanceof ServerPlayer) {
+                                CriteriaTriggers.TAME_ANIMAL.trigger((ServerPlayer)player, this);
+                            }
+                            this.level().broadcastEntityEvent(this, (byte) 7);
+                        } else {
+                            this.level().broadcastEntityEvent(this, (byte) 6);
+                        }
+                    }
+                    if (stack.hasCraftingRemainingItem()) {
+                        this.spawnAtLocation(stack.getCraftingRemainingItem());
+                    }
+                    stack.shrink(1);
+                }
+                eatingTime = 0;
+            }
+        }
+        prevSitProgress = sitProgress;
+        prevStandProgress = standProgress;
+
+        if (this.isSitting()) {
+            if (sitProgress < 10F)
+                sitProgress++;
+        } else {
+            if (sitProgress > 0F)
+                sitProgress--;
+        }
+
+        if (this.isStanding()) {
+            if (standProgress < 10F)
+                standProgress++;
+        } else {
+            if (standProgress > 0F)
+                standProgress--;
+        }
+
+        if (this.isPassenger() && this.getVehicle() instanceof EntityGorilla) {
+            if(!this.isBaby()){
+                this.removeVehicle();
+            }else{
+                EntityGorilla mount = (EntityGorilla) this.getVehicle();
+                this.setYRot( mount.yBodyRot);
+                this.yHeadRot = mount.yBodyRot;
+                this.yBodyRot = mount.yBodyRot;
+            }
+        }
+        if (isStanding() && ++standingTime > maxStandTime) {
+            this.setStanding(false);
+            standingTime = 0;
+            maxStandTime = 75 + random.nextInt(50);
+        }
+        if (!forcedSit && isSitting() && ++sittingTime > maxSitTime) {
+            this.setOrderedToSit(false);
+            sittingTime = 0;
+            maxSitTime = 75 + random.nextInt(50);
+        }
+        if (!forcedSit && this.isSitting() && (this.getTarget() != null || this.isStanding()) && !this.isEating()) {
+            this.setOrderedToSit(false);
+        }
+        if (!this.level().isClientSide && this.getAnimation() == NO_ANIMATION && !this.isStanding() && !this.isSitting() && random.nextInt(1500) == 0) {
+            maxSitTime = 300 + random.nextInt(250);
+            this.setOrderedToSit(true);
+        }
+        if (this.forcedSit && !this.isVehicle() && this.isTame()) {
+            this.setOrderedToSit(true);
+        }
+        if (sitProgress == 0 && poundChestCooldown <= 0 && this.isSilverback() && random.nextInt(800) == 0 && this.getAnimation() == NO_ANIMATION && !this.isSitting() && !this.isNoAi() && this.getMainHandItem().isEmpty()) {
+            this.setAnimation(ANIMATION_POUNDCHEST);
+        }
+        if (!this.level().isClientSide && this.getTarget() != null && this.getAnimation() == ANIMATION_ATTACK && this.getAnimationTick() == 10) {
+            float f1 = this.getYRot() * Mth.DEG_TO_RAD;
+            this.setDeltaMovement(this.getDeltaMovement().add(-Mth.sin(f1) * 0.02F, 0.0D, Mth.cos(f1) * 0.02F));
+            getTarget().knockback(1F, getTarget().getX() - this.getX(), getTarget().getZ() - this.getZ());
+            this.getTarget().hurt(this.damageSources().mobAttack(this), (float) this.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
+        }
+        if (!hasSilverbackAttributes && isSilverback() && !isBaby()) {
+            hasSilverbackAttributes = true;
+            refreshDimensions();
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(50F);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(10F);
+            this.heal(50F);
+        }
+        if (hasSilverbackAttributes && !isSilverback() && !isBaby()) {
+            hasSilverbackAttributes = false;
+            refreshDimensions();
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(30F);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8F);
+            this.heal(30F);
+        }
+        if(poundChestCooldown > 0){
+            poundChestCooldown--;
+        }
+        AnimationHandler.INSTANCE.updateAnimations(this);
+    }
+
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+        return null;
+    }
+
+    public PathNavigation getNavigation() {
+        return this.navigation;
+    }
+
+    @Nullable
+    public Entity getControlledVehicle() {
+        return this.getVehicle() instanceof EntityGorilla ? null : super.getControlledVehicle();
+    }
+
+    @Override
+    public int getAnimationTick() {
+        return animationTick;
+    }
+
+    @Override
+    public void setAnimationTick(int i) {
+        animationTick = i;
+    }
+
+    public boolean canTargetItem(ItemStack stack) {
+        return stack.is(AMTagRegistry.GORILLA_FOODSTUFFS);
+    }
+
+    @Override
+    public void onGetItem(ItemEntity targetEntity) {
+        ItemStack duplicate = targetEntity.getItem().copy();
+        duplicate.setCount(1);
+        if (!this.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() && !this.level().isClientSide) {
+            this.spawnAtLocation(this.getItemInHand(InteractionHand.MAIN_HAND), 0.0F);
+        }
+        this.setItemInHand(InteractionHand.MAIN_HAND, duplicate);
+        Entity thrower = targetEntity.getOwner();
+        if (EntityGorilla.isTameableFood(targetEntity.getItem()) && thrower != null && !this.isTame()) {
+            bananaThrowerID = thrower.getUUID();
+        }
+    }
+
+    @Override
+    public Animation[] getAnimations() {
+        return new Animation[]{ANIMATION_BREAKBLOCK_R, ANIMATION_BREAKBLOCK_L, ANIMATION_POUNDCHEST, ANIMATION_ATTACK};
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
+        return AMEntityRegistry.GORILLA.get().create(p_241840_1_);
+    }
+
+    public void leaveCaravan() {
+        if (this.caravanHead != null) {
+            this.caravanHead.caravanTail = null;
+        }
+
+        this.caravanHead = null;
+    }
+
+    public void joinCaravan(EntityGorilla caravanHeadIn) {
+        this.caravanHead = caravanHeadIn;
+        this.caravanHead.caravanTail = this;
+    }
+
+    public boolean hasCaravanTrail() {
+        return this.caravanTail != null;
+    }
+
+    public boolean inCaravan() {
+        return this.caravanHead != null;
+    }
+
+    @Nullable
+    public EntityGorilla getCaravanHead() {
+        return this.caravanHead;
+    }
+
+    public float getGorillaScale() {
+        return isBaby() ? 0.5F : isSilverback() ? 1.3F : 1.0F;
+    }
+
+    public boolean isDonkeyKong() {
+        String s = ChatFormatting.stripFormatting(this.getName().getString());
+        return s != null && (s.toLowerCase().contains("donkey") && s.toLowerCase().contains("kong") || s.equalsIgnoreCase("dk"));
+    }
+
+    public boolean isFunkyKong() {
+        String s = ChatFormatting.stripFormatting(this.getName().getString());
+        return s != null && (s.toLowerCase().contains("funky") && s.toLowerCase().contains("kong"));
+    }
+
+    private class AIWalkIdle extends RandomStrollGoal {
+        public AIWalkIdle(EntityGorilla entityGorilla, double v) {
+            super(entityGorilla, v);
+        }
+
+        public boolean canUse() {
+            this.interval = EntityGorilla.this.isSilverback() ? 10 : 120;
+            return super.canUse();
+        }
+
+        @Nullable
+        protected Vec3 getPosition() {
+            return LandRandomPos.getPos(this.mob, EntityGorilla.this.isSilverback() ? 25 : 10, 7);
+        }
+
+    }
+}

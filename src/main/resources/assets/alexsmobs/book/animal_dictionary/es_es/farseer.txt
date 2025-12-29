@@ -1,0 +1,22 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+El farseer es un ser de más allá de las dimensiones, que vive en universos ortogonales al nuestro. Sólo pueden cruzar desde sus incomprensibles mundos natales en las mismas fronteras del mundo, lo que hace que los encuentros con estas bestias sean extremadamente raros.
+<NEWLINE>
+Sin embargo, esto no significa que sean imposibles de encontrar. Con un poco de dedicación, uno puede crear un tallador de dimensiones destrozado colocando un tallador de dimensiones en una cápside. A diferencia de la variante normal de esta herramienta, el tallador destrozado creará un portal que conduce a un millón de bloques en cualquier dirección.
+Simplemente usar esta herramienta varias veces en la misma dirección podría llevar a estar dentro del alcance del farseer.
+<NEWLINE>
+Cuando la presa está cerca del borde del mundo, el farseer tiene la oportunidad de abrir un portal y aparecer justo al lado, sorprendiéndola rápidamente.
+<NEWLINE>
+Si se encuentra con un farseer, sin duda será extremadamente hostil. Intentarán disolver a cualquier oponente en pura estática usando sus rápidas garras o un rayo devastador disparado desde el ojo. Si estos ataques no se esquivan o flanquean, es muy probable que el farseer tenga éxito: sus ataques atraviesan armaduras y encantamientos por igual.
+<NEWLINE>
+Cuando es asesinado, un farseer puede soltar uno de sus muchos brazos. Estos, junto con algo de obsidiana y una estrella del Nether, se pueden usar para crear una mesa de transmutación.
+<NEWLINE>
+Usando la misma magia que usan los farseer para transformar la materia en nada, esta tabla permite transmutar pilas enteras de elementos en diferentes elementos.
+Cuando se abre, esta mesa tiene una ranura que se puede llenar con cualquier elemento apilable. Una vez hecho esto, aparecerán tres posibilidades, que se pueden seleccionar para transformar toda la pila de elementos en el elemento seleccionado, por un costo de experiencia.
+Cuando un elemento se transmuta en otro, existe una pequeña posibilidad de que las posibilidades de transmutación futuras sean el elemento anterior, lo que aumenta y disminuye según la frecuencia con la que se transmuta ese elemento y la frecuencia con la que se selecciona, respectivamente.
+<NEWLINE>
+La mesa de transmutación puede comenzar solo con elementos simples y naturales para cambiar la forma de los elementos, pero puede llenarse rápidamente con otros tipos de recursos.
+Si se destruye, la mesa de transmutación perderá todo su conocimiento previo de los elementos y solo quedará una estrella del Nether, seguida de una violenta explosión.

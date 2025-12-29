@@ -1,0 +1,11 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Los diablos de polvo son espíritus vengativos del desierto que sólo se manifiestan durante las tormentas en los desiertos.
+Estas criaturas son intrínsecamente hostiles y buscarán lanzar a sus objetivos al aire o dispararles un chorro de arena.
+Los diablos de polvo también pueden levantar cualquier objeto que se haya caído y arrojarlo, lo que dificulta la recolección de recompensas.
+Los diablos de polvo se forman a partir de arenas locales, y si se encuentran en un área con arena alma o arena roja, su apariencia tomará los colores de estos sedimentos.
+Aunque poderosos, los diablos de polvo no son criaturas muy resistentes. Sin embargo, su presencia casi etérea los hace más resistentes a los ataques de proyectiles que la mayoría de los monstruos.
+Cuando los diablos de polvo son asesinados, soltarán arena y, ocasionalmente, uno de sus ojos. Estos ojos se pueden usar para crear un lanzarráfagas, un bloque que, cuando se alimenta con redstone, libera una pequeña tormenta de arena.
+Esta ráfaga puede empujar a criaturas y objetos. El ojo también se puede utilizar para crear una bolsa de arena, que se puede usar como arma.

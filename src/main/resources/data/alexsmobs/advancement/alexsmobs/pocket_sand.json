@@ -1,0 +1,36 @@
+{
+    "display": {
+        "icon": {
+            "id": "citadel:fancy_item",
+            "components": {
+            "citadel:fancy_item_display": {
+              "display_item": "alexsmobs:pocket_sand",
+              "display_bob": false,
+              "display_zoom": true,
+              "display_scale": 1,
+              "display_spin": false,
+              "display_shake": false
+            }
+          }
+        },
+        "title": {
+            "translate": "advancements.alexsmobs.pocket_sand.title"
+        },
+        "description": {
+            "translate": "advancements.alexsmobs.pocket_sand.desc"
+        }
+    },
+    "parent": "alexsmobs:alexsmobs/guster",
+    "criteria": {
+        "rat_upgrade_basic": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": ["alexsmobs:pocket_sand"]
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+  "__comment": "Allows to live on land for a few days",
+  "replace": false,
+  "values": [
+    "minecraft:slime_ball"
+  ]
+}

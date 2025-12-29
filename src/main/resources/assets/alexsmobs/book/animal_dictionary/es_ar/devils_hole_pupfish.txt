@@ -1,0 +1,10 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Los peces del Hoyo del Diablo son pececillos conocidos por ser los más raros del mundo, debido a su reducido rango de distribución. Estos peces solo pueden encontrarse dentro de acuíferos subterráneos en un único chunk de la Superficie.
+Para encontrar el chunk que el pez del Hoyo del Diablo llama hogar, hará falta crear un buscador de peces extraños.
+<NEWLINE>
+Este dispositivo enviará una onda de sonido en la dirección del chunk.
+<NEWLINE>
+Una vez que encuentres al pez, es posible que notes que se persiguen unos a otros. De ahí su apodo de 'pez cachorrito', ya que su comportamiento recuerda al juego de los cachorros. Estos peces subsisten comiendo residuos adheridos a bloques de musgo sumergidos.
+De vez en cuando, mientras picotean estos bloques, pueden dejar caer una bola de slime. Ocasionalmente, se reproducirán después de alimentarse de musgo. El pez del Hoyo del Diablo se puede recoger con un balde, como la mayoría de los demás peces.

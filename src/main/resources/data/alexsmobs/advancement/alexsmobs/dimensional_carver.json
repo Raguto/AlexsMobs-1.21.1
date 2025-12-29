@@ -1,0 +1,36 @@
+{
+    "display": {
+        "icon": {
+            "id": "citadel:fancy_item",
+            "components": {
+            "citadel:fancy_item_display": {
+              "display_item": "alexsmobs:dimensional_carver",
+              "display_bob": false,
+              "display_zoom": true,
+              "display_scale": 1,
+              "display_spin": false,
+              "display_shake": false
+            }
+          }
+        },
+        "title": {
+            "translate": "advancements.alexsmobs.dimensional_carver.title"
+        },
+        "description": {
+            "translate": "advancements.alexsmobs.dimensional_carver.desc"
+        }
+    },
+    "parent": "alexsmobs:alexsmobs/void_worm_kill",
+    "criteria": {
+        "dimensional_carver": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": ["alexsmobs:dimensional_carver"]
+                    }
+                ]
+            }
+        }
+    }
+}

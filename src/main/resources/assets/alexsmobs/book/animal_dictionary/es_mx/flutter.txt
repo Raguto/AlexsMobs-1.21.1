@@ -1,0 +1,10 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Las volazaleas son pequeñas criaturas plantoides que se encuentran en el bioma de las cuevas frondosas. Son completamente pasivos y evitan la mayoría de los daños flotando en el aire agitando su flor gigante.
+Las volazaleas tienen un interés curioso en cualquier flor y se pueden domesticar dándoles de 4 a 6 flores. Cada una de estas flores debe ser diferente entre sí, de lo contrario la volazalea no mostrará interés.
+<NEWLINE>
+Cuando se domestica, se puede hacer que la volazalea espere, siga a su dueño o deambule. Al defender a su dueño de cualquier amenaza, la volazalea se elevará y disparará bolas de polen. Estas bolas de polen pueden perseguir al atacante, lo que hace que tener varias volazaleas sea muy útil para los exploradores de cuevas.
+Aunque tienen poca salud, la volazalea puede equiparse con una maceta para darle armadura adicional. Una maceta con volazalea también se puede recoger agachándose. Las volazaleas se pueden curar con flores.
+<NEWLINE>
+Dado que las volazaleas son plantas, se pueden criar con hueso molido. Cuando se reproducen cerca de arbustos u hojas de azalea, existe la posibilidad de que los arbustos u hojas de azalea florezcan. Al morir, la volazalea puede soltar una flor de esporas.

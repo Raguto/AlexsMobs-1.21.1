@@ -1,0 +1,174 @@
+package com.github.alexthe666.alexsmobs.entity.ai;
+
+import com.github.alexthe666.alexsmobs.entity.EntitySeal;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
+
+public class SealAIDiveForItems extends Goal {
+
+    private final EntitySeal seal;
+    private Player thrower;
+    private BlockPos digPos;
+    private boolean returnToPlayer = false;
+    private int digTime = 0;
+    public static final ResourceLocation SEAL_REWARD = ResourceLocation.fromNamespaceAndPath("alexsmobs", "gameplay/seal_reward");
+
+    public SealAIDiveForItems(EntitySeal seal) {
+        this.seal = seal;
+    }
+
+    private static List<ItemStack> getItemStacks(EntitySeal seal) {
+        LootTable loottable = seal.level().getServer().reloadableRegistries().getLootTable(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, SEAL_REWARD));
+        return loottable.getRandomItems((new LootParams.Builder((ServerLevel) seal.level())).withParameter(LootContextParams.THIS_ENTITY, seal).create(LootContextParamSets.PIGLIN_BARTER));
+    }
+
+    @Override
+    public boolean canUse() {
+        if (seal.feederUUID == null || seal.level().getPlayerByUUID(seal.feederUUID) == null || seal.revengeCooldown > 0) {
+            return false;
+        }
+        thrower = seal.level().getPlayerByUUID(seal.feederUUID);
+        digPos = genDigPos();
+        return thrower != null && digPos != null;
+    }
+
+    public boolean canContinueToUse() {
+        return seal.getTarget() == null && seal.revengeCooldown == 0 && seal.getLastHurtByMob() == null && thrower != null && seal.feederUUID != null && digPos != null && seal.level().getFluidState(digPos.above()).is(FluidTags.WATER);
+    }
+
+    public void tick() {
+        seal.setBasking(false);
+        if (returnToPlayer) {
+            seal.getNavigation().moveTo(thrower, 1D);
+            if (seal.distanceTo(thrower) < 2D) {
+                ItemStack stack = seal.getMainHandItem().copy();
+                seal.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                ItemEntity item = seal.spawnAtLocation(stack);
+                if (item != null) {
+                    double d0 = thrower.getX() - this.seal.getX();
+                    double d1 = thrower.getEyeY() - this.seal.getEyeY();
+                    double d2 = thrower.getZ() - this.seal.getZ();
+                    double lvt_7_1_ = Mth.sqrt((float) (d0 * d0 + d2 * d2));
+                    float pitch = (float) (-(Mth.atan2(d1, lvt_7_1_) * 57.2957763671875D));
+                    float yaw = (float) (Mth.atan2(d2, d0) * (double) Mth.RAD_TO_DEG) - 90.0F;
+                    float f8 = Mth.sin(pitch * Mth.DEG_TO_RAD);
+                    float f2 = Mth.cos(pitch * Mth.DEG_TO_RAD);
+                    float f3 = Mth.sin(yaw * Mth.DEG_TO_RAD);
+                    float f4 = Mth.cos(yaw * Mth.DEG_TO_RAD);
+                    float f5 = seal.getRandom().nextFloat() * Mth.TWO_PI;
+                    float f6 = 0.02F * seal.getRandom().nextFloat();
+                    item.setDeltaMovement((double) (-f3 * f2 * 0.5F) + Math.cos(f5) * (double) f6, -f8 * 0.2F + 0.1F + (seal.getRandom().nextFloat() - seal.getRandom().nextFloat()) * 0.1F, (double) (f4 * f2 * 0.5F) + Math.sin(f5) * (double) f6);
+                }
+                seal.feederUUID = null;
+                stop();
+            }
+        } else {
+            double dist = seal.distanceToSqr(Vec3.atCenterOf(digPos.above()));
+            double d0 = digPos.getX() + 0.5 - this.seal.getX();
+            double d1 = digPos.getY() + 0.5 - this.seal.getEyeY();
+            double d2 = digPos.getZ() + 0.5 - this.seal.getZ();
+            float f = (float)(Mth.atan2(d2, d0) * 57.2957763671875D) - 90.0F;
+
+            if (dist < 2) {
+                seal.getNavigation().stop();
+                digTime++;
+                if(digTime  % 5 == 0){
+                    SoundEvent sound = seal.level().getBlockState(digPos).getSoundType().getHitSound();
+                    seal.playSound(sound, 1, 0.5F + seal.getRandom().nextFloat() * 0.5F);
+                }
+                if (digTime >= 100) {
+                    List<ItemStack> lootList = getItemStacks(seal);
+                    if (lootList.size() > 0) {
+                        ItemStack copy = lootList.remove(0);
+                        copy = copy.copy();
+                        this.seal.setItemInHand(InteractionHand.MAIN_HAND, copy);
+                        for (ItemStack stack : lootList) {
+                            this.seal.spawnAtLocation(stack.copy());
+                        }
+                        this.returnToPlayer = true;
+                    }
+                    seal.setDigging(false);
+                    digTime = 0;
+                }else{
+                    seal.setDigging(true);
+                }
+            }else{
+                seal.setDigging(false);
+                seal.getNavigation().moveTo(digPos.getX(), digPos.getY(), digPos.getZ(), 1);
+                seal.setYRot(f);
+            }
+        }
+    }
+
+    public void stop() {
+        seal.setDigging(false);
+        digPos = null;
+        thrower = null;
+        digTime = 0;
+        returnToPlayer = false;
+        seal.fishFeedings = 0;
+        if(!seal.getMainHandItem().isEmpty()){
+            seal.spawnAtLocation(seal.getMainHandItem().copy());
+            seal.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        }
+    }
+
+    private BlockPos genSeafloorPos(BlockPos parent) {
+        LevelAccessor world = seal.level();
+        final RandomSource random = this.seal.getRandom();
+        int range = 15;
+        for (int i = 0; i < 15; i++) {
+            BlockPos seafloor = parent.offset(random.nextInt(range) - range / 2, 0, random.nextInt(range) - range / 2);
+            while (world.getFluidState(seafloor).is(FluidTags.WATER) && seafloor.getY() > 1) {
+                seafloor = seafloor.below();
+            }
+            BlockState state = world.getBlockState(seafloor);
+            if (state.is(AMTagRegistry.SEAL_DIGABLES)) {
+                return seafloor;
+            }
+        }
+        return null;
+    }
+
+    private BlockPos genDigPos() {
+        final RandomSource random = this.seal.getRandom();
+        int range = 15;
+        if (seal.isInWater()) {
+            return genSeafloorPos(this.seal.blockPosition());
+        } else {
+            for (int i = 0; i < 15; i++) {
+                BlockPos blockpos1 = this.seal.blockPosition().offset(random.nextInt(range) - range / 2, 3, random.nextInt(range) - range / 2);
+                while (this.seal.level().isEmptyBlock(blockpos1) && blockpos1.getY() > 1) {
+                    blockpos1 = blockpos1.below();
+                }
+                if (this.seal.level().getFluidState(blockpos1).is(FluidTags.WATER)) {
+                    BlockPos pos3 = genSeafloorPos(blockpos1);
+                    if (pos3 != null) {
+                        return pos3;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+}

@@ -1,0 +1,60 @@
+package com.github.alexthe666.alexsmobs.client.gui;
+
+import com.github.alexthe666.alexsmobs.client.render.RenderLaviathan;
+import com.github.alexthe666.alexsmobs.client.render.RenderMurmurBody;
+import com.github.alexthe666.alexsmobs.client.render.RenderUnderminer;
+import com.github.alexthe666.citadel.client.gui.GuiBasicBook;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+
+
+@OnlyIn(Dist.CLIENT)
+public class GUIAnimalDictionary extends GuiBasicBook {
+
+    private static final ResourceLocation ROOT = ResourceLocation.parse("alexsmobs:book/animal_dictionary/root.json");
+
+    public GUIAnimalDictionary(ItemStack bookStack) {
+        super(bookStack, Component.translatable("animal_dictionary.title"));
+    }
+
+    public GUIAnimalDictionary(ItemStack bookStack, String page) {
+        super(bookStack, Component.translatable("animal_dictionary.title"));
+        this.currentPageJSON = ResourceLocation.parse(this.getTextFileDirectory() + page + ".json");
+    }
+
+    @Override
+    protected void renderBlurredBackground(float partialTick) {
+        // Don't render blur - we want to see the world behind the book
+    }
+
+    @Override
+    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        // Don't render the default darkened background either
+    }
+
+    public void render(GuiGraphics guiGraphics, int x, int y, float partialTicks) {
+        RenderLaviathan.renderWithoutShaking = true;
+        RenderMurmurBody.renderWithHead = true;
+        RenderUnderminer.renderWithPickaxe = true;
+        super.render(guiGraphics, x, y, partialTicks);
+        RenderLaviathan.renderWithoutShaking = false;
+        RenderMurmurBody.renderWithHead = false;
+        RenderUnderminer.renderWithPickaxe = false;
+    }
+
+    protected int getBindingColor() {
+        return 0X606B26;
+    }
+
+    public ResourceLocation getRootPage() {
+        return ROOT;
+    }
+
+    public String getTextFileDirectory() {
+        return "alexsmobs:book/animal_dictionary/";
+    }
+}

@@ -1,0 +1,11 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Cazando entre los sorprendentes biomas congelados de picos de hielo y cumbres heladas, el escarchador es el depredador de manada definitivo. Esta bestia es hostil a cualquier cosa que considere posible presa, pero su objetivo favorito es el tusklin.
+Cuando caza, el escarchador asume una postura erguida y gana velocidad, rodeando lentamente a su presa en grupo antes de saltar, cortar o morder. De esta manera, los grupos de escarchadores pueden confundir y acabar con presas grandes.
+Cuando es herido por su presa, el escarchador puede sacudirse los fragmentos de hielo de su espalda, lo que puede causar grandes cantidades de daño. El escarchador puede recuperar estos picos entrando al agua. Los escarchadores también congelan naturalmente el agua bajo sus pies, lo que hace que el agua sea un campo de batalla inseguro para enfrentarse a estos reptiles.
+<NEWLINE>
+Si muere, un escarchador tiene la posibilidad de soltar su cuerno. Este cuerno se puede usar para crear un yelmo que engaña a los escarchadores haciéndoles creer que su portador es uno de ellos.
+<NEWLINE>
+Ten en cuenta que estas bestias no dudarán en atacar a quienes lleven este yelmo, ya que la más mínima amenaza contra la manada podría arruinar su tapadera. Los escarchadores sólo se pueden criar si llevas el yelmo puesto, con chuletas de cerdo. En biomas cálidos, los escarchadores sufrirán debilidad y sus picos de hielo se derretirán.

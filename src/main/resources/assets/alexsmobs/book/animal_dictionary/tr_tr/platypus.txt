@@ -1,0 +1,9 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Ornitorenk, diğer birkaç hayvanın birleşimi gibi görünen, ancak kendi başına tamamen benzersiz bir yaratıktır. Ana dünyadaki nehir biyomlarında nadiren karşılaşılabilir.
+Bu tuhaf memelinin ayaklarında zehirli dikenler vardır ve bu dikenleri saldırganlara zehir etkisi uygulamak için kullanabilir.
+Ornitorenk'in koku alma, işitme ve görme duyularının zayıf olması, avlanmak ve yönünü bulmak için elektriğe güvenmesine neden olmuştur. Bu nedenle, redstone tutulduğunda doğal olarak ornitorenk'in ilgisini çeker. Redstone'la beslenirse, ornitorenk elektrik hassasiyetini yeniden şarj edecek ve yakındaki kil bloklarda bazı kurtçuklar arayacaktır.
+Ornitorenk yiyecek ararken, daha sonra toplanabilecek birkaç kil topu ve kurtçuk kazacaktır. Bir redstone bloğunun tamamı ile beslenirse, kazılan eşyaların miktarı büyük ölçüde artacaktır.
+Diğer küçük su canlıları gibi Ornitorenk de bir Kova Su içinde taşınabilir. En sevdiği yiyecek olan Istakoz Kuyrukları ile çiftleştirilebilir.
+

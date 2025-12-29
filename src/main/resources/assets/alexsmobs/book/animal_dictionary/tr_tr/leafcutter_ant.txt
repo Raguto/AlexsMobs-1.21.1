@@ -1,0 +1,13 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Yaprak Kesen Karıncalar, genellikle orman biyomlarındaki ağaçlardan yaprak koparırken görülebilen küçük böceklerdir. Yirmi kadar karıncadan oluşan büyük koloniler oluştururlar. Yaprak kesen karıncaların iki türü vardır - yaprakları hasat eden ve karınca yuvasının dışında görülebilen işçiler ve sadece karınca yuvasına basarak çağrılabilen kraliçeler.
+Kraliçeler bir işçiden çok daha büyük ve güçlüdür ve genellikle koloni başına yalnızca bir tane bulunur. Bir karınca yuvasında bir kraliçe varken, yuvada 10'dan az karınca varken, toplanan her 5 yaprak için bir başka işçi karınca oluşturma ihtimali vardır.
+<NEWLINE>
+Kraliçe olmadan, Karınca Yuvaları yeniden çoğalamaz. Bu koloniler göründüklerinden çok daha büyüktür - yuvanın altında, karıncaların yapraklarını mantara dönüştürmek için kullandıkları büyük bloklardan oluşan bir Yaprak Kesen Karınca Odaları ağı vardır.
+Bu oda blokları güneş ışığı altında toprağa dönüşür, ancak hasat edildiklerinde bitişik toprak bloklara yayılabilirler.
+<NEWLINE>
+Bu mantar Gongylidia olarak adlandırılır ve karıncaların yetiştirip yiyebildiği tek şeydir.
+Karıncalar için kullanımının yanı sıra, çok fazla besin değerine sahip olmasa da, büyük miktarda doygunluğa sahip olduğu için yenebilir.
+Gongylidia, yeraltındaki mantar kaplı bir oda bloğu ile etkileşime girerek elde edilebilir, ancak dikkatli olun: Yakınlarda bir Mantar Işığı yoksa, kolonideki karıncalar düşmanca davranacaktır.
+Mantarlar karıncaları iyileştirmek için onlara ve kolonideki karınca sayısını artırmak için kraliçeye verilebilir. Gongylidia, yakın bölgedeki tüm karıncaları sakinleştirmek için bir karıncaya da yedirilebilir. Bir oda bloğu kırılırsa, nadiren de olsa bir Yaprak Kesen Karınca Pupası düşebilir ve bu pupa yeni bir koloni oluşturmak için toprak veya çimenli toprak üzerinde kullanılabilir.

@@ -1,0 +1,13 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Las hormigas podadoras son pequeños insectos diminutos que a menudo se pueden ver arrancando hojas de los árboles en los biomas de la jungla. Forman colonias masivas de hasta veinte hormigas. Hay dos castas de hormigas podadoras: las obreras, que cosechan hojas y se las puede ver fuera del hormiguero, y las reinas, que sólo pueden ser convocadas pisoteando un hormiguero.
+Las reinas son mucho más grandes y fuertes que una obrera y normalmente solo hay una por colonia. Con una reina presente en un hormiguero, existe la posibilidad de que por cada 5 hojas cosechadas se cree otra hormiga obrera, mientras el hormiguero tenga menos de 10 hormigas.
+<NEWLINE>
+Sin una reina, los hormigueros no pueden repoblarse. Estas colonias son mucho más grandes de lo que parecen: debajo del montículo hay una red de cámaras, grandes bloques que las hormigas utilizan para convertir sus hojas en hongos.
+Estos bloques de cámaras se convertirán en tierra si están expuestos a la luz del sol; sin embargo, pueden extenderse a bloques de tierra adyacentes cuando se cosechan.
+<NEWLINE>
+Este hongo se llama gongilidio y es lo único que las hormigas son capaces de cultivar y comer.
+Aparte de sus usos para las hormigas, también se puede comer: aunque no tenga mucho valor nutricional, proporciona mucha saturación.
+Los gongilidios se puede obtener interactuando con un bloque de cámara subterráneo cubierto de hongos, pero cuidado: a menos que haya un brillongo cerca, las hormigas de la colonia se volverán hostiles.
+Los hongos se pueden alimentar a las hormigas para curarlas y a la reina para aumentar el número de hormigas en la colonia. También se puede dar un gongilidio a una hormiga para apaciguar a todas las hormigas del área cercana. Si un bloque de cámara se rompe, existe una rara probabilidad de que deje caer una pupa de hormiga podadora, que puede usarse sobre césped o tierra y creará una colonia.

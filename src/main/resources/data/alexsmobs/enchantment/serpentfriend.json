@@ -1,0 +1,18 @@
+{
+  "description": {
+    "translate": "enchantment.alexsmobs.serpentfriend"
+  },
+  "supported_items": "#alexsmobs:straddleboard",
+  "weight": 2,
+  "max_level": 1,
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 0
+  },
+  "max_cost": {
+    "base": 70,
+    "per_level_above_first": 0
+  },
+  "anvil_cost": 4,
+  "slots": ["mainhand"]
+}

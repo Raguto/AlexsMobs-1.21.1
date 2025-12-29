@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "id": "alexsmobs:tab_icon",
+      "nbt": "{DisplayEntityType:\"alexsmobs:elephant\", DisplayMobFlags:98}"
+    },
+    "title": {
+      "translate": "advancements.alexsmobs.elephant_swag.title"
+    },
+    "description": {
+      "translate": "advancements.alexsmobs.elephant_swag.desc"
+    }
+  },
+  "parent": "alexsmobs:alexsmobs/tame_elephant",
+  "criteria": {
+    "ex": {
+      "trigger": "alexsmobs:elephant_swag"
+    }
+  },
+  "requirements": [
+    [
+      "ex"
+    ]
+  ]
+}

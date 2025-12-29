@@ -1,0 +1,12 @@
+{
+  "__comment": "Heals when given",
+  "replace": false,
+  "values": [
+    "#alexsmobs:gorilla_tameables",
+    "#alexsmobs:gorilla_breedables",
+    "#minecraft:leaves",
+    "minecraft:sugar_cane",
+    "minecraft:apple",
+    "minecraft:bamboo"
+  ]
+}

@@ -1,0 +1,12 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Los basaltantes son parientes gigantes del lavagante común del Nether. A diferencia del lavagante, los basaltantes solo se pueden encontrar en los deltas de basalto.
+También son mucho más resistentes que sus primos, capaces en tierra y agua, así como en lava. Además, los basaltantes son muy agresivos.
+Cualquier explorador que se acerque demasiado se considera un intruso y es atacado de inmediato. El basaltante usa su pelo largo y enredado para lanzar sus larvas a sus objetivos, lo que puede causar una cantidad decente de daño.
+Si mueren, los basaltantes soltarán basalto y rara vez sus escamas. Las escamas contienen un mineral muy raro y se pueden usar para fabricar una tabla de surf ignífuga.
+<NEWLINE>
+Las tablas de surf ignífugas se pueden teñir y flotan en la lava, pero se hunden en el agua. Se pueden utilizar para cruzar los grandes océanos de lava del Nether con facilidad. Sin embargo, a diferencia del lavagante relativamente seguro, la tabla es propensa a romperse y caer, lo que resulta en un viaje más rápido pero más riesgoso.
+Si alguien montado en una tabla golpea un techo o una pared con demasiada fuerza, podría dirigirse a una muerte ardiente.

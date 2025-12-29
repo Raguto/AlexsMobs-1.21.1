@@ -1,0 +1,8 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Los jerbos son pequeños roedores nocturnos que sólo se pueden encontrar en biomas desérticos durante la noche.
+Estas pequeñas criaturas tienen la costumbre de dormir durante el día y saltar por la noche con sus larguísimas patas traseras.
+Debido a su pequeño tamaño, muchas criaturas, incluidas serpientes de cascabel, zorros y gatos, intentarán cazar jerbos.
+A pesar de su naturaleza tímida, los jerbos pedirán semillas. Si se les dan algunas, recompensarán a uno con el efecto de ligereza, que otorga un aumento de velocidad al correr y saltar al mismo tiempo.
+Los jerbos se pueden criar con gusanos o cualquier insecto pequeño. Un jerbo alimentado con semillas o gusanos no desaparecerá.

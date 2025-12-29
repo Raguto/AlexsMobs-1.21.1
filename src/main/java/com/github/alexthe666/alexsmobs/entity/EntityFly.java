@@ -1,0 +1,390 @@
+package com.github.alexthe666.alexsmobs.entity;
+
+import com.github.alexthe666.alexsmobs.config.AMConfig;
+import com.github.alexthe666.alexsmobs.misc.AMBlockPos;
+import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
+import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
+import com.google.common.base.Predicate;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
+import net.minecraft.world.entity.ai.util.HoverRandomPos;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class EntityFly extends Animal implements FlyingAnimal {
+
+    private int conversionTime = 0;
+    private static final EntityDataAccessor<Boolean> NO_DESPAWN = SynchedEntityData.defineId(EntityFly.class, EntityDataSerializers.BOOLEAN);
+
+    protected EntityFly(EntityType<? extends Animal> type, Level worldIn) {
+        super(type, worldIn);
+        this.moveControl = new FlyingMoveControl(this, 20, true);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
+        this.setPathfindingMalus(PathType.WATER, -1.0F);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 16.0F);
+        this.setPathfindingMalus(PathType.COCOA, -1.0F);
+        this.setPathfindingMalus(PathType.FENCE, -1.0F);
+    }
+
+    protected void playStepSound(BlockPos pos, BlockState blockIn) {}
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("NoFlyDespawn", this.isNoDespawn());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setNoDespawn(compound.getBoolean("NoFlyDespawn"));
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(NO_DESPAWN, false);
+    }
+
+        public boolean isNoDespawn() {
+        return this.entityData.get(NO_DESPAWN);
+    }
+
+    public void setNoDespawn(boolean despawn) {
+        this.entityData.set(NO_DESPAWN, despawn);
+    }
+
+
+    public static boolean canFlySpawn(EntityType<EntityFly> animal, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, RandomSource random) {
+        return reason == MobSpawnType.SPAWNER || pos.getY() > 63 && random.nextInt(4) == 0 && worldIn.getRawBrightness(pos, 0) > 8 && worldIn.getBrightness(LightLayer.BLOCK, pos) == 0 && worldIn.getBlockState(pos.below()).is(AMTagRegistry.FLY_SPAWNS);
+    }
+
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+        return !requiresCustomPersistence();
+    }
+
+    public boolean requiresCustomPersistence() {
+        return this.isNoDespawn()  || this.hasCustomName() || this.isLeashed() || super.requiresCustomPersistence();
+    }
+
+    public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType spawnReasonIn) {
+        return AMEntityRegistry.rollSpawn(AMConfig.flySpawnRolls, this.getRandom(), spawnReasonIn);
+    }
+
+    public boolean isInNether() {
+        return this.level().dimension() == Level.NETHER && !this.isNoAi();
+    }
+
+
+    protected SoundEvent getAmbientSound() {
+        return AMSoundRegistry.FLY_IDLE.get();
+    }
+
+    public int getAmbientSoundInterval() {
+        return 30;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return AMSoundRegistry.FLY_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return AMSoundRegistry.FLY_HURT.get();
+    }
+
+    public int getMaxSpawnClusterSize() {
+        return 2;
+    }
+
+    public boolean isMaxGroupSizeReached(int sizeIn) {
+        return false;
+    }
+
+    public static AttributeSupplier.Builder bakeAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 2.0D).add(Attributes.FLYING_SPEED, 0.8F).add(Attributes.ATTACK_DAMAGE, 1.0D).add(Attributes.MOVEMENT_SPEED, 0.25F);
+    }
+
+    public float getWalkTargetValue(BlockPos pos, LevelReader worldIn) {
+        return worldIn.getBlockState(pos).isAir() ? 10.0F : 0.0F;
+    }
+
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.25D, Ingredient.fromValues(Stream.of(new Ingredient.TagValue(AMTagRegistry.FLY_BREEDABLES), new Ingredient.TagValue(AMTagRegistry.FLY_FOODSTUFFS))), false));
+        this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.25D));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Spider.class, 6.0F, 1.0D, 1.2D));
+        this.goalSelector.addGoal(4, new AnnoyZombieGoal());
+        this.goalSelector.addGoal(5, new WanderGoal());
+        this.goalSelector.addGoal(6, new FloatGoal(this));
+    }
+
+    protected PathNavigation createNavigation(Level worldIn) {
+        FlyingPathNavigation flyingpathnavigator = new FlyingPathNavigation(this, worldIn) {
+            public boolean isStableDestination(BlockPos pos) {
+                return !this.level.getBlockState(pos.below()).isAir();
+            }
+        };
+        flyingpathnavigator.setCanOpenDoors(false);
+        flyingpathnavigator.setCanFloat(false);
+        flyingpathnavigator.setCanPassDoors(true);
+        return flyingpathnavigator;
+    }
+
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+        return this.isBaby() ? sizeIn.height() * 0.5F : sizeIn.height() * 0.5F;
+    }
+
+    public boolean causeFallDamage(float distance, float damageMultiplier) {
+        return false;
+    }
+
+    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+        fallDistance = 0;
+    }
+
+    public void tick(){
+        super.tick();
+
+        if(this.isBaby() && this.getEyeHeight() > this.getBbHeight()){
+            this.refreshDimensions();
+        }
+        if(this.isInLove() && !this.isNoDespawn()){
+            this.setNoDespawn(true);
+        }
+        if(isInNether()){
+            this.setNoDespawn(true);
+            conversionTime++;
+            if(conversionTime > 300){
+                EntityCrimsonMosquito mosquito = AMEntityRegistry.CRIMSON_MOSQUITO.get().create(level());
+                mosquito.copyPosition(this);
+                if(!this.level().isClientSide){
+                    mosquito.finalizeSpawn((ServerLevelAccessor)level(), level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null);
+                }
+                level().addFreshEntity(mosquito);
+                mosquito.onSpawnFromFly();
+                this.remove(RemovalReason.DISCARDED);
+            }
+        }
+    }
+
+    public InteractionResult mobInteract(Player p_230254_1_, InteractionHand p_230254_2_) {
+        ItemStack lvt_3_1_ = p_230254_1_.getItemInHand(p_230254_2_);
+        if(lvt_3_1_.is(AMTagRegistry.FLY_FOODSTUFFS)){
+            if(!p_230254_1_.isCreative()){
+                lvt_3_1_.shrink(1);
+            }
+            this.setNoDespawn(true);
+            this.heal(2);
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(p_230254_1_, p_230254_2_);
+
+    }
+
+    protected boolean makeFlySound() {
+        return true;
+    }
+
+    protected void jumpInLiquid(TagKey<Fluid> fluidTag) {
+        this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public Vec3 getLeashOffset() {
+        return new Vec3(0.0D, 0.5F * this.getEyeHeight(), this.getBbWidth() * 0.2F);
+    }
+
+    public boolean isFood(ItemStack stack) {
+        return stack.is(AMTagRegistry.FLY_BREEDABLES);
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
+        EntityFly fly = AMEntityRegistry.FLY.get().create(level());
+        fly.setNoDespawn(true);
+        return fly;
+    }
+
+    @Override
+    public boolean isFlying() {
+        return true;
+    }
+
+    class WanderGoal extends Goal {
+        WanderGoal() {
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean canUse() {
+            return EntityFly.this.navigation.isDone() && EntityFly.this.random.nextInt(3) == 0;
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean canContinueToUse() {
+            return EntityFly.this.navigation.isInProgress();
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        public void start() {
+            Vec3 vector3d = this.getRandomLocation();
+            if (vector3d != null) {
+                EntityFly.this.navigation.moveTo(EntityFly.this.navigation.createPath(AMBlockPos.fromVec3(vector3d), 1), 1.0D);
+            }
+
+        }
+
+        @Nullable
+        private Vec3 getRandomLocation() {
+            Vec3   vec3 = EntityFly.this.getViewVector(0.0F);
+            int i = 8;
+            Vec3 vec32 = HoverRandomPos.getPos(EntityFly.this, 8, 7, vec3.x, vec3.z, Mth.HALF_PI, 3, 1);
+            return vec32 != null ? vec32 : AirAndWaterRandomPos.getPos(EntityFly.this, 8, 4, -2, vec3.x, vec3.z, (double)Mth.HALF_PI);
+        }
+    }
+
+    private class AnnoyZombieGoal extends Goal {
+        protected final Sorter theNearestAttackableTargetSorter;
+        protected final Predicate<? super Entity> targetEntitySelector;
+        protected int executionChance = 8;
+        protected boolean mustUpdate;
+        private Entity targetEntity;
+        private int cooldown = 0;
+
+        AnnoyZombieGoal() {
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.theNearestAttackableTargetSorter = new Sorter(EntityFly.this);
+            this.targetEntitySelector = new Predicate<Entity>() {
+                @Override
+                public boolean apply(@Nullable Entity e) {
+                    return e.isAlive() && e.getType().is(AMTagRegistry.FLY_TARGETS) && (!(e instanceof LivingEntity) || ((LivingEntity) e).getHealth() >= 2D);
+                }
+            };
+        }
+
+        @Override
+        public boolean canUse() {
+            if (EntityFly.this.isPassenger() || EntityFly.this.isVehicle()) {
+                return false;
+            }
+            if (!this.mustUpdate) {
+                long worldTime = EntityFly.this.level().getGameTime() % 10;
+                if (EntityFly.this.getNoActionTime() >= 100 && worldTime != 0) {
+                    return false;
+                }
+                if (EntityFly.this.getRandom().nextInt(this.executionChance) != 0 && worldTime != 0) {
+                    return false;
+                }
+            }
+            List<Entity> list = EntityFly.this.level().getEntitiesOfClass(Entity.class, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
+            if (list.isEmpty()) {
+                return false;
+            } else {
+                Collections.sort(list, this.theNearestAttackableTargetSorter);
+                this.targetEntity = list.get(0);
+                this.mustUpdate = false;
+                return true;
+            }
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return targetEntity != null;
+        }
+
+        public void stop() {
+            this.targetEntity = null;
+        }
+
+        @Override
+        public void tick() {
+            if(cooldown > 0){
+                cooldown--;
+            }
+            if(targetEntity != null){
+                if (EntityFly.this.getNavigation().isDone()) {
+                    int i = EntityFly.this.getRandom().nextInt(3) - 1;
+                    int k = EntityFly.this.getRandom().nextInt(3) - 1;
+                    int l = (int) ((EntityFly.this.getRandom().nextInt(3) - 1) * Math.ceil(targetEntity.getBbHeight()));
+                    EntityFly.this.getNavigation().moveTo(this.targetEntity.getX() + i, this.targetEntity.getY() + l, this.targetEntity.getZ() + k, 1);
+                }
+                if(EntityFly.this.distanceToSqr(targetEntity) < 3.0F){
+                    if(targetEntity instanceof LivingEntity && ((LivingEntity) targetEntity).getHealth() > 2D){
+                        if(cooldown == 0){
+                            targetEntity.hurt(damageSources().generic(), 1);
+                            cooldown = 100;
+                        }
+                    }else{
+                        this.stop();
+                    }
+
+                }
+            }
+        }
+
+        protected double getTargetDistance() {
+            return 16D;
+        }
+
+        protected AABB getTargetableArea(double targetDistance) {
+            Vec3 renderCenter = new Vec3(EntityFly.this.getX() + 0.5, EntityFly.this.getY() + 0.5, EntityFly.this.getZ() + 0.5D);
+            double renderRadius = 5;
+            AABB aabb = new AABB(-renderRadius, -renderRadius, -renderRadius, renderRadius, renderRadius, renderRadius);
+            return aabb.move(renderCenter);
+        }
+
+
+        public record Sorter(Entity theEntity) implements Comparator<Entity> {
+            public int compare(Entity p_compare_1_, Entity p_compare_2_) {
+                final double d0 = this.theEntity.distanceToSqr(p_compare_1_);
+                final double d1 = this.theEntity.distanceToSqr(p_compare_2_);
+                return Double.compare(d0, d1);
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Un espectro es el pariente lejano del phantom de la Superficie y solo se puede hallar en el gran vacío entre las islas del End. Estos seres etéreos no pueden ser atacados por ningún medio normal, excepto por daño mágico como pociones.
+Sin embargo, no debería haber necesidad de atacarlos, ya que los espectros son completamente pacíficos, a diferencia de sus primos los phantoms.
+Los espectros generalmente no se interesan por los asuntos mundanos, pero sí encuentran un interés especial en los corazones de almas y seguirán a cualquier persona que sostenga uno.
+<NEWLINE>
+Si uno logra atraer a un espectro lo suficientemente cerca, puede usar una correa para unirse a la bestia.
+Cuando sujetes a un espectro con una correa, este te arrastrará. La criatura etérea se convierte en una forma rápida y fácil de navegar por el End, pues ser arrastrado por un espectro a través del vacío es una forma fácil de encontrar nuevas islas del End para explorar.
+Para separarse del espectro, simplemente agáchate o interactúa otra vez con la correa.

@@ -1,0 +1,10 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Kemik Yılan, Nether'in derin lav göllerinde yaşayan dev, yılan benzeri hortlak bir yaratıktır. Zaman zaman
+lavdan dışarı atlarken görülebilir, ancak kısa bir süre sonra tekrar lavın içinde kaybolurlar. Kemik Yılan sadece
+kaşiflerin değil, aynı zamanda Wither İskeletleri'nin de ölümcül düşmanıdır. Kemik Yılan ne zaman bir yaratığı hedef alsa, sıçrayarak
+Lavın içinden çıkar ve avını altında ezmeye çalışır.
+
+Kemik Yılan öldürülürse kemik yığınları halinde patlar, ancak dişlerinden birini de düşürebilir. Lav şişesiyle demlendiğinde, lavın içini su gibi görmeyi sağlayan Lav Görüşü İksiri oluşturulabilir.

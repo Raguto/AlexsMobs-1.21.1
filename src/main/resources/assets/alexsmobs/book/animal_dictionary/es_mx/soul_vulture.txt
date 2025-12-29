@@ -1,0 +1,9 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Los buitres de almas son los restos descompuestos de aves muertas hace mucho tiempo que acechan los valles de arena del almas del Nether. Se pueden ver estos pájaros muertos vivientes rodeando los innumerables esqueletos gigantes que cubren el paisaje.
+Si cualquier explorador se le acerca, el buitre de almas se abalanzará en un ataque chupavidas, con el que puede minar la salud de su presa hasta un máximo de cinco veces. Si muere después, hay una probabilidad de que suelte su corazón infundido de almas.
+El corazón de almas se puede utilizar para preparar una poción de robaalmas, que le da al bebedor los mismos poderes que el pájaro.
+<NEWLINE>
+Al igual que sus homólogos, los esqueletos del Wither, los buitres de almas son enemigos naturales de los piglins. También son presa frecuente de las serpientes óseas del Nether.

@@ -1,0 +1,8 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+El ornitorrinco es una criatura que parece una combinación de varios otros animales, pero es completamente única por derecho propio. Se puede encontrar con baja frecuencia en biomas fluviales de la Superficie.
+Este extraño mamífero tiene espolones venenosos en sus patas, que puede utilizar para infligir efectos venenosos a cualquier atacante.
+Los débiles sentidos del olfato, el oído y la vista del ornitorrinco lo han llevado a depender de la electrorrecepción para cazar y navegar. Debido a esto, el ornitorrinco se siente atraído naturalmente por la redstone cuando se le ofrece. Si se le alimenta con redstone, el ornitorrinco recargará su sensibilidad eléctrica y buscará algunos gusanos en los bloques de arcilla cercanos.
+Cuando busca comida, el ornitorrinco desentierra varias bolas de arcilla y gusanos, los que luego puede recoger. Si se alimenta con un bloque de redstone, la cantidad de elementos desenterrados aumentará considerablemente.
+Al igual que otras pequeñas criaturas acuáticas, el ornitorrinco puede recogerse con una cubeta de agua. Se puede criar con colas de langosta, su comida favorita.

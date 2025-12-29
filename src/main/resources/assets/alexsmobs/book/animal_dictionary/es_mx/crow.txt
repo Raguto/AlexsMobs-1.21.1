@@ -1,0 +1,12 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Los cuervos son aves ruidosas que se encuentran en bosques y llanuras. Estas criaturas se consideran plagas, ya que a menudo se las puede encontrar rodeando los campos y dañando el crecimiento de los cultivos. Una simple calabaza tallada es suficiente para ahuyentar a los cuervos de un campo pequeño.
+Estas aves generalmente se dispersan y surcan los cielos cuando se les acerca. Los cuervos recogen cualquier alimento que pueda caber en sus picos y lo devoran.
+<NEWLINE>
+A pesar de su apariencia huraña, los cuervos pueden ser domesticados arrojándoles algunas semillas de calabaza. Los cuervos domesticados son criaturas extremadamente útiles con una variedad de usos diferentes. Se les puede hacer sentarse, deambular, seguir o recoger ítems.
+Cualquier cuervo domesticado que se siente sobre una paca de heno recuperará la salud lentamente. También volarán alrededor de esta paca de heno más tarde, cuando estén listos para recoger ítems. 
+<NEWLINE>
+Cuando un cuervo al que se le ha ordenado recoger encuentra un ítem, buscará un contenedor, como un cofre o un horno, que tenga puesto un marco de ítems.
+Si el ítem en el marco es el mismo que el que está sostenido en el pico del cuervo, lo depositará desde ese lado en el contenedor. Cuando se les ordene seguir, los cuervos volarán alrededor de su dueño y, después de un rato, intentarán sentarse sobre sus hombros.
+Los cuervos se pueden quitar de los hombros al agacharse. Cuando los cuervos defienden a su dueño, picotean a su atacante y le causan un daño lo suficientemente bajo como para no volver al monstruo agresivo. Sin embargo, los cuervos causan daño adicional a los objetivos si son muertos vivientes.

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:base_stone_overworld",
+    "#minecraft:dirt",
+    "#c:sand",
+    "#c:gravel",
+    "#minecraft:terracotta",
+    "minecraft:mud"
+  ]
+}

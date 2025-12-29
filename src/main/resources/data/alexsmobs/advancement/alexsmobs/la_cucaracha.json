@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "id": "alexsmobs:tab_icon",
+      "nbt": "{DisplayEntityType:\"alexsmobs:cockroach\", DisplayMobFlags:99}",
+      "components": {
+        "alexsmobs:tab_icon_display": {
+          "display_entity_type": "alexsmobs:cockroach"
+        }
+      }
+    },
+    "title": {
+      "translate": "advancements.alexsmobs.la_cucaracha.title"
+    },
+    "description": {
+      "translate": "advancements.alexsmobs.la_cucaracha.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "alexsmobs:alexsmobs/maraca",
+  "criteria": {
+    "tame": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "alexsmobs:maraca"
+          ]
+        },
+        "entity": {
+          "type": "alexsmobs:cockroach"
+        }
+      }
+    }
+  }
+}

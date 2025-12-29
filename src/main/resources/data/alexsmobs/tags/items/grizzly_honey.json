@@ -1,0 +1,10 @@
+{
+  "__comment": "Pacifies grizzly and heals for 10 HP",
+  "replace": false,
+  "values": [
+    "minecraft:honeycomb",
+    "minecraft:honey_block",
+    "minecraft:honeycomb_block",
+    "minecraft:honey_bottle"
+  ]
+}

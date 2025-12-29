@@ -1,0 +1,7 @@
+{
+  "__comment": "Used to move while riding when these items are held",
+  "replace": false,
+  "values": [
+    "alexsmobs:chorus_on_a_stick"
+  ]
+}

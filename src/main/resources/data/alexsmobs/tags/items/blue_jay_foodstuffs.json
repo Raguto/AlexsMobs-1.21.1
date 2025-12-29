@@ -1,0 +1,9 @@
+{
+  "__comment": "Will follow with these items in your hand",
+  "replace": false,
+  "values": [
+    "#alexsmobs:blue_jay_alert_foods",
+    "#alexsmobs:blue_jay_breedables",
+    "#alexsmobs:blue_jay_teaming_foods"
+  ]
+}

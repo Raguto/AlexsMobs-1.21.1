@@ -1,0 +1,8 @@
+{
+  "__comment": "Will follow with these items in your hand and heal if given",
+  "replace": false,
+  "values": [
+    "#alexsmobs:cosmaw_breedables",
+    "#alexsmobs:cosmaw_tameables"
+  ]
+}

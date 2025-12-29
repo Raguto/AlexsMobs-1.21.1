@@ -1,0 +1,9 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+El koala asesino es un marsupial hostil y de aspecto demoníaco nativo de los desiertos del Nether. Esta criatura a menudo se puede encontrar colgando boca abajo del techo del Nether, esperando que una presa desprevenida se acerque.
+Cuando la presa está debajo, el koala asesino saltará de su posición e intentará aplastar a su objetivo con su cuerpo. Una vez que haya aterrizado, utilizará sus enormes mandíbulas y sus afiladas garras para atacar. Si logra despachar a su presa, puede saltar de regreso al techo del Nether.
+<NEWLINE>
+Si muere, el koala asesino soltará una de sus garras, que, en un apuro, puede usarse para crear un mechero sin la necesidad de un lingote de hierro. También se puede utilizar para preparar una poción de aferramiento, que permitirá a quien la beba pararse y caminar sobre los techos, tal como lo hace el koala asesino.

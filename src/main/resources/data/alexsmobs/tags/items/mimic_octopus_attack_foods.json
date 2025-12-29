@@ -1,0 +1,7 @@
+{
+  "__comment": "5-8 of these enables octopus to mimic combat abilities",
+  "replace": false,
+  "values": [
+    "alexsmobs:mimicream"
+  ]
+}

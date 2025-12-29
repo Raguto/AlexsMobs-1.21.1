@@ -1,0 +1,7 @@
+{
+  "__comment": "Items eaten by Shoebill when it fishes",
+  "replace": false,
+  "values": [
+    "#minecraft:fishes"
+  ]
+}

@@ -1,0 +1,17 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Skreecher, derin karanlık biyomun tavanına tutunmuş olarak bulunan garip, korkunç derecede mutasyona uğramış bir primattır.
+Doğal biyomu çok karanlık olduğu için, genellikle sadece devasa, parlayan gözleriyle ayırt edilebilir.
+<NEWLINE>
+Düşman bir canavar olarak kabul edilmesine rağmen, Skreecher tipik anlamda savaşamaz. Bunun yerine, avını tespit ettiğinde, hem uluyarak hem de iki büyük ayağını birbirine vurarak son derece gürültülü bir ses çıkarmaya başlayacaktır.
+Sese bu kadar duyarlı bir biyomda böylesine yüksek bir gürültü birkaç saniye içinde hedefinin hemen altındaki bir muhafızı uyandıracaktır.
+<NEWLINE>
+Maceracıların şansına, Skreecher'ın canı son derece sınırlıdır ve herhangi bir menzilli saldırı, onu yere düşürmenin yanı sıra bir muhafız çağırmasını geçici olarak devre dışı bırakabilir.
+Bu canavarlarla karşılaşmanın en zor kısmı, onlar sizi tespit etmeden önce onları tespit etmektir.
+<NEWLINE>
+Bir Skreecher öldürüldüğünde ruhunu düşürme ihtimali vardır. Skreecher Ruhu bir Sculk Patlayıcısı yapmak için kullanılabilir.
+<NEWLINE>
+<NEWLINE>
+Bu blok, yakındaki bir sculk sensörü tarafından etkinleştirildiğinde, patlayıcının 3 yatay bloğu içinde bulunan yakındaki yaratıklara zarar verebilecek yüksek sesli bir patlama çıkarır. Bir redstone sinyaliyle geçici olarak devre dışı bırakılabilir ve patlamaların hafif bir bekleme süresi vardır, bu da Sculk Patlayıcısı'nı tuzaklar için kullanışlı hale getirir.

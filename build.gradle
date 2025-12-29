@@ -1,0 +1,190 @@
+plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.111'
+}
+
+version = '1.22.9'
+group = 'com.github.alexthe667'
+
+base {
+    archivesName = 'alexsmobs'
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        name = "JitPack"
+        url = "https://jitpack.io"
+    }
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
+neoForge {
+    version = '21.1.203'
+
+    parchment {
+        mappingsVersion = '2024.07.28'
+        minecraftVersion = '1.21'
+    }
+
+    accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'alexsmobs'
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'alexsmobs'
+        }
+
+        data {
+            data()
+            programArguments.addAll '--mod', 'alexsmobs', '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        alexsmobs {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+dependencies {
+    implementation "net.neoforged:neoforge:21.1.203"
+    implementation 'com.github.alexthe666.citadel:citadel-1.21.1:2.7.0'
+
+    compileOnly "mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${jei_mc_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${jei_mc_version}-neoforge:${jei_version}"
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+            "Specification-Title": "alexsmobs",
+            "Specification-Vendor": "alexthe668",
+            "Specification-Version": "1.22.9",
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"alexthe668",
+        ])
+    }
+
+    reproducibleFileOrder = true
+    preserveFileTimestamps = false
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+task deploy {
+    dependsOn tasks.named('jar')
+    
+    doLast {
+    def modsDir = file('D:/instances/NeoForge 1.21.1/minecraft/mods')
+
+        if (!modsDir.exists()) {
+            logger.warn("deploy: target mods directory does not exist: ${modsDir}")
+            return
+        }
+
+        // Delete ALL old cobblemon_home jars from the target mods folder (any version)
+        modsDir.listFiles().each { f ->
+            try {
+                if (f.name.contains('alexsmobs') && f.name.endsWith('.jar')) {
+                    logger.lifecycle("deploy: deleting old jar from mods folder: ${f.name}")
+                    f.delete()
+                }
+            } catch (Throwable e) {
+                logger.warn("deploy: failed to delete ${f.name}: ${e.message}")
+            }
+        }
+
+        // Copy the freshly built jar
+        def jarTask = tasks.named('jar').get()
+        copy {
+            from jarTask.archiveFile
+            into modsDir
+        }
+
+        logger.lifecycle("deploy: copied ${jarTask.archiveFile.get().asFile.name} to ${modsDir}")
+    }
+}
+
+// Clean old JARs from build/libs before building to prevent confusion
+tasks.named('clean') {
+    doLast {
+        def buildLibs = file('build/libs')
+        if (buildLibs.exists()) {
+            buildLibs.listFiles().each { f ->
+                if (f.name.contains('alexsmobs') && f.name.endsWith('.jar')) {
+                    logger.lifecycle("clean: removing old jar: ${f.name}")
+                    f.delete()
+                }
+            }
+        }
+    }
+}
+
+// Automatically run deploy after a successful build
+tasks.named('build') {
+    finalizedBy deploy
+}

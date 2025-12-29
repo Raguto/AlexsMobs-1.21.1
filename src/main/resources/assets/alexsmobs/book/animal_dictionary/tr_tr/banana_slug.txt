@@ -1,0 +1,15 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Muz Salyangozları sadece mantar besinlerinin bol olduğu yaşlı ve uzun ormanlarda bulunabilen küçük yumuşakçalardır.
+Genellikle blokların kenarlarına yapışmış olarak ya da çalılıklar arasında yavaşça ilerlerken bulunabilirler.
+<NEWLINE>
+Bazen bir Muz Salyangozu dünyada dolaşırken balçığının bir kısmını düşürür ve bu balçık toplanabilir.
+<NEWLINE>
+Bu balçık bir Muz Salyangozu Balçığı Bloğu oluşturmak için kullanılabilir.
+<NEWLINE>
+Bu özel sümüklüböceğin balçığı, doğal dünyadaki en emici malzemelerden biridir. Bir blok suya temas ettiğinde, suyun çoğunu anında kristalleşmiş mukusa dönüştürecektir.
+Eğer balçık bloğu bundan sonra kırılırsa, kristalleşmiş sümük blokları da çürümeye başlayacaktır. Bu sümük kristalleri kırılgandır ve yalnızca ipeksi dokunuşla kazıldığında düşerler.
+Bu, Muz Salyangozu Balçığı Bloğu'nu özellikle büyük su kütlelerini boşaltmak için kullanışlı hale getirir.
+<NEWLINE>
+Muz Salyangozları kahverengi mantarlarla çiftleştirilebilir ve hepsi muz sarısı değil, çeşitli farklı renklerde olabilir.

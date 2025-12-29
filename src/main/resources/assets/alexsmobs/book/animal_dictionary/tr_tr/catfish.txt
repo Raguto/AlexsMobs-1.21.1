@@ -1,0 +1,14 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Yayın balığı bataklıklarda ve nehirlerde bulunan uyuşuk balıklardır. Nehirlerdeki Yayın balığı oldukça iri olabilmesine rağmen, bu balıkların yalnızca en irileri bataklıklarda bulunabilir.
+<NEWLINE>
+Alttan beslenmeleri nedeniyle Yayın balığı yiyecek konusunda seçici değildir. Küçük ve orta boy Yayın balığı gördüğü her şeyi vakumlamaya çalışacaktır. Büyük Yayın balığı bunun yerine bir bloktan kısa herhangi bir mob'u yemeye çalışacaktır.
+Küçük Yayın balığı karınlarında yalnızca üç istif eşya depolayabilirken, orta Yayın balığı dokuz istif eşya depolayabilir. Büyük Yayın balığı aynı anda karnında sadece bir mob bulundurabilir.
+Yayın balığı, yaralandığında veya pirozom tadından nefret ettiği için bir deniz priozomla karşılaştığında yediği herhangi bir eşyayı veya mob'u kusar.
+<NEWLINE>
+Görüşleri zayıf olsa da, bir deniz fenerinin yanıp sönen ışığıyla ilgili bir şey Yayın balığı'nı kendine çeker. Bunlar Yayın balığı'nı eşya olan ya da olmayan alanlara çekmek için kullanılabilir.
+<NEWLINE>
+Büyük olanlar da dahil olmak üzere tüm Yayın balıkları su kovasıyla yakalanabilir. Balığın karnının içindekiler korunacaktır, bu nedenle Yayın Balığı, yemlemeden sonra kovaya konularak eşyaları veya bir mob'u taşımak için etkili bir şekilde kullanılabilir.
+Eşya yiyen veya kovaya konulan Yayın balığı yok olmayacaktır.

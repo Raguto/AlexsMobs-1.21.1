@@ -1,0 +1,12 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Bazaltgezer'ler, Nether'ın yaygın Lavgezer'inin dev akrabalarıdır. Lavgezerlerin aksine, Bazaltgezer'ler yalnızca Bazalt Deltalarında bulunabilir.
+Kuzenlerinden çok daha dayanıklıdırlar, karada, suda ve lavda yeteneklidirler. Bununla birlikte, Bazaltgezerler de agresiftir.
+Çok yaklaşan herhangi bir kaşif davetsiz misafir olarak kabul edilir ve hemen saldırıya uğrar. Bazaltgezer, hedeflerine Stradpole fırlatmak için uzun, ağlı saçlarını kullanır ve bu da makul miktarda hasar verir.
+Öldürüldüklerinde, Bazaltgezerlerden Bazalt ve nadiren de Straddlite çıkar. Bu mineral nadir bulunur ve bir Straddle Tahtası yapmak için kullanılabilir.
+<NEWLINE>
+Straddle Tahta'ları lavda yüzen, ancak suda batan boyanabilir tahtalardır. Nether'in büyük lav okyanuslarını kolaylıkla geçmek için kullanılabilirler. Bununla birlikte, nispeten güvenli Lavgezer'in aksine, Straddle Tahtası kırılmaya ve alabora olmaya yatkındır, bu da daha riskli ancak daha hızlı bir yolculukla sonuçlanır.
+Eğer Straddle Tahtası kullanan biri tavana ya da duvara çok sert çarparsa, kendini lavlı bir mezara gömülürken bulur.

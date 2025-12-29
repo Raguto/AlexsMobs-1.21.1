@@ -1,0 +1,7 @@
+{
+  "__comment": "Heals when given",
+  "replace": false,
+  "values": [
+    "#minecraft:fishes"
+  ]
+}

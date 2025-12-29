@@ -1,0 +1,22 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Hırıltı, yalnızca yeryüzünün derinliklerinde, hatta Mağara Çıyanlarından bile daha derinlerde bulunabilen işkence görmüş bir ruhtur.
+Zararsız bir insan gibi görünen Hırıltı aslında 50 bloktan daha uzağa uzatabildiği yılan gibi bir boynu olan ölmemiş bir canavardır.
+Bir Hırıltı avını gördüğünde, iyice bakmak için boynunu yukarı doğru uzatır, ardından avını ısırmak için hızla ileri doğru atılır ve hızla geri çekilir.
+Bir Hırıltı'nın gövdesi yerine kafası vurulursa, hasarın yalnızca yarısını alır.
+<NEWLINE>
+Bir Hırıltı öldürüldüğünde kırmızı yün, bir Esnek Tendon veya nadiren de olsa bir Rahatsız Edici Kimono düşebilir.
+Esnek Tendonlar, Dropbear pençeleriyle birleştirilerek Tendon Kırbacı oluşturulabilir.
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Bu orta menzilli yakın dövüş silahı bir kılıç gibi savrulabilir ve azalan hasarla yakındaki üç canavara kadar hasar verir. Bu silah 8 blok öteden kullanılabilir ve otomatik olarak bir hedef bulabilir.
+Kırbaç, Esnek Tendonlar ile onarılabilir.
+<NEWLINE>
+Rahatsız Edici Kimono bir göğüs zırhı olarak kullanılabilir. Düşük zırh ve dayanıklılığa sahip olmasına rağmen, giyenin yerleştirme mesafesini iki blok artırır ve diğer hırıltılar ve Wither'lar hariç, çoğu ölümsüz düşman yaratığı giyenlere karşı tarafsız hale getirir.
+Yün ile tamir edilebilir.
+<NEWLINE>
+Hırıltılar genellikle çok derinlerde bulunsa da, nadiren yüzeyde Kiraz Bahçeleri'nde de görülebilirler.

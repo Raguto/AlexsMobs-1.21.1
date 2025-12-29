@@ -1,0 +1,15 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Boşluk Solucanı, doğal olarak end'in altındaki boşlukta yaşayan kadim bir yaratıktır.
+Bu solucanların bir tür boyutlar arası parazit olduğu düşünülmektedir, çünkü gerçeklikte tünel açma yetenekleri vardır.
+Bu patron, End'in boşluğuna bir Gizemli Solucan atılarak boşluktan çıkarılabilir. Bir Enderiyofaj Kapsit'inin içine bir Kızıl Sivrisinek Larvası yerleştirerek bu solucanlardan biri elde edilebilir.
+<NEWLINE>
+Boşluk Solucanı birden fazla yıkıcı saldırıyla donatılmıştır. İlk olarak, ağzından bir seferde dört adede kadar güdümlü kristal fırlatabilir, bunlar yakındaki herhangi bir avı arar ve büyük hasar verir. Ardından, solucan yoluna çıkan her şeyi doğrudan ısırmaya çalışır. Son olarak, solucan gizli avına ulaşmak için yoktan bir geçit açabilir.
+Bu canavarı öldürmeye çalışırken, yalnızca kafasına önemli hasar verdiğinizden emin olmalısınız. Vücudun bir bölümü ciddi şekilde hasar görürse parlamayı durdurur ve yok edilirse solucanın tamamı ikiye bölünür. Bu bölünmüş solucanlar yarı cana sahip olur ve biraz daha yavaş hareket eder, ancak yine de büyük miktarda hasar verirler. Eğer dikkatli olunmazsa, solucanlarla tamamen dolabilirler.
+<NEWLINE>
+Solucan öldürüldüğünde, hem bir gözünü hem de iki mandibulasını düşürür. Çene kemikleri bir araya getirilerek bir gaga, redstone ile etkinleştirildiğinde çenesindeki herhangi bir yaratığı ısıran bir ödül yapılabilir.
+Göz, mandibulalar ve biraz netherit ile birlikte kullanılarak büyülü bir kazma oluşturulabilir: Boyutsal Yontucu.
+<NEWLINE>
+<NEWLINE>
+Diğer kazmaların aksine, Boyutsal Oyucu blokları kırmak için değil, gerçekliğin kendisini kırmak için kullanılır. Aleti herhangi bir yerde kullanarak, kişi doğduğu yere geri dönmek için bir portal açabilir. Diğer tarafta, sadece bir dakikalığına geçici bir dönüş portalı da açılacaktır. Sadece 20 kullanımı olduğu için bu aracı aşırı kullanmamaya dikkat etmelisiniz.

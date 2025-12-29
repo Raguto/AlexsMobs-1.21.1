@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "alexsmobs:animal_dictionary"
+    },
+    "title": {
+      "translate": "advancements.alexsmobs.root.title"
+    },
+    "description": {
+      "translate": "advancements.alexsmobs.root.desc"
+    },
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "sends_telemetry_event": false
+}

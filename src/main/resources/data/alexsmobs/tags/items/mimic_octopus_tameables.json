@@ -1,0 +1,8 @@
+{
+  "__comment": "Tames and heals when given",
+  "replace": false,
+  "values": [
+    "alexsmobs:lobster_tail",
+    "alexsmobs:cooked_lobster_tail"
+  ]
+}

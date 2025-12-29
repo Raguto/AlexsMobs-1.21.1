@@ -1,0 +1,13 @@
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+<NEWLINE>
+Las avispas caza tarántulas son insectos parasitoides gigantes que a menudo se encuentran zumbando sobre los biomas del desierto. Aunque son una vista aterradora, tienen poco interés en la mayoría de las criaturas y son neutrales.
+A las avispas caza tarántulas, como su nombre lo indica, les encanta atacar a las arañas. A menudo se les puede ver lanzándose en picada para picar arañas, solo para volar y regresar una vez que la presa ha quedado completamente inmovilizada por su picadura. Procederán a arrastrar a la araña y enterrarla bajo tierra.
+Al atacar, la avispa puede infligir el efecto de picadura debilitante, que paraliza a los artrópodos y daña a los no artrópodos hasta que tienen la mitad de su salud habitual. Puede ser difícil luchar contra estas avispas, ya que tienen un patrón de vuelo muy errático y pican con frecuencia.
+<NEWLINE>
+Las avispas caza tarántulas se pueden domesticar alimentándolas con 15 a 25 ojos de araña. Pueden resultar una defensa formidable contra muchos monstruos y su picadura es extremadamente beneficiosa cuando se lucha contra arañas u otros artrópodos. Se pueden criar dos avispas domesticadas alimentándolas con ojos de araña fermentados. Las avispas buscarán arañas para paralizarlas, solo que esta vez, una cría de avispa emergerá de donde está enterrada la araña después de un tiempo.
+Las avispas caza tarántulas domesticadas se puede curar con flores. Si son criadas en el Nether, tendrán un patrón de color amarillo rojizo.
+<NEWLINE>
+Si una avispa caza tarántulas es asesinada, puede soltar un fragmento de ala. Nueve de estos se pueden usar para crear un ala completa de avispa, y dos de estas se pueden combinar con unos élitros para crear una versión mejorada de éstos. Esta mejora tiene 3 puntos de armadura adicionales, más durabilidad y es encantable. Los fragmentos de ala también se pueden usar para crear un diseño de estandarte único.
