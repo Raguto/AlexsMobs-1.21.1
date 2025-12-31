@@ -140,7 +140,8 @@ public class ModelAlligatorSnappingTurtle extends AdvancedEntityModel<EntityAlli
 
     }
 
-    public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    @Override
+    public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color) {
         this.head_inside.setScale(0.99F, 0.99F, 0.99F);
         if (this.young) {
             this.head.setScale(1.5F, 1.5F, 1.5F);
@@ -148,14 +149,14 @@ public class ModelAlligatorSnappingTurtle extends AdvancedEntityModel<EntityAlli
             matrixStackIn.scale(0.25F, 0.25F, 0.25F);
             matrixStackIn.translate(0.0D, 4.5, 0.125D);
             parts().forEach((p_228292_8_) -> {
-                p_228292_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 0);
+                p_228292_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
             });
             matrixStackIn.popPose();
         } else {
             this.head.setScale(1F, 1F, 1F);
             matrixStackIn.pushPose();
             parts().forEach((p_228290_8_) -> {
-                p_228290_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 0);
+                p_228290_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
             });
             matrixStackIn.popPose();
         }

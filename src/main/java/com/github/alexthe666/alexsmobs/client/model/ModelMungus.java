@@ -139,7 +139,8 @@ public class ModelMungus extends AdvancedEntityModel<EntityMungus> {
 		return ImmutableList.of(root, body, hair, eye, leg_left, leg_right, sack, nose);
 	}
 
-	public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+	@Override
+    public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color) {
 		if (this.young) {
 			this.eye.setScale(1.5F, 1.5F, 1.5F);
 			this.nose.setScale(1.5F, 1.5F, 1.5F);
@@ -147,7 +148,7 @@ public class ModelMungus extends AdvancedEntityModel<EntityMungus> {
 			matrixStackIn.scale(0.5F, 0.5F, 0.5F);
 			matrixStackIn.translate(0.0D, 1.5D, 0.125D);
 			parts().forEach((p_228292_8_) -> {
-				p_228292_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 0);
+				p_228292_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
 			});
 			matrixStackIn.popPose();
 		} else {
@@ -155,7 +156,7 @@ public class ModelMungus extends AdvancedEntityModel<EntityMungus> {
 			this.nose.setScale(1F, 1F, 1F);
 			matrixStackIn.pushPose();
 			parts().forEach((p_228290_8_) -> {
-				p_228290_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 0);
+				p_228290_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
 			});
 			matrixStackIn.popPose();
 		}

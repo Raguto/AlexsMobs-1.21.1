@@ -22,6 +22,7 @@ public class RenderRhinoceros extends MobRenderer<EntityRhinoceros, ModelRhinoce
 
 
     protected void scale(EntityRhinoceros rabbit, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = rabbit.isBaby();
         matrixStackIn.scale(1.1F, 1.1F, 1.1F);
     }
 

@@ -20,6 +20,7 @@ public class RenderGorilla extends MobRenderer<EntityGorilla, ModelGorilla> {
     }
 
     protected void scale(EntityGorilla entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(entitylivingbaseIn.getGorillaScale(), entitylivingbaseIn.getGorillaScale(), entitylivingbaseIn.getGorillaScale());
     }
 

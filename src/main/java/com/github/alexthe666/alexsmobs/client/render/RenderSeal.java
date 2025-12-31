@@ -33,6 +33,10 @@ public class RenderSeal extends MobRenderer<EntitySeal, ModelSeal> {
         this.addLayer(new SealTearsLayer(this));
     }
 
+    protected void scale(EntitySeal entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
+    }
+
     protected boolean shouldShowName(EntitySeal seal) {
         return super.shouldShowName(seal) || seal.isTearsEasterEgg();
     }

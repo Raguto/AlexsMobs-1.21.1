@@ -18,6 +18,7 @@ public class RenderOrca extends MobRenderer<EntityOrca, ModelOrca> {
     }
 
     protected void scale(EntityOrca entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(1.3F, 1.3F, 1.3F);
     }
 

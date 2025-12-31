@@ -16,6 +16,10 @@ public class RenderTusklin extends MobRenderer<EntityTusklin, ModelTusklin> {
         this.addLayer(new LayerTusklinGear(this));
     }
 
+    protected void scale(EntityTusklin entitylivingbaseIn, com.mojang.blaze3d.vertex.PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
+    }
+
     protected boolean isShaking(EntityTusklin entity) {
         return entity.isInNether();
     }

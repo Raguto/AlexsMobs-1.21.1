@@ -20,6 +20,7 @@ public class RenderLobster extends MobRenderer<EntityLobster, ModelLobster> {
     }
 
     protected void scale(EntityLobster entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
 

@@ -13,6 +13,10 @@ public class RenderSkunk extends MobRenderer<EntitySkunk, ModelSkunk> {
         super(renderManagerIn, new ModelSkunk(), 0.45F);
     }
 
+    protected void scale(EntitySkunk entitylivingbaseIn, com.mojang.blaze3d.vertex.PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
+    }
+
     public ResourceLocation getTextureLocation(EntitySkunk entity) {
         return TEXTURE;
     }

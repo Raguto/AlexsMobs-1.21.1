@@ -20,6 +20,7 @@ public class RenderWarpedToad extends MobRenderer<EntityWarpedToad, ModelWarpedT
     }
 
     protected void scale(EntityWarpedToad entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(1.25F, 1.25F, 1.25F);
     }
 

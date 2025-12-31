@@ -45,6 +45,7 @@ public class RenderGiantSquid extends MobRenderer<EntityGiantSquid, ModelGiantSq
     }
 
     protected void scale(EntityGiantSquid entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
     public ResourceLocation getTextureLocation(EntityGiantSquid entity) {

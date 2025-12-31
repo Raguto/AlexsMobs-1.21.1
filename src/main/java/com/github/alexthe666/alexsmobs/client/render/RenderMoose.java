@@ -24,6 +24,7 @@ public class RenderMoose extends MobRenderer<EntityMoose, ModelMoose> {
     }
 
     protected void scale(EntityMoose entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
 

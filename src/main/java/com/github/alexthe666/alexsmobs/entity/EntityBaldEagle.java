@@ -344,27 +344,31 @@ public class EntityBaldEagle extends TamableAnimal implements IFollower, IFalcon
         Item item = itemstack.getItem();
         InteractionResult type = super.mobInteract(player, hand);
         if (itemstack.is(AMTagRegistry.BALD_EAGLE_FOODSTUFFS) && this.getHealth() < this.getMaxHealth()) {
-            this.heal(10);
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            this.level().broadcastEntityEvent(this, (byte) 7);
-            return InteractionResult.CONSUME;
-        } else if (itemstack.is(AMTagRegistry.BALD_EAGLE_TAMEABLES)) {
-            if (itemstack.hasCraftingRemainingItem() && !player.getAbilities().instabuild) {
-                this.spawnAtLocation(itemstack.getCraftingRemainingItem());
-            }
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            if (random.nextBoolean()) {
+            if (!this.level().isClientSide) {
+                this.heal(10);
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
                 this.level().broadcastEntityEvent(this, (byte) 7);
-                this.tame(player);
-                this.setCommand(1);
-            } else {
-                this.level().broadcastEntityEvent(this, (byte) 6);
             }
-            return InteractionResult.CONSUME;
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        } else if (itemstack.is(AMTagRegistry.BALD_EAGLE_TAMEABLES)) {
+            if (!this.level().isClientSide) {
+                if (itemstack.hasCraftingRemainingItem() && !player.getAbilities().instabuild) {
+                    this.spawnAtLocation(itemstack.getCraftingRemainingItem());
+                }
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
+                if (random.nextBoolean()) {
+                    this.level().broadcastEntityEvent(this, (byte) 7);
+                    this.tame(player);
+                    this.setCommand(1);
+                } else {
+                    this.level().broadcastEntityEvent(this, (byte) 6);
+                }
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (isTame() && !isFood(itemstack)) {
             if (!this.isBaby() && item == AMItemRegistry.FALCONRY_HOOD.get()) {
                 if (!this.hasCap()) {

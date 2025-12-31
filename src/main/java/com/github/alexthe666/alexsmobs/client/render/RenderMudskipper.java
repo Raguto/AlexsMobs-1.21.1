@@ -17,7 +17,7 @@ public class RenderMudskipper extends MobRenderer<EntityMudskipper, ModelMudskip
 
 
     protected void scale(EntityMudskipper rabbit, PoseStack matrixStackIn, float partialTickTime) {
-
+        this.model.young = rabbit.isBaby();
     }
 
     public ResourceLocation getTextureLocation(EntityMudskipper entity) {

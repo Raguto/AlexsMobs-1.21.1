@@ -15,6 +15,7 @@ public class RenderHammerheadShark extends MobRenderer<EntityHammerheadShark, Mo
     }
 
     protected void scale(EntityHammerheadShark entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
 

@@ -25,6 +25,7 @@ public class RenderSeagull extends MobRenderer<EntitySeagull, ModelSeagull> {
     }
 
     protected void scale(EntitySeagull entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
     public ResourceLocation getTextureLocation(EntitySeagull entity) {

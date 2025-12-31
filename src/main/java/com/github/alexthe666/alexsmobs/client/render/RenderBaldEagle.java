@@ -39,6 +39,7 @@ public class RenderBaldEagle extends MobRenderer<EntityBaldEagle, ModelBaldEagle
     }
 
     protected void scale(EntityBaldEagle eagle, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = eagle.isBaby();
         if(eagle.isPassenger() && eagle.getVehicle() != null) {
             if (eagle.getVehicle() instanceof Player) {
                 Player mount = (Player)eagle.getVehicle();

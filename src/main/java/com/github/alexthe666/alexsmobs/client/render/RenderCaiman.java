@@ -13,6 +13,10 @@ public class RenderCaiman extends MobRenderer<EntityCaiman, ModelCaiman> {
         super(renderManagerIn, new ModelCaiman(), 0.4F);
     }
 
+    protected void scale(EntityCaiman entitylivingbaseIn, com.mojang.blaze3d.vertex.PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
+    }
+
     public ResourceLocation getTextureLocation(EntityCaiman entity) {
         return TEXTURE;
     }

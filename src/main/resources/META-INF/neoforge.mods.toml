@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[4,)"
-license="GNU LESSER GENERAL PUBLIC LICENSE"
+license="GPL-3.0"
 issueTrackerURL="https://github.com/Alex-the-666/AlexsMobs/issues"
 
 [[mods]]
@@ -9,7 +9,7 @@ version="1.22.12"
 displayName="Alex's Mobs"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/alexs-mobs"
 logoFile="alexs_mobs.png"
-authors="Alexthe668, Carro1001, Paint_Ninja"
+authors="Alexthe668, Carro1001, Paint_Ninja, Raguto"
 description='''New, original, engaging, and aesthetic mobs for Minecraft.'''
 
 [[dependencies.alexsmobs]]

@@ -221,26 +221,34 @@ public class EntityKangaroo extends TamableAnimal implements ContainerListener, 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        InteractionResult type = super.mobInteract(player, hand);
+        
+        // Check taming BEFORE calling super to prevent player from eating the item
+        // In 1.21.1, use sidedSuccess to show arm swing on client while consuming item on server
         if (!isTame() && itemstack.is(AMTagRegistry.KANGAROO_TAMEABLES)) {
-            this.usePlayerItem(player, hand, itemstack);
-            this.gameEvent(GameEvent.EAT);
-            this.playSound(SoundEvents.HORSE_EAT, this.getSoundVolume(), this.getVoicePitch());
-            carrotFeedings++;
-            if (carrotFeedings > 10 && getRandom().nextInt(2) == 0 || carrotFeedings > 15) {
-                this.tame(player);
-                this.level().broadcastEntityEvent(this, (byte) 7);
-            } else {
-                this.level().broadcastEntityEvent(this, (byte) 6);
+            if (!this.level().isClientSide) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.gameEvent(GameEvent.EAT);
+                this.playSound(SoundEvents.HORSE_EAT, this.getSoundVolume(), this.getVoicePitch());
+                carrotFeedings++;
+                if (carrotFeedings > 10 && getRandom().nextInt(2) == 0 || carrotFeedings > 15) {
+                    this.tame(player);
+                    this.level().broadcastEntityEvent(this, (byte) 7);
+                } else {
+                    this.level().broadcastEntityEvent(this, (byte) 6);
+                }
             }
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
+        // Now call super after taming check
+        InteractionResult type = super.mobInteract(player, hand);
         if (isTame() && this.getHealth() < this.getMaxHealth() && itemstack.getFoodProperties(this) != null) {
-            this.usePlayerItem(player, hand, itemstack);
-            this.gameEvent(GameEvent.EAT);
-            this.playSound(SoundEvents.HORSE_EAT, this.getSoundVolume(), this.getVoicePitch());
-            this.heal(itemstack.getFoodProperties(this) != null ? itemstack.getFoodProperties(this).nutrition() : 0);
-            return InteractionResult.SUCCESS;
+            if (!this.level().isClientSide) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.gameEvent(GameEvent.EAT);
+                this.playSound(SoundEvents.HORSE_EAT, this.getSoundVolume(), this.getVoicePitch());
+                this.heal(itemstack.getFoodProperties(this) != null ? itemstack.getFoodProperties(this).nutrition() : 0);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player) && !isFood(itemstack)) {

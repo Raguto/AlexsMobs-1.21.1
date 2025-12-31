@@ -22,6 +22,7 @@ public class RenderCrocodile extends MobRenderer<EntityCrocodile, ModelCrocodile
     }
 
     protected void scale(EntityCrocodile entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.9F, 0.9F, 0.9F);
     }
 

@@ -22,6 +22,7 @@ public class RenderPlatypus extends MobRenderer<EntityPlatypus, ModelPlatypus> {
     }
 
     protected void scale(EntityPlatypus entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
          matrixStackIn.scale(0.9F, 0.9F, 0.9F);
     }
 

@@ -39,7 +39,8 @@ public class ModelShieldOfTheDeep extends AdvancedEntityModel<Entity> {
 	}
 
 	// @Override removed - signature changed in 1.21
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    @Override
+    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color){
 		shield.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 

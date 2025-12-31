@@ -90,6 +90,7 @@ public class RenderSugarGlider extends MobRenderer<EntitySugarGlider, ModelSugar
     }
 
     protected void scale(EntitySugarGlider mob, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = mob.isBaby();
         if(mob.isPassenger() && mob.getVehicle() != null) {
             if (mob.getVehicle() instanceof Player) {
                 Player mount = (Player)mob.getVehicle();

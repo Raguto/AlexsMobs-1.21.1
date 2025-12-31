@@ -19,6 +19,7 @@ public class RenderEmu extends MobRenderer<EntityEmu, ModelEmu> {
     }
 
     protected void scale(EntityEmu entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.85F, 0.85F, 0.85F);
     }
 

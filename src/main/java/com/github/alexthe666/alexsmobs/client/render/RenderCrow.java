@@ -17,6 +17,7 @@ public class RenderCrow extends MobRenderer<EntityCrow, ModelCrow> {
     }
 
     protected void scale(EntityCrow entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
 

@@ -16,6 +16,7 @@ public class RenderManedWolf extends MobRenderer<EntityManedWolf, ModelManedWolf
     }
 
     protected void scale(EntityManedWolf entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.85F, 0.85F, 0.85F);
     }
 

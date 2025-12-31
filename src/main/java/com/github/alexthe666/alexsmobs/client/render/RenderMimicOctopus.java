@@ -115,6 +115,7 @@ public class RenderMimicOctopus extends MobRenderer<EntityMimicOctopus, ModelMim
     }
 
     protected void scale(EntityMimicOctopus octo, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = octo.isBaby();
         matrixStackIn.translate(0, -0.02F, 0);
         matrixStackIn.scale(0.9F * octo.getScale(), 0.9F * octo.getScale(), 0.9F * octo.getScale());
     }

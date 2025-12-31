@@ -22,6 +22,7 @@ public class RenderFlutter extends MobRenderer<EntityFlutter, EntityModel<Entity
     }
 
     protected void scale(EntityFlutter entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         if(entitylivingbaseIn.isPotted()){
             model = modelPotted;
         }else{

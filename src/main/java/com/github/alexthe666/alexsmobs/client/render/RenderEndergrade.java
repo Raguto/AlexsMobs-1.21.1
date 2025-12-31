@@ -33,6 +33,7 @@ public class RenderEndergrade extends MobRenderer<EntityEndergrade, ModelEndergr
     }
 
     protected void scale(EntityEndergrade entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(1.2F, 1.2F, 1.2F);
     }
 

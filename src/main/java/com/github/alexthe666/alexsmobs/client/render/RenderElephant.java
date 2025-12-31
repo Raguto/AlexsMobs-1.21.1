@@ -20,6 +20,7 @@ public class RenderElephant extends MobRenderer<EntityElephant, ModelElephant> {
     }
 
     protected void scale(EntityElephant entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
        if(entitylivingbaseIn.isTusked()){
            matrixStackIn.scale(1.1F, 1.1F, 1.1F);
        }

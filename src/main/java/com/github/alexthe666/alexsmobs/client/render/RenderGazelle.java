@@ -15,6 +15,7 @@ public class RenderGazelle extends MobRenderer<EntityGazelle, ModelGazelle> {
     }
 
     protected void scale(EntityGazelle entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.8F, 0.8F, 0.8F);
     }
 

@@ -34,6 +34,7 @@ public class RenderToucan extends MobRenderer<EntityToucan, ModelToucan> {
     }
 
     protected void scale(EntityToucan entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.9F, 0.9F, 0.9F);
     }
 

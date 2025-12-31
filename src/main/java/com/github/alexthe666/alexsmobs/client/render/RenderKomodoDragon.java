@@ -22,6 +22,7 @@ public class RenderKomodoDragon extends MobRenderer<EntityKomodoDragon, ModelKom
     }
 
     protected void scale(EntityKomodoDragon entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
     public ResourceLocation getTextureLocation(EntityKomodoDragon entity) {

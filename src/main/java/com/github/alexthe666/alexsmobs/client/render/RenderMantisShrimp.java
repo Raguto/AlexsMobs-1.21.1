@@ -20,6 +20,7 @@ public class RenderMantisShrimp extends MobRenderer<EntityMantisShrimp, ModelMan
     }
 
     protected void scale(EntityMantisShrimp entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.8F, 0.8F, 0.8F);
     }
 

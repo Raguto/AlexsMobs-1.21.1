@@ -391,30 +391,35 @@ public class EntityFlutter extends TamableAnimal implements IFollower, FlyingAni
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        InteractionResult type = super.mobInteract(player, hand);
+        // Check taming BEFORE calling super to prevent player from eating the item
         if (!isTame() && canEatFlower(itemstack)) {
-            this.usePlayerItem(player, hand, itemstack);
-            this.flowersEaten.add(BuiltInRegistries.ITEM.getKey(itemstack.getItem()).toString());
-            this.gameEvent(GameEvent.ENTITY_INTERACT);
-            this.playSound(AMSoundRegistry.FLUTTER_YES.get(), this.getSoundVolume(), this.getVoicePitch());
-            if (this.flowersEaten.size() > 3 && getRandom().nextInt(3) == 0 || this.flowersEaten.size() > 6) {
-                this.tame(player);
-                this.level().broadcastEntityEvent(this, (byte) 7);
-            } else {
-                this.level().broadcastEntityEvent(this, (byte) 6);
+            if (!this.level().isClientSide) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.flowersEaten.add(BuiltInRegistries.ITEM.getKey(itemstack.getItem()).toString());
+                this.gameEvent(GameEvent.ENTITY_INTERACT);
+                this.playSound(AMSoundRegistry.FLUTTER_YES.get(), this.getSoundVolume(), this.getVoicePitch());
+                if (this.flowersEaten.size() > 3 && getRandom().nextInt(3) == 0 || this.flowersEaten.size() > 6) {
+                    this.tame(player);
+                    this.level().broadcastEntityEvent(this, (byte) 7);
+                } else {
+                    this.level().broadcastEntityEvent(this, (byte) 6);
+                }
             }
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (!isTame() && itemstack.is(ItemTags.FLOWERS)) {
             this.gameEvent(GameEvent.ENTITY_INTERACT);
             this.playSound(AMSoundRegistry.FLUTTER_NO.get(), this.getSoundVolume(), this.getVoicePitch());
             this.entityData.set(SHAKING_HEAD_TICKS, 20);
         }
+        InteractionResult type = super.mobInteract(player, hand);
         if (isTame() && itemstack.is(ItemTags.FLOWERS) && this.getHealth() < this.getMaxHealth()) {
-            this.usePlayerItem(player, hand, itemstack);
-            this.gameEvent(GameEvent.EAT);
-            this.playSound(SoundEvents.CAT_EAT, this.getSoundVolume(), this.getVoicePitch());
-            this.heal(5);
-            return InteractionResult.SUCCESS;
+            if (!this.level().isClientSide) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.gameEvent(GameEvent.EAT);
+                this.playSound(SoundEvents.CAT_EAT, this.getSoundVolume(), this.getVoicePitch());
+                this.heal(5);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player) && !isFood(itemstack) && !itemstack.is(ItemTags.FLOWERS)) {

@@ -68,6 +68,7 @@ public class RenderMungus extends MobRenderer<EntityMungus, ModelMungus> {
     }
 
     protected void scale(EntityMungus entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         String s = ChatFormatting.stripFormatting(entitylivingbaseIn.getName().getString());
         if (s != null && s.toLowerCase().contains("drip")) {
             matrixStackIn.translate(0F,  entitylivingbaseIn.isBaby() ? -0.075F : -0.15F, 0F);

@@ -16,6 +16,7 @@ public class RenderTasmanianDevil extends MobRenderer<EntityTasmanianDevil, Mode
     }
 
     protected void scale(EntityTasmanianDevil entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
 

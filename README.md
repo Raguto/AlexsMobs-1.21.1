@@ -4,7 +4,7 @@
 This is a port of [[Alex's Mobs](https://github.com/AlexModGuy/AlexsMobs)](link-to-original) to Minecraft 1.21.1.
 
 **Original Author:** [AlexModGuy]  
-**License:** LGPL-3.0
+**License:** GPL-3.0
 
 ## Changes
 - Updated code to work with Minecraft 1.21.1 API changes

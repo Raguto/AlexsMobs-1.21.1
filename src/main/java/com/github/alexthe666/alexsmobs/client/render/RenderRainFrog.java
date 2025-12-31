@@ -17,6 +17,7 @@ public class RenderRainFrog extends MobRenderer<EntityRainFrog, ModelRainFrog> {
     }
 
     protected void scale(EntityRainFrog entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.9F, 0.9F, 0.9F);
     }
 

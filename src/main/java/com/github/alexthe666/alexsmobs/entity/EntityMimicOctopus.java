@@ -321,8 +321,27 @@ public class EntityMimicOctopus extends TamableAnimal implements ISemiAquatic, I
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         MimicState readState = getStateForItem(itemstack);
+        final boolean tame = isTame();
+        // Check taming BEFORE calling super to prevent player from eating the item
+        if (!tame && itemstack.is(AMTagRegistry.MIMIC_OCTOPUS_TAMEABLES)) {
+            if (!this.level().isClientSide) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.gameEvent(GameEvent.EAT);
+                this.playSound(SoundEvents.DOLPHIN_EAT, this.getSoundVolume(), this.getVoicePitch());
+                fishFeedings++;
+                if (this.getMimicState() == MimicState.OVERLAY && this.getMimickedBlock() == null) {
+                    if (fishFeedings > 5 && getRandom().nextInt(2) == 0 || fishFeedings > 8) {
+                        this.tame(player);
+                        this.level().broadcastEntityEvent(this, (byte) 7);
+                    } else {
+                        this.level().broadcastEntityEvent(this, (byte) 6);
+                    }
+                }
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
         InteractionResult type = super.mobInteract(player, hand);
-        if (readState != null && this.isTame()) {
+        if (readState != null && tame) {
             if (mimicCooldown == 0) {
                 this.setMimicState(readState);
                 mimicCooldown = 20;
@@ -332,7 +351,6 @@ public class EntityMimicOctopus extends TamableAnimal implements ISemiAquatic, I
             }
             return InteractionResult.SUCCESS;
         }
-        final boolean tame = isTame();
         if (tame && itemstack.is(AMTagRegistry.MIMIC_OCTOPUS_TOGGLES_MIMIC)) {
             this.setStopChange(!this.isStopChange());
             if (this.isStopChange()) {
@@ -343,28 +361,15 @@ public class EntityMimicOctopus extends TamableAnimal implements ISemiAquatic, I
             }
             return InteractionResult.SUCCESS;
         }
-        if (!tame && itemstack.is(AMTagRegistry.MIMIC_OCTOPUS_TAMEABLES)) {
-            this.usePlayerItem(player, hand, itemstack);
-            this.gameEvent(GameEvent.EAT);
-            this.playSound(SoundEvents.DOLPHIN_EAT, this.getSoundVolume(), this.getVoicePitch());
-            fishFeedings++;
-            if (this.getMimicState() == MimicState.OVERLAY && this.getMimickedBlock() == null) {
-                if (fishFeedings > 5 && getRandom().nextInt(2) == 0 || fishFeedings > 8) {
-                    this.tame(player);
-                    this.level().broadcastEntityEvent(this, (byte) 7);
-                } else {
-                    this.level().broadcastEntityEvent(this, (byte) 6);
-                }
-            }
-            return InteractionResult.SUCCESS;
-        }
         if (tame && itemstack.is(AMTagRegistry.MIMIC_OCTOPUS_TAMEABLES)) {
             if (this.getHealth() < this.getMaxHealth()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.gameEvent(GameEvent.EAT);
-                this.playSound(SoundEvents.DOLPHIN_EAT, this.getSoundVolume(), this.getVoicePitch());
-                this.heal(5);
-                return InteractionResult.SUCCESS;
+                if (!this.level().isClientSide) {
+                    this.usePlayerItem(player, hand, itemstack);
+                    this.gameEvent(GameEvent.EAT);
+                    this.playSound(SoundEvents.DOLPHIN_EAT, this.getSoundVolume(), this.getVoicePitch());
+                    this.heal(5);
+                }
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
             return InteractionResult.PASS;
         }

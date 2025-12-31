@@ -91,6 +91,7 @@ public class RenderLaviathan extends MobRenderer<EntityLaviathan, ModelLaviathan
     }
 
     protected void scale(EntityLaviathan entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
     protected boolean isShaking(EntityLaviathan entity) {

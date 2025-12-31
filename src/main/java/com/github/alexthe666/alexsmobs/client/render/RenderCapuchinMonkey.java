@@ -20,6 +20,7 @@ public class RenderCapuchinMonkey extends MobRenderer<EntityCapuchinMonkey, Mode
     }
 
     protected void scale(EntityCapuchinMonkey entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.8F, 0.8F, 0.8F);
     }
 

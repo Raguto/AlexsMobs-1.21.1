@@ -18,6 +18,7 @@ public class RenderGeladaMonkey extends MobRenderer<EntityGeladaMonkey, ModelGel
     }
 
     protected void scale(EntityGeladaMonkey entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(entitylivingbaseIn.getGeladaScale(), entitylivingbaseIn.getGeladaScale(), entitylivingbaseIn.getGeladaScale());
     }
 

@@ -28,6 +28,7 @@ public class RenderAnteater extends MobRenderer<EntityAnteater, ModelAnteater> {
     }
 
     protected void scale(EntityAnteater entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
 

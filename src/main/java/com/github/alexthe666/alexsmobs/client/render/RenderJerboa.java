@@ -16,6 +16,7 @@ public class RenderJerboa extends MobRenderer<EntityJerboa, ModelJerboa> {
     }
 
     protected void scale(EntityJerboa entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.8F, 0.8F, 0.8F);
     }
 

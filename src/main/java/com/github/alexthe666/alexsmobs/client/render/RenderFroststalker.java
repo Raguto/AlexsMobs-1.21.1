@@ -16,6 +16,7 @@ public class RenderFroststalker extends MobRenderer<EntityFroststalker, ModelFro
     }
 
     protected void scale(EntityFroststalker entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
     public ResourceLocation getTextureLocation(EntityFroststalker entity) {

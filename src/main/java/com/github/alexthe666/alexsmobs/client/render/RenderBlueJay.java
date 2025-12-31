@@ -27,6 +27,7 @@ public class RenderBlueJay extends MobRenderer<EntityBlueJay, ModelBlueJay> {
     }
 
     protected void scale(EntityBlueJay mob, PoseStack matrixStackIn, float partialTicks) {
+        this.model.young = mob.isBaby();
         matrixStackIn.scale(0.9F, 0.9F, 0.9F);
         if(mob.isPassenger() && mob.getVehicle() != null) {
             if (mob.getVehicle() instanceof EntityRaccoon entityRaccoon) {

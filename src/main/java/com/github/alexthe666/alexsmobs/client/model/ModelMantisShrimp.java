@@ -130,7 +130,8 @@ public class ModelMantisShrimp extends AdvancedEntityModel<EntityMantisShrimp> {
 		return ImmutableList.of(root, body, head, eye_left, eye_right, fist_left, fist_right, arm_left, arm_right, whisker_left, whisker_right, flapper_left, flapper_right, tail, legs_back, legs_front);
 	}
 
-	public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+	@Override
+    public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color) {
 		if (this.young) {
 			this.eye_left.setScale(1.15F, 1.15F, 1.15F);
 			this.eye_right.setScale(1.15F, 1.15F, 1.15F);
@@ -138,7 +139,7 @@ public class ModelMantisShrimp extends AdvancedEntityModel<EntityMantisShrimp> {
 			matrixStackIn.scale(0.5F, 0.5F, 0.5F);
 			matrixStackIn.translate(0.0D, 1.5D, 0.125D);
 			parts().forEach((p_228292_8_) -> {
-				p_228292_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 0);
+				p_228292_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
 			});
 			matrixStackIn.popPose();
 		} else {
@@ -146,7 +147,7 @@ public class ModelMantisShrimp extends AdvancedEntityModel<EntityMantisShrimp> {
 			this.eye_right.setScale(1F, 1F, 1F);
 			matrixStackIn.pushPose();
 			parts().forEach((p_228290_8_) -> {
-				p_228290_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, 0);
+				p_228290_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
 			});
 			matrixStackIn.popPose();
 		}

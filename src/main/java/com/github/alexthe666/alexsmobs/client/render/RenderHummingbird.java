@@ -17,6 +17,7 @@ public class RenderHummingbird extends MobRenderer<EntityHummingbird, ModelHummi
     }
 
     protected void scale(EntityHummingbird entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.75F, 0.75F, 0.75F);
     }
 

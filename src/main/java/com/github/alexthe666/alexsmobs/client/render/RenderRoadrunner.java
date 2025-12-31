@@ -14,6 +14,10 @@ public class RenderRoadrunner extends MobRenderer<EntityRoadrunner, ModelRoadrun
         super(renderManagerIn, new ModelRoadrunner(), 0.3F);
     }
 
+    protected void scale(EntityRoadrunner entitylivingbaseIn, com.mojang.blaze3d.vertex.PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
+    }
+
     public ResourceLocation getTextureLocation(EntityRoadrunner entity) {
         return entity.isMeep() ? TEXTURE_MEEP : TEXTURE;
     }

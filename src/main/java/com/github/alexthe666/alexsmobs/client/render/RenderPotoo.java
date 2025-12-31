@@ -33,6 +33,7 @@ public class RenderPotoo extends MobRenderer<EntityPotoo, ModelPotoo> {
     }
 
     protected void scale(EntityPotoo eagle, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = eagle.isBaby();
         if(eagle.isPassenger() && eagle.getVehicle() != null) {
             if (eagle.getVehicle() instanceof Player) {
                 Player mount = (Player)eagle.getVehicle();

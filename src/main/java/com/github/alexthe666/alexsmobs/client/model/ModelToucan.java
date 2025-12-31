@@ -98,7 +98,8 @@ public class ModelToucan extends AdvancedEntityModel<EntityToucan> {
     }
 
     // @Override removed - signature changed in 1.21
-    public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    @Override
+    public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer buffer, int packedLight, int packedOverlay, int color){
         if (this.young) {
             float f = 1.24F;
             head.setScale(f, f, f);
@@ -107,7 +108,7 @@ public class ModelToucan extends AdvancedEntityModel<EntityToucan> {
             matrixStackIn.scale(0.5F, 0.5F, 0.5F);
             matrixStackIn.translate(0.0D, 1.5D, 0D);
             parts().forEach((p_228292_8_) -> {
-                p_228292_8_.render(matrixStackIn, buffer, packedLight, packedOverlay, 0);
+                p_228292_8_.render(matrixStackIn, buffer, packedLight, packedOverlay, color);
             });
             matrixStackIn.popPose();
             this.head.setScale(0.9F, 0.9F, 0.9F);
@@ -115,7 +116,7 @@ public class ModelToucan extends AdvancedEntityModel<EntityToucan> {
             this.head.setScale(0.9F, 0.9F, 0.9F);
             matrixStackIn.pushPose();
             parts().forEach((p_228290_8_) -> {
-                p_228290_8_.render(matrixStackIn, buffer, packedLight, packedOverlay, 0);
+                p_228290_8_.render(matrixStackIn, buffer, packedLight, packedOverlay, color);
             });
             matrixStackIn.popPose();
         }

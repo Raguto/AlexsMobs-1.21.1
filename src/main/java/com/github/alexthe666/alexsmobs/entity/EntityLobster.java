@@ -183,6 +183,15 @@ public class EntityLobster extends WaterAnimal implements ISemiAquatic, Bucketab
         return super.doHurtTarget(entityIn);
     }
 
+    public void baseTick() {
+        int i = this.getAirSupply();
+        super.baseTick();
+        // Restore air supply to prevent drowning - lobsters can breathe underwater
+        if (this.isInWater()) {
+            this.setAirSupply(i);
+        }
+    }
+
     public void tick() {
         super.tick();
         prevAttackProgress = attackProgress;
@@ -210,10 +219,6 @@ public class EntityLobster extends WaterAnimal implements ISemiAquatic, Bucketab
             doHurtTarget(this.getTarget());
             attackCooldown = 20;
         }
-    }
-
-    protected void handleAirSupply(int air) {
-
     }
 
     public int getVariant() {

@@ -15,6 +15,7 @@ public class RenderRattlesnake extends MobRenderer<EntityRattlesnake, ModelRattl
     }
 
     protected void scale(EntityRattlesnake entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
 

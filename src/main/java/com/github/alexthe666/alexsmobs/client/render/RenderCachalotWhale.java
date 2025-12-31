@@ -22,6 +22,7 @@ public class RenderCachalotWhale extends MobRenderer<EntityCachalotWhale, ModelC
     }
 
     protected void scale(EntityCachalotWhale entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
     public boolean shouldRender(EntityCachalotWhale livingEntityIn, Frustum camera, double camX, double camY, double camZ) {

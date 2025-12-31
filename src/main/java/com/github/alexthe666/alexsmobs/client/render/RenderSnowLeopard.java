@@ -16,6 +16,7 @@ public class RenderSnowLeopard extends MobRenderer<EntitySnowLeopard, ModelSnowL
     }
 
     protected void scale(EntitySnowLeopard entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
         matrixStackIn.scale(0.9F,0.9F, 0.9F);
     }
 

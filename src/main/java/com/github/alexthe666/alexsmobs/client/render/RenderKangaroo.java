@@ -29,7 +29,9 @@ public class RenderKangaroo extends MobRenderer<EntityKangaroo, ModelKangaroo> {
         return super.shouldRender(kangaroo, p_225626_2_, p_225626_3_, p_225626_5_, p_225626_7_);
     }
 
+    @Override
     protected void scale(EntityKangaroo entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+        this.model.young = entitylivingbaseIn.isBaby();
     }
 
     public ResourceLocation getTextureLocation(EntityKangaroo entity) {
