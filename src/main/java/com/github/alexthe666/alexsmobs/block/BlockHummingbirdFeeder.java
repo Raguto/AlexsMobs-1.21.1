@@ -7,7 +7,7 @@ import com.github.alexthe666.alexsmobs.misc.AMTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -81,10 +81,10 @@ public class BlockHummingbirdFeeder extends Block {
         return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
     }
 
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         int contents = state.getValue(CONTENTS);
         ItemStack waterBottle = PotionContents.createItemStack(Items.POTION, Potions.WATER);
-        ItemStack itemStack = player.getItemInHand(handIn);
         int setContent = -1;
         if(contents == 0){
             if(itemStack.is(AMTagRegistry.HUMMINGNBIRD_FEEDER_SWEETENERS)){
@@ -107,9 +107,9 @@ public class BlockHummingbirdFeeder extends Block {
         }
         if(setContent >= 0){
             worldIn.setBlockAndUpdate(pos, state.setValue(CONTENTS, setContent));
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
         }
-        return InteractionResult.FAIL;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     public void useItem(Player playerEntity, ItemStack stack, boolean dropBottle){

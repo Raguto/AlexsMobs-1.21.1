@@ -103,6 +103,13 @@ public class ClientProxy extends CommonProxy {
         bus.addListener(ClientProxy::onBlockColors);
         bus.addListener(ClientLayerRegistry::onAddLayers);
         bus.addListener(ClientProxy::setupParticles);
+        bus.addListener(ClientProxy::onRegisterMenuScreens);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void onRegisterMenuScreens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) {
+        event.register(AMMenuRegistry.TRANSMUTATION_TABLE.get(), GUITransmutationTable::new);
+        AlexsMobs.LOGGER.info("Registered Transmutation Table screen");
     }
 
     public void clientInit() {
@@ -267,7 +274,6 @@ public class ClientProxy extends CommonProxy {
         BlockEntityRenderers.register(AMTileEntityRegistry.CAPSID.get(), RenderCapsid::new);
         BlockEntityRenderers.register(AMTileEntityRegistry.VOID_WORM_BEAK.get(), RenderVoidWormBeak::new);
         BlockEntityRenderers.register(AMTileEntityRegistry.TRANSMUTATION_TABLE.get(), RenderTransmutationTable::new);
-        // MenuScreens.register( // API changedAMMenuRegistry.TRANSMUTATION_TABLE.get(), GUITransmutationTable::new);
     }
 
     private void initRainbowBuffers() {
