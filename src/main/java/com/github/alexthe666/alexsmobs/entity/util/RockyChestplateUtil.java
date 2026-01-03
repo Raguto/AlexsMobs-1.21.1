@@ -1,10 +1,6 @@
 package com.github.alexthe666.alexsmobs.entity.util;
 
-import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
-import com.github.alexthe666.alexsmobs.network.MessageSyncEntityData;
-import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,44 +9,32 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class RockyChestplateUtil {
 
-    private static final String ROCKY_ROLL_TICKS = "RockyRollTicksAlexsMobs";
-    private static final String ROCKY_ROLL_TIMESTAMP = "RockyRollTimestampAlexsMobs";
-    private static final String ROCKY_X = "RockyRollXAlexsMobs";
-    private static final String ROCKY_Y = "RockyRollYAlexsMobs";
-    private static final String ROCKY_Z = "RockyRollZAlexsMobs";
     private static final int MAX_ROLL_TICKS = 30;
+    
+    private static final Map<UUID, Integer> rollTicksMap = new HashMap<>();
+    private static final Map<UUID, Integer> rollTimestampMap = new HashMap<>();
 
     public static void rollFor(LivingEntity roller, int ticks) {
-        CompoundTag lassoedTag = CitadelEntityData.getOrCreateCitadelTag(roller);
-        lassoedTag.putInt(ROCKY_ROLL_TICKS, ticks);
+        UUID uuid = roller.getUUID();
+        rollTicksMap.put(uuid, ticks);
         if(ticks == MAX_ROLL_TICKS){
-            lassoedTag.putInt(ROCKY_ROLL_TIMESTAMP, roller.tickCount);
-        }
-        CitadelEntityData.setCitadelTag(roller, lassoedTag);
-        if (!roller.level().isClientSide) {
-            AlexsMobs.sendMSGToAll(new MessageSyncEntityData(roller.getId(), lassoedTag));
+            rollTimestampMap.put(uuid, roller.tickCount);
         }
     }
 
     public static int getRollingTicksLeft(LivingEntity entity) {
-        CompoundTag lassoedTag = CitadelEntityData.getOrCreateCitadelTag(entity);
-        if (lassoedTag.contains(ROCKY_ROLL_TICKS)) {
-            return lassoedTag.getInt(ROCKY_ROLL_TICKS);
-        }
-        return 0;
+        return rollTicksMap.getOrDefault(entity.getUUID(), 0);
     }
-
 
     public static int getRollingTimestamp(LivingEntity entity) {
-        CompoundTag lassoedTag = CitadelEntityData.getOrCreateCitadelTag(entity);
-        if (lassoedTag.contains(ROCKY_ROLL_TIMESTAMP)) {
-            return lassoedTag.getInt(ROCKY_ROLL_TIMESTAMP);
-        }
-        return 0;
+        return rollTimestampMap.getOrDefault(entity.getUUID(), 0);
     }
-
 
     public static boolean isWearing(LivingEntity entity) {
         return entity.getItemBySlot(EquipmentSlot.CHEST).getItem() == AMItemRegistry.ROCKY_CHESTPLATE.get();
@@ -64,15 +48,12 @@ public class RockyChestplateUtil {
         if(roller.isInWaterOrBubble()){
             roller.setDeltaMovement(roller.getDeltaMovement().add(0, -0.015F, 0));
         }
-        CompoundTag tag = CitadelEntityData.getOrCreateCitadelTag(roller);
-        boolean update = false;
         int rollCounter = getRollingTicksLeft(roller);
         if(rollCounter == 0){
-            if(roller.isSprinting()  && !roller.isShiftKeyDown() && (!(roller instanceof Player) || !((Player) roller).getAbilities().flying) && canRollAgain(roller) && !roller.isPassenger()){
-                update = true;
+            if(roller.isSprinting() && !roller.isShiftKeyDown() && (!(roller instanceof Player) || !((Player) roller).getAbilities().flying) && canRollAgain(roller) && !roller.isPassenger()){
                 rollFor(roller, MAX_ROLL_TICKS);
             }
-            if(roller instanceof Player &&  ((Player)roller).getForcedPose() == Pose.SWIMMING){
+            if(roller instanceof Player && ((Player)roller).getForcedPose() == Pose.SWIMMING){
                 ((Player)roller).setForcedPose(null);
             }
         }else{
@@ -100,20 +81,17 @@ public class RockyChestplateUtil {
                 rollFor(roller, rollCounter - 1);
             }
             if((roller instanceof Player && ((Player) roller).getAbilities().flying || roller.isShiftKeyDown()) && canRollAgain(roller)){
-                rollCounter = 0;
                 rollFor(roller, 0);
             }
-            if(rollCounter == 0){
-                update = true;
-            }
-        }
-        if (!roller.level().isClientSide && update) {
-            CitadelEntityData.setCitadelTag(roller, tag);
-            AlexsMobs.sendMSGToAll(new MessageSyncEntityData(roller.getId(), tag));
         }
     }
 
     private static boolean canRollAgain(LivingEntity roller) {
         return roller.tickCount - getRollingTimestamp(roller) >= 20 || Math.abs(roller.tickCount - getRollingTimestamp(roller)) > 100;
+    }
+    
+    public static void cleanup(UUID uuid) {
+        rollTicksMap.remove(uuid);
+        rollTimestampMap.remove(uuid);
     }
 }

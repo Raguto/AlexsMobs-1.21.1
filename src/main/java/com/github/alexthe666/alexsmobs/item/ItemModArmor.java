@@ -21,11 +21,21 @@ import javax.annotation.Nullable;
 public class ItemModArmor extends ArmorItem {
     
     public ItemModArmor(Holder<ArmorMaterial> material, Type type) {
-        super(material, type, new Item.Properties());
+        super(material, type, new Item.Properties().stacksTo(1));
     }
     
     public ItemModArmor(Holder<ArmorMaterial> material, Type type, Item.Properties properties) {
-        super(material, type, properties);
+        super(material, type, properties.stacksTo(1));
+    }
+    
+    @Override
+    public int getEnchantmentValue() {
+        return 15;
+    }
+    
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return stack.getCount() == 1;
     }
     
     @Override

@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#c:crops/rice"
+    "minecraft:wheat"
   ]
 }

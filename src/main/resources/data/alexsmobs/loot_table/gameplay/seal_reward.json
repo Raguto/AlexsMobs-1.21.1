@@ -5,12 +5,6 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:loot_table",
-          "weight": 4,
-          "quality": -2,
-          "value": "minecraft:gameplay/fishing/junk"
-        },
-        {
           "type": "minecraft:item",
           "weight": 10,
           "functions": [

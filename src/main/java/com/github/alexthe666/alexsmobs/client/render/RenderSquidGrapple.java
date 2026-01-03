@@ -55,8 +55,8 @@ public class RenderSquidGrapple extends EntityRenderer<EntitySquidGrapple> {
         float f5 = p_174310_ * f;
         float f6 = p_174311_ > 0.0F ? p_174311_ * f * f : p_174311_ - p_174311_ * (1.0F - f) * (1.0F - f);
         float f7 = p_174312_ * f;
-        p_174308_.addVertex(f5 - p_174319_, f6 + p_174318_, f7 + p_174320_).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), (int)(1.0F * 255)).setUv2(k & 0xFFFF, k >> 16);
-        p_174308_.addVertex(f5 + p_174319_, f6 + p_174317_ - p_174318_, f7 - p_174320_).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), (int)(1.0F * 255)).setUv2(k & 0xFFFF, k >> 16);
+        p_174308_.addVertex(p_174309_, f5 - p_174319_, f6 + p_174318_, f7 + p_174320_).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), 255).setLight(k);
+        p_174308_.addVertex(p_174309_, f5 + p_174319_, f6 + p_174317_ - p_174318_, f7 - p_174320_).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), 255).setLight(k);
     }
 
     public static <E extends Entity> void renderTentacle(Entity mob, float partialTick, PoseStack p_115464_, MultiBufferSource p_115465_, LivingEntity player, boolean left, float zOffset) {

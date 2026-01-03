@@ -57,8 +57,14 @@ public class EntityKomodoDragon extends TamableAnimal implements ITargetsDropped
     public int timeUntilSpit = this.random.nextInt(12000) + 24000;
     public float nextJostleAngleFromServer;
     private int riderAttackCooldown = 0;
-    public static final Predicate<EntityKomodoDragon> HURT_OR_BABY = (p_213616_0_) -> {
-        return p_213616_0_.isBaby() || p_213616_0_.getHealth() <= 0.7F * p_213616_0_.getMaxHealth();
+    // Predicate for targeting other Komodo Dragons - only target hurt adults, never babies
+    public static final Predicate<EntityKomodoDragon> TARGETABLE_KOMODO = (komodo) -> {
+        // Never target babies - adults should not attack children
+        if (komodo.isBaby()) {
+            return false;
+        }
+        // Only target hurt adults (territorial behavior)
+        return komodo.getHealth() <= 0.7F * komodo.getMaxHealth();
     };
     protected static final EntityDimensions JOSTLING_SIZE = EntityDimensions.scalable(1.35F, 1.85F);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(EntityKomodoDragon.class, EntityDataSerializers.INT);
@@ -121,7 +127,7 @@ public class EntityKomodoDragon extends TamableAnimal implements ITargetsDropped
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(4, new CreatureAITargetItems(this, false));
-        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, EntityKomodoDragon.class, 50, true, false, HURT_OR_BABY));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, EntityKomodoDragon.class, 50, true, false, TARGETABLE_KOMODO));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, Player.class, 150, true, true, null));
         this.targetSelector.addGoal(8, new EntityAINearestTarget3D(this, LivingEntity.class, 180, false, true, AMEntityRegistry.buildPredicateFromTag(AMTagRegistry.KOMODO_DRAGON_TARGETS)));
     }

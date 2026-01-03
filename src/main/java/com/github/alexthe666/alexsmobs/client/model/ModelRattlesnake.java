@@ -5,7 +5,6 @@ import com.github.alexthe666.alexsmobs.entity.util.Maths;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
-import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,7 +19,6 @@ public class ModelRattlesnake extends AdvancedEntityModel<EntityRattlesnake> {
     private final AdvancedModelBox neck2;
     private final AdvancedModelBox head;
     private final AdvancedModelBox tongue;
-    private ModelAnimator animator;
 
     public ModelRattlesnake() {
         texWidth = 64;
@@ -60,27 +58,6 @@ public class ModelRattlesnake extends AdvancedEntityModel<EntityRattlesnake> {
         head.addChild(tongue);
         tongue.setTextureOffset(0, 0).addBox(-0.5F, 0.0F, -2.0F, 1.0F, 0.0F, 2.0F, 0.0F, false);
         this.updateDefaultPose();
-        this.animator = ModelAnimator.create();
-    }
-
-    public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4) {
-        this.resetToDefaultPose();
-        animator.update(entity);
-        animator.setAnimation(EntityRattlesnake.ANIMATION_BITE);
-        animator.startKeyframe(7);
-        animator.move(body, 0, 0, 2);
-        animator.rotate(neck1, Maths.rad(-45), 0, 0);
-        animator.rotate(neck2, Maths.rad(15), 0, 0);
-        animator.rotate(tail1, 0, Maths.rad(15), 0);
-        animator.rotate(tail2, 0, Maths.rad(-15), 0);
-        animator.rotate(head, Maths.rad(20), 0, 0);
-        animator.endKeyframe();
-        animator.startKeyframe(5);
-        animator.move(body, 0, 0, -2);
-
-        animator.endKeyframe();
-        animator.resetKeyframe(3);
-
     }
 
     @Override
@@ -104,39 +81,82 @@ public class ModelRattlesnake extends AdvancedEntityModel<EntityRattlesnake> {
             });
             matrixStackIn.popPose();
         }
-
     }
 
     @Override
     public void setupAnim(EntityRattlesnake entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.resetToDefaultPose();
-        animate(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        float walkSpeed = 1.0F;
-        float walkDegree = 0.4F;
+        
+        float walkSpeed = 0.8F;
+        float walkDegree = 0.3F;
         float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-        AdvancedModelBox[] bodyParts = new AdvancedModelBox[]{neck1, neck2, body, tail1, tail2};
         float curlProgress = entity.prevCurlProgress + (entity.curlProgress - entity.prevCurlProgress) * partialTick;
-        progressPositionPrev(body, curlProgress, 0, 0, 3, 5F);
-        progressRotationPrev(body, curlProgress, 0, Maths.rad(-90), 0, 5F);
-        progressRotationPrev(tail1, curlProgress, Maths.rad(-10), Maths.rad(-70), 0, 5F);
-        progressRotationPrev(neck1, curlProgress, Maths.rad(-20), Maths.rad(60), 0, 5F);
-        progressRotationPrev(neck2, curlProgress, Maths.rad(-20), Maths.rad(60), 0, 5F);
-        progressRotationPrev(head, curlProgress, Maths.rad(20), Maths.rad(-30), Maths.rad(10), 5F);
+        
+        boolean isBiting = entity.getAnimation() == EntityRattlesnake.ANIMATION_BITE;
+        int biteTick = isBiting ? entity.getAnimationTick() : 0;
+        
+        // Calculate curl fade - fade out curl during first 5 ticks of bite
+        float curlFade = 1.0F;
+        if (isBiting && biteTick < 5) {
+            curlFade = 1.0F - (biteTick / 5.0F);
+        } else if (isBiting) {
+            curlFade = 0.0F;
+        }
+        
+        float effectiveCurl = curlProgress * curlFade;
+        if (effectiveCurl > 0) {
+            progressPositionPrev(body, effectiveCurl, 0, 0, 3, 5F);
+            progressRotationPrev(body, effectiveCurl, 0, Maths.rad(-90), 0, 5F);
+            progressRotationPrev(tail1, effectiveCurl, Maths.rad(-10), Maths.rad(-70), 0, 5F);
+            progressRotationPrev(neck1, effectiveCurl, Maths.rad(-20), Maths.rad(60), 0, 5F);
+            
+            if (entity.isRattling() && !isBiting) {
+                progressRotationPrev(tail2, effectiveCurl, Maths.rad(70), Maths.rad(-60), 0, 5F);
+                this.walk(tail2, 18, 0.1F, false, 1F, 0.2F, ageInTicks, 1);
+                this.swing(tail2, 18, 0.1F, false, 0f, 0f, ageInTicks, 1);
+            } else {
+                progressRotationPrev(tail2, effectiveCurl, Maths.rad(10), Maths.rad(-90), 0, 5F);
+            }
+        }
+        
+        if (isBiting) {
+            float biteBlend = Math.min(1.0F, biteTick / 5.0F);
+            
+            if (biteTick < 7) {
+                float windUp = biteTick / 7.0F;
+                body.rotationPointZ += 2.0F * windUp * biteBlend;
+                neck1.rotateAngleX += Maths.rad(-45) * windUp * biteBlend;
+                neck2.rotateAngleX += Maths.rad(15) * windUp * biteBlend;
+                tail1.rotateAngleY += Maths.rad(15) * windUp * biteBlend;
+                tail2.rotateAngleY += Maths.rad(-15) * windUp * biteBlend;
+                head.rotateAngleX += Maths.rad(20) * windUp * biteBlend;
+            } else if (biteTick < 12) {
+                float strikeProgress = (biteTick - 7) / 5.0F;
+                body.rotationPointZ += 2.0F - (4.0F * strikeProgress);
+                neck1.rotateAngleX += Maths.rad(-45) * (1.0F - strikeProgress);
+                neck2.rotateAngleX += Maths.rad(15) * (1.0F - strikeProgress);
+                tail1.rotateAngleY += Maths.rad(15) * (1.0F - strikeProgress);
+                tail2.rotateAngleY += Maths.rad(-15) * (1.0F - strikeProgress);
+                head.rotateAngleX += Maths.rad(20) * (1.0F - strikeProgress);
+            } else if (biteTick < 15) {
+                float resetProgress = (biteTick - 12) / 3.0F;
+                body.rotationPointZ += -2.0F * (1.0F - resetProgress);
+            }
+        }
+        
         if (entity.randomToungeTick > 0) {
             tongue.showModel = true;
-        }else{
-			tongue.showModel = false;
-		}
-        this.walk(tongue, 1, 0.5F, false, 1F, 0f, ageInTicks, 1);
-        if (entity.isRattling()) {
-            progressRotationPrev(tail2, curlProgress, Maths.rad(70), Maths.rad(-60), 0, 5F);
-            this.walk(tail2, 18, 0.1F, false, 1F, 0.2F, ageInTicks, 1);
-            this.swing(tail2, 18, 0.1F, false, 0f, 0f, ageInTicks, 1);
+            this.walk(tongue, 1, 0.5F, false, 1F, 0f, ageInTicks, 1);
         } else {
-            progressRotationPrev(tail2, curlProgress, Maths.rad(10), Maths.rad(-90), 0, 5F);
+            tongue.showModel = false;
         }
-        this.faceTarget(netHeadYaw, headPitch, 2, neck2, head);
-        this.chainSwing(bodyParts, walkSpeed, walkDegree, -5, limbSwing, limbSwingAmount);
+        
+        if (curlProgress < 0.5F && limbSwingAmount > 0.01F && !isBiting) {
+            this.swing(body, walkSpeed, walkDegree * 0.5F, false, 0F, 0F, limbSwing, limbSwingAmount);
+            this.swing(neck1, walkSpeed, walkDegree * 0.4F, false, 1F, 0F, limbSwing, limbSwingAmount);
+            this.swing(tail1, walkSpeed, walkDegree * 0.6F, false, -1F, 0F, limbSwing, limbSwingAmount);
+            this.swing(tail2, walkSpeed, walkDegree * 0.5F, false, -2F, 0F, limbSwing, limbSwingAmount);
+        }
     }
 
     @Override
@@ -146,7 +166,7 @@ public class ModelRattlesnake extends AdvancedEntityModel<EntityRattlesnake> {
 
     @Override
     public Iterable<AdvancedModelBox> getAllParts() {
-        return ImmutableList.of(body);
+        return ImmutableList.of(body, tail1, tail2, neck1, neck2, head, tongue);
     }
 
     public void setRotationAngle(AdvancedModelBox AdvancedModelBox, float x, float y, float z) {

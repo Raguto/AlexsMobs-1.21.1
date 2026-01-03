@@ -121,6 +121,8 @@ public class EntityGiantSquidPart extends PartEntity<EntityGiantSquid> implement
 
     @Override
     public void onAttackedFromServer(LivingEntity parent, float damage, DamageSource damageSource) {
-        parent.hurt(damageSource, damage);
+        if (damageSource != null) {
+            parent.hurt(damageSource, damage);
+        }
     }
 }

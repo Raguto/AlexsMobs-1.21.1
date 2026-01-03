@@ -38,7 +38,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-// FrostWalkerEnchantment changed in 1.21 - now handled via enchantment effects
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -54,7 +53,6 @@ import java.util.stream.Stream;
 
 public class EntityFroststalker extends Animal implements IAnimatedEntity, ISemiAquatic {
 
-    public static final ResourceLocation SPIKED_LOOT = ResourceLocation.fromNamespaceAndPath("alexsmobs", "entities/froststalker_spikes");
     public static final Animation ANIMATION_BITE = Animation.create(13);
     public static final Animation ANIMATION_SPEAK = Animation.create(11);
     public static final Animation ANIMATION_SLASH_L = Animation.create(12);
@@ -113,17 +111,16 @@ public class EntityFroststalker extends Animal implements IAnimatedEntity, ISemi
         return worldIn.getRawBrightness(pos, 0) > 8 && (worldIn.getBlockState(pos.below()).is(AMTagRegistry.FROSTSTALKER_SPAWNS) || worldIn.getBlockState(pos.below()).isSolid());
     }
 
-    // TODO 1.21: getDefaultLootTable now returns ResourceKey<LootTable>
-    // @Nullable
-    //     protected ResourceLocation getDefaultLootTable() {
-    //         return this.hasSpikes() ? SPIKED_LOOT : super.getDefaultLootTable();
-    //     }
-
     public static AttributeSupplier.Builder bakeAttributes() {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 24D).add(Attributes.ARMOR, 2.0D).add(Attributes.ATTACK_DAMAGE, 4.5D).add(Attributes.MOVEMENT_SPEED, 0.3F);
     }
 
     public boolean causeFallDamage(float distance, float damageMultiplier) {
+        return false;
+    }
+
+    @Override
+    public boolean canFreeze() {
         return false;
     }
 
@@ -614,17 +611,23 @@ public class EntityFroststalker extends Animal implements IAnimatedEntity, ISemi
         }
     }
     protected void onChangedBlock(BlockPos pos) {
-        // TODO 1.21: FrostWalkerEnchantment.onEntityMoved moved to enchantment effect system
-        // Need to implement custom frost walking logic or use enchantment effect hooks
-        // int i = EnchantmentHelper.getEnchantmentLevel(context.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FROST_WALKER), this);
-        // if (i > 0 || this.hasSpikes()) {
-        //     FrostWalkerEnchantment.onEntityMoved(this, this.level(), pos, i == 0 ? -1 : i);
-        // }
-        // Soul speed methods removed in 1.21
-        // if (this.shouldRemoveSoulSpeed(this.getBlockStateOn())) {
-        //     this.removeSoulSpeed();
-        // }
-        // this.tryAddSoulSpeed();
+        if (this.hasSpikes() && this.onGround()) {
+            int radius = 2;
+            BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+            for (int x = -radius; x <= radius; x++) {
+                for (int z = -radius; z <= radius; z++) {
+                    if (x * x + z * z <= radius * radius) {
+                        mutablePos.set(pos.getX() + x, pos.getY() - 1, pos.getZ() + z);
+                        BlockState state = this.level().getBlockState(mutablePos);
+                        if (state.is(Blocks.WATER) && state.getFluidState().isSource()) {
+                            BlockState iceState = Blocks.FROSTED_ICE.defaultBlockState();
+                            this.level().setBlockAndUpdate(mutablePos, iceState);
+                            this.level().scheduleTick(mutablePos.immutable(), Blocks.FROSTED_ICE, Mth.nextInt(this.getRandom(), 60, 120));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Nullable

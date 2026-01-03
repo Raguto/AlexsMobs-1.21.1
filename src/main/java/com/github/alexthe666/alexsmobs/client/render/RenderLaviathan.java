@@ -58,8 +58,8 @@ public class RenderLaviathan extends MobRenderer<EntityLaviathan, ModelLaviathan
         float f5 = p_174310_ * f;
         float f6 = p_174311_ > 0.0F ? p_174311_ * f * f : p_174311_ - p_174311_ * (1.0F - f) * (1.0F - f);
         float f7 = p_174312_ * f;
-        p_174308_.addVertex(f5 - p_174319_, f6 + p_174318_, f7 + p_174320_).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), (int)(1.0F * 255)).setUv2(k & 0xFFFF, k >> 16);
-        p_174308_.addVertex(f5 + p_174319_, f6 + p_174317_ - p_174318_, f7 - p_174320_).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), (int)(1.0F * 255)).setUv2(k & 0xFFFF, k >> 16);
+        p_174308_.addVertex(p_174309_, f5 - p_174319_, f6 + p_174318_, f7 + p_174320_).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), 255).setLight(k);
+        p_174308_.addVertex(p_174309_, f5 + p_174319_, f6 + p_174317_ - p_174318_, f7 - p_174320_).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), 255).setLight(k);
     }
 
     public boolean shouldRender(EntityLaviathan livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
@@ -152,7 +152,6 @@ public class RenderLaviathan extends MobRenderer<EntityLaviathan, ModelLaviathan
         float f = (float) (vec3.x - d3);
         float f1 = (float) (vec3.y - d4);
         float f2 = (float) (vec3.z - d5);
-        //float f3 = 0.025F;
         VertexConsumer vertexconsumer = p_115465_.getBuffer(RenderType.leash());
         Matrix4f matrix4f = p_115464_.last().pose();
         float f4 = (float) (Mth.fastInvSqrt(f * f + f2 * f2) * 0.025F / 2.0F);
@@ -213,11 +212,11 @@ public class RenderLaviathan extends MobRenderer<EntityLaviathan, ModelLaviathan
         public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, EntityLaviathan laviathan, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
             if (!laviathan.isObsidian()) {
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderType.eyes(TEXTURE_GLOW));
-                // Model rendering removed - needs proper implementation
+                
             }
             if (laviathan.hasHeadGear()) {
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE_HELMET));
-                // Model rendering removed - needs proper implementation
+               
             }
         }
 

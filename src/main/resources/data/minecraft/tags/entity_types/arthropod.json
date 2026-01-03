@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "alexsmobs:fly",
+    "alexsmobs:crimson_mosquito",
+    "alexsmobs:lobster",
+    "alexsmobs:centipede_head",
+    "alexsmobs:centipede_body",
+    "alexsmobs:centipede_tail",
+    "alexsmobs:cockroach",
+    "alexsmobs:mantis_shrimp",
+    "alexsmobs:leafcutter_ant",
+    "alexsmobs:tarantula_hawk",
+    "alexsmobs:triops"
+  ]
+}

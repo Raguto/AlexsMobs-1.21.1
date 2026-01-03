@@ -53,17 +53,23 @@ public record MessageHurtMultipart(int part, int parent, float damage, String da
             if (player != null && player.level() != null) {
                 Entity part = player.level().getEntity(payload.part);
                 Entity parent = player.level().getEntity(payload.parent);
-                Registry<DamageType> registry = player.level().registryAccess().registry(Registries.DAMAGE_TYPE).get();
-                DamageType dmg = registry.get(ResourceLocation.parse(payload.damageType));
-                if (dmg != null) {
-                    Holder<DamageType> holder = registry.getHolder(registry.getId(dmg)).orElse(null);
-                    if (holder != null) {
-                        DamageSource source = new DamageSource(holder);
-                        if (part instanceof IHurtableMultipart && parent instanceof LivingEntity) {
-                            ((IHurtableMultipart) part).onAttackedFromServer((LivingEntity) parent, payload.damage, source);
-                        }
-                        if (part == null && parent != null && parent.isMultipartEntity()) {
-                            parent.hurt(source, payload.damage);
+                
+                // Handle hurt/death time sync even without damage type
+                if (part instanceof IHurtableMultipart && parent instanceof LivingEntity) {
+                    ((IHurtableMultipart) part).onAttackedFromServer((LivingEntity) parent, payload.damage, null);
+                }
+                
+                // Only process damage if we have a valid damage type
+                if (payload.damageType != null && !payload.damageType.isEmpty()) {
+                    Registry<DamageType> registry = player.level().registryAccess().registry(Registries.DAMAGE_TYPE).get();
+                    DamageType dmg = registry.get(ResourceLocation.parse(payload.damageType));
+                    if (dmg != null) {
+                        Holder<DamageType> holder = registry.getHolder(registry.getId(dmg)).orElse(null);
+                        if (holder != null) {
+                            DamageSource source = new DamageSource(holder);
+                            if (part == null && parent != null && parent.isMultipartEntity()) {
+                                parent.hurt(source, payload.damage);
+                            }
                         }
                     }
                 }
@@ -77,17 +83,23 @@ public record MessageHurtMultipart(int part, int parent, float damage, String da
             if (player != null && player.level() != null) {
                 Entity part = player.level().getEntity(payload.part);
                 Entity parent = player.level().getEntity(payload.parent);
-                Registry<DamageType> registry = player.level().registryAccess().registry(Registries.DAMAGE_TYPE).get();
-                DamageType dmg = registry.get(ResourceLocation.parse(payload.damageType));
-                if (dmg != null) {
-                    Holder<DamageType> holder = registry.getHolder(registry.getId(dmg)).orElse(null);
-                    if (holder != null) {
-                        DamageSource source = new DamageSource(holder);
-                        if (part instanceof IHurtableMultipart && parent instanceof LivingEntity) {
-                            ((IHurtableMultipart) part).onAttackedFromServer((LivingEntity) parent, payload.damage, source);
-                        }
-                        if (part == null && parent != null && parent.isMultipartEntity()) {
-                            parent.hurt(source, payload.damage);
+                
+                // Handle hurt/death time sync even without damage type
+                if (part instanceof IHurtableMultipart && parent instanceof LivingEntity) {
+                    ((IHurtableMultipart) part).onAttackedFromServer((LivingEntity) parent, payload.damage, null);
+                }
+                
+                // Only process damage if we have a valid damage type
+                if (payload.damageType != null && !payload.damageType.isEmpty()) {
+                    Registry<DamageType> registry = player.level().registryAccess().registry(Registries.DAMAGE_TYPE).get();
+                    DamageType dmg = registry.get(ResourceLocation.parse(payload.damageType));
+                    if (dmg != null) {
+                        Holder<DamageType> holder = registry.getHolder(registry.getId(dmg)).orElse(null);
+                        if (holder != null) {
+                            DamageSource source = new DamageSource(holder);
+                            if (part == null && parent != null && parent.isMultipartEntity()) {
+                                parent.hurt(source, payload.damage);
+                            }
                         }
                     }
                 }

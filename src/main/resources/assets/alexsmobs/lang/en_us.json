@@ -1074,5 +1074,10 @@
   "advancements.alexsmobs.stink_ray.desc": "Craft a Stink Ray.",
   "advancements.alexsmobs.banana_slug.title": "Convergent Evolution...",
   "advancements.alexsmobs.banana_slug.desc": "Encounter a Banana Slug. Not so appetising.",
-  "alexsmobs.gui.capsid_transformation": "Transformation"
+  "alexsmobs.gui.capsid_transformation": "Transformation",
+  "tag.item.alexsmobs.insect_items": "Insect Items",
+  "tag.item.alexsmobs.bananas": "Bananas",
+  "tag.item.alexsmobs.tiger_breedables": "Tiger Breedables",
+  "tag.item.alexsmobs.animal_dictionary_ingredient": "Animal Dictionary Ingredients",
+  "tag.item.alexsmobs.mudskipper_breedables": "Mudskipper Breedables"
 }

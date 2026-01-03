@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "alexsmobs:maggot",
+    "alexsmobs:banana",
+    "alexsmobs:lobster_tail",
+    "alexsmobs:cooked_lobster_tail",
+    "alexsmobs:sopa_de_macaco",
+    "alexsmobs:moose_ribs",
+    "alexsmobs:cooked_moose_ribs",
+    "alexsmobs:blobfish",
+    "alexsmobs:fish_oil",
+    "alexsmobs:shrimp_fried_rice",
+    "alexsmobs:boiled_emu_egg",
+    "alexsmobs:kangaroo_meat",
+    "alexsmobs:cooked_kangaroo_meat",
+    "alexsmobs:kangaroo_burger",
+    "alexsmobs:gongylidia",
+    "alexsmobs:cosmic_cod",
+    "alexsmobs:rainbow_jelly",
+    "alexsmobs:raw_catfish",
+    "alexsmobs:cooked_catfish",
+    "alexsmobs:flying_fish",
+    "alexsmobs:mosquito_repellent_stew"
+  ]
+}

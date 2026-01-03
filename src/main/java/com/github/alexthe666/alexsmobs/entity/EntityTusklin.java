@@ -81,6 +81,11 @@ public class EntityTusklin extends Animal implements IAnimatedEntity {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 40D).add(Attributes.ATTACK_DAMAGE, 9.0D).add(Attributes.MOVEMENT_SPEED, 0.3F).add(Attributes.KNOCKBACK_RESISTANCE, 0.9F);
     }
 
+    @Override
+    public boolean canFreeze() {
+        return false;
+    }
+
     protected SoundEvent getAmbientSound() {
         return AMSoundRegistry.TUSKLIN_IDLE.get();
     }

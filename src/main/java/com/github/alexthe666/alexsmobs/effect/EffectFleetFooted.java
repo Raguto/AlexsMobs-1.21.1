@@ -8,13 +8,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-import java.util.UUID;
-
 public class EffectFleetFooted extends MobEffect {
 
-    private static final UUID SPRINT_JUMP_SPEED_MODIFIER = UUID.fromString("7E0292F2-9434-48D5-A29F-9583AF7DF29A");
     private static final AttributeModifier SPRINT_JUMP_SPEED_BONUS = new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("alexsmobs", "fleetfooted_speed_bonus"), 0.2F, AttributeModifier.Operation.ADD_VALUE);
-    private int lastDuration = -1;
     private int removeEffectAfter = 0;
 
     public EffectFleetFooted() {
@@ -22,8 +18,12 @@ public class EffectFleetFooted extends MobEffect {
     }
 
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+        // Get the effect instance to check duration
+        var effectInstance = entity.getEffect(AMEffectRegistry.FLEET_FOOTED);
+        int currentDuration = effectInstance != null ? effectInstance.getDuration() : 0;
+        
         AttributeInstance modifiableattributeinstance = entity.getAttribute(Attributes.MOVEMENT_SPEED);
-        boolean applyEffect = entity.isSprinting() && !entity.onGround() && lastDuration > 2;
+        boolean applyEffect = entity.isSprinting() && !entity.onGround() && currentDuration > 2;
         if(removeEffectAfter > 0){
             removeEffectAfter--;
         }
@@ -33,7 +33,7 @@ public class EffectFleetFooted extends MobEffect {
             }
             removeEffectAfter = 5;
         }
-        if (removeEffectAfter <= 0 || lastDuration < 2) {
+        if (removeEffectAfter <= 0 || currentDuration < 2) {
             modifiableattributeinstance.removeModifier(SPRINT_JUMP_SPEED_BONUS);
         }
         return true;
@@ -46,9 +46,9 @@ public class EffectFleetFooted extends MobEffect {
         }
     }
 
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        lastDuration = duration;
-        return duration > 0;
+    @Override
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+        return true;
     }
 
     public String getDescriptionId() {

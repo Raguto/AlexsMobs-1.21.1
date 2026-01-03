@@ -104,6 +104,11 @@ public class EntitySnowLeopard extends Animal implements IAnimatedEntity, ITarge
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 30D).add(Attributes.ATTACK_DAMAGE, 6.0D).add(Attributes.MOVEMENT_SPEED, 0.35F).add(Attributes.FOLLOW_RANGE, 64F);
     }
 
+    @Override
+    public boolean canFreeze() {
+        return false;
+    }
+
     protected SoundEvent getAmbientSound() {
         return AMSoundRegistry.SNOW_LEOPARD_IDLE.get();
     }

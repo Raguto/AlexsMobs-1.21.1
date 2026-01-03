@@ -45,7 +45,6 @@ public class RenderTiger extends MobRenderer<EntityTiger, ModelTiger> {
     }
 
     public void render(EntityTiger entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
-        // RenderLivingEvent removed in 1.21 - skip event posting
         matrixStackIn.pushPose();
         this.model.attackTime = this.getAttackAnim(entityIn, partialTicks);
 
@@ -130,7 +129,6 @@ public class RenderTiger extends MobRenderer<EntityTiger, ModelTiger> {
         if (entity != null) {
             this.renderLeash(entityIn, partialTicks, matrixStackIn, bufferIn, entity);
         }
-        // RenderNameTagEvent and RenderLivingEvent.Post removed in 1.21
         if (this.shouldShowName(entityIn)) {
             this.renderNameTag(entityIn, entityIn.getDisplayName(), matrixStackIn, bufferIn, packedLightIn, partialTicks);
         }
@@ -190,8 +188,8 @@ public class RenderTiger extends MobRenderer<EntityTiger, ModelTiger> {
         float f5 = p_174310_ * f;
         float f6 = p_174311_ > 0.0F ? p_174311_ * f * f : p_174311_ - p_174311_ * (1.0F - f) * (1.0F - f);
         float f7 = p_174312_ * f;
-        p_174308_.addVertex(f7 + p_174320_, 0.0F, 0.0F).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), (int)(1.0F * 255)).setUv2(k & 0xFFFF, k >> 16);
-        p_174308_.addVertex(f7 - p_174320_, 0.0F, 0.0F).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), (int)(1.0F * 255)).setUv2(k & 0xFFFF, k >> 16);
+        p_174308_.addVertex(p_174309_, f7 + p_174320_, 0.0F, 0.0F).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), 255).setLight(k);
+        p_174308_.addVertex(p_174309_, f7 - p_174320_, 0.0F, 0.0F).setColor((int)(f2 * 255), (int)(f3 * 255), (int)(f4 * 255), 255).setLight(k);
     }
     protected int getBlockLight2(Entity entityIn, BlockPos partialTicks) {
         return entityIn.isOnFire() ? 15 : entityIn.level().getBrightness(LightLayer.BLOCK, partialTicks);

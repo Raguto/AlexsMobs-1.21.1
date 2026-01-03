@@ -109,6 +109,134 @@ public class ServerEvents {
         return worldIn.clip(new ClipContext(vector3d, vector3d1, ClipContext.Block.OUTLINE, fluidMode, player));
     }
 
+    /**
+     * Check if an entity should not scare pufferfish (Alex's Mobs fish and other aquatic creatures)
+     */
+    private static boolean isNotScaryForPufferfish(LivingEntity entity) {
+        return entity instanceof EntityLobster ||
+               entity instanceof EntityBlobfish ||
+               entity instanceof EntityTerrapin ||
+               entity instanceof EntityCombJelly ||
+               entity instanceof EntityCosmicCod ||
+               entity instanceof EntityCatfish ||
+               entity instanceof EntityFlyingFish ||
+               entity instanceof EntityMudskipper ||
+               entity instanceof EntityTriops ||
+               entity instanceof EntityDevilsHolePupfish ||
+               entity instanceof AbstractFish ||  // Vanilla fish
+               entity instanceof AbstractSchoolingFish ||  // Vanilla schooling fish
+               entity instanceof Squid ||  // Vanilla squid
+               entity instanceof Dolphin;  // Vanilla dolphin
+    }
+
+    private static net.minecraft.network.syncher.EntityDataAccessor<Integer> PUFF_STATE_ACCESSOR = null;
+    private static boolean PUFF_STATE_INIT_ATTEMPTED = false;
+    
+    /**
+     * Set pufferfish puff state using reflection
+     */
+    @SuppressWarnings("unchecked")
+    private static void setPufferfishState(Pufferfish pufferfish, int state) {
+        if (!PUFF_STATE_INIT_ATTEMPTED) {
+            PUFF_STATE_INIT_ATTEMPTED = true;
+            try {
+                // Find the PUFF_STATE field by scanning all static fields
+                for (var field : Pufferfish.class.getDeclaredFields()) {
+                    if (java.lang.reflect.Modifier.isStatic(field.getModifiers()) && 
+                        net.minecraft.network.syncher.EntityDataAccessor.class.isAssignableFrom(field.getType())) {
+                        field.setAccessible(true);
+                        var accessor = (net.minecraft.network.syncher.EntityDataAccessor<?>) field.get(null);
+                        // Test if this is the puff state accessor by checking current value type
+                        try {
+                            Object value = pufferfish.getEntityData().get(accessor);
+                            if (value instanceof Integer && field.getName().toLowerCase().contains("puff")) {
+                                PUFF_STATE_ACCESSOR = (net.minecraft.network.syncher.EntityDataAccessor<Integer>) accessor;
+                                break;
+                            }
+                        } catch (Exception ignored) {}
+                    }
+                }
+                // If not found by name, try to find by matching the getter value
+                if (PUFF_STATE_ACCESSOR == null) {
+                    int currentPuffState = pufferfish.getPuffState();
+                    for (var field : Pufferfish.class.getDeclaredFields()) {
+                        if (java.lang.reflect.Modifier.isStatic(field.getModifiers()) && 
+                            net.minecraft.network.syncher.EntityDataAccessor.class.isAssignableFrom(field.getType())) {
+                            field.setAccessible(true);
+                            var accessor = (net.minecraft.network.syncher.EntityDataAccessor<?>) field.get(null);
+                            try {
+                                Object value = pufferfish.getEntityData().get(accessor);
+                                if (value instanceof Integer intVal && intVal == currentPuffState) {
+                                    PUFF_STATE_ACCESSOR = (net.minecraft.network.syncher.EntityDataAccessor<Integer>) accessor;
+                                    break;
+                                }
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                AlexsMobs.LOGGER.warn("Failed to find PUFF_STATE field: " + e.getMessage());
+            }
+        }
+        
+        if (PUFF_STATE_ACCESSOR != null) {
+            pufferfish.getEntityData().set(PUFF_STATE_ACCESSOR, state);
+        }
+    }
+
+    private static java.lang.reflect.Field INFLATE_COUNTER_FIELD = null;
+    private static java.lang.reflect.Field DEFLATE_TIMER_FIELD = null;
+    private static boolean INFLATE_FIELDS_INIT_ATTEMPTED = false;
+    
+    /**
+     * Reset pufferfish inflate counter to prevent re-inflation
+     */
+    private static void resetPufferfishInflateCounter(Pufferfish pufferfish) {
+        if (!INFLATE_FIELDS_INIT_ATTEMPTED) {
+            INFLATE_FIELDS_INIT_ATTEMPTED = true;
+            try {
+                // Find inflateCounter and deflateTimer fields
+                for (var field : Pufferfish.class.getDeclaredFields()) {
+                    if (!java.lang.reflect.Modifier.isStatic(field.getModifiers()) && field.getType() == int.class) {
+                        String name = field.getName().toLowerCase();
+                        if (name.contains("inflate") || name.contains("counter")) {
+                            field.setAccessible(true);
+                            INFLATE_COUNTER_FIELD = field;
+                        } else if (name.contains("deflate") || name.contains("timer")) {
+                            field.setAccessible(true);
+                            DEFLATE_TIMER_FIELD = field;
+                        }
+                    }
+                }
+                // If not found by name, get all int fields
+                if (INFLATE_COUNTER_FIELD == null) {
+                    for (var field : Pufferfish.class.getDeclaredFields()) {
+                        if (!java.lang.reflect.Modifier.isStatic(field.getModifiers()) && field.getType() == int.class) {
+                            field.setAccessible(true);
+                            // The first non-static int field is likely inflateCounter
+                            if (INFLATE_COUNTER_FIELD == null) {
+                                INFLATE_COUNTER_FIELD = field;
+                            } else if (DEFLATE_TIMER_FIELD == null) {
+                                DEFLATE_TIMER_FIELD = field;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                AlexsMobs.LOGGER.warn("Failed to find inflate counter fields: " + e.getMessage());
+            }
+        }
+        
+        try {
+            if (INFLATE_COUNTER_FIELD != null) {
+                INFLATE_COUNTER_FIELD.setInt(pufferfish, 0);
+            }
+            if (DEFLATE_TIMER_FIELD != null) {
+                DEFLATE_TIMER_FIELD.setInt(pufferfish, 0);
+            }
+        } catch (Exception ignored) {}
+    }
+
     private static BlockPos getDownPos(BlockPos entered, LevelAccessor world) {
         int i = 0;
         while (world.isEmptyBlock(entered) && i < 3) {
@@ -276,6 +404,31 @@ public class ServerEvents {
     public static void onLivingTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity)) return;
         var entity = (LivingEntity) event.getEntity();
+        
+        // Make pufferfish not puff up around Alex's Mobs fish
+        if (entity instanceof Pufferfish pufferfish && !entity.level().isClientSide) {
+            // Check if only Alex's Mobs fish are nearby (no scary entities)
+            var nearbyEntities = pufferfish.level().getEntitiesOfClass(LivingEntity.class, 
+                pufferfish.getBoundingBox().inflate(2.0D), 
+                e -> e != pufferfish && !(e instanceof Pufferfish) && !e.isSpectator());
+            
+            boolean hasScaryEntity = false;
+            boolean hasFriendlyFish = false;
+            for (LivingEntity nearby : nearbyEntities) {
+                if (isNotScaryForPufferfish(nearby)) {
+                    hasFriendlyFish = true;
+                } else {
+                    hasScaryEntity = true;
+                    break;
+                }
+            }
+            // If only friendly fish nearby (no scary entities), keep pufferfish deflated
+            if (hasFriendlyFish && !hasScaryEntity) {
+                setPufferfishState(pufferfish, 0);
+                resetPufferfishInflateCounter(pufferfish);
+            }
+        }
+        
         if (entity instanceof Player player) {
             if (entity.getAttributes().hasAttribute(Attributes.MOVEMENT_SPEED)) {
                 var attributes = entity.getAttribute(Attributes.MOVEMENT_SPEED);

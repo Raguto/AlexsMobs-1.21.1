@@ -11,6 +11,7 @@ import com.github.alexthe666.alexsmobs.client.render.LavaVisionFluidRenderer;
 import com.github.alexthe666.alexsmobs.client.render.RenderVineLasso;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
+import com.github.alexthe666.alexsmobs.effect.EffectClinging;
 import com.github.alexthe666.alexsmobs.effect.EffectPowerDown;
 import com.github.alexthe666.alexsmobs.entity.EntityBaldEagle;
 import com.github.alexthe666.alexsmobs.entity.EntityBlueJay;
@@ -194,7 +195,7 @@ public class ClientEvents {
                 }*/
             }
         }
-        if (event.getEntity().hasEffect(AMEffectRegistry.CLINGING) && event.getEntity().getEyeHeight() < event.getEntity().getBbHeight() * 0.45F || event.getEntity().hasEffect(AMEffectRegistry.DEBILITATING_STING) && event.getEntity().getTags().contains("arthropod") && event.getEntity().getBbWidth() > event.getEntity().getBbHeight()) {
+        if (event.getEntity().hasEffect(AMEffectRegistry.CLINGING) && EffectClinging.isUpsideDown(event.getEntity()) || event.getEntity().hasEffect(AMEffectRegistry.DEBILITATING_STING) && event.getEntity().getTags().contains("arthropod") && event.getEntity().getBbWidth() > event.getEntity().getBbHeight()) {
             event.getPoseStack().pushPose();
             event.getPoseStack().translate(0.0D, event.getEntity().getBbHeight() + 0.1F, 0.0D);
             event.getPoseStack().mulPose(Axis.ZP.rotationDegrees(180.0F));
@@ -220,7 +221,7 @@ public class ClientEvents {
         if (event.getEntity().hasEffect(AMEffectRegistry.ENDER_FLU)) {
             event.getPoseStack().popPose();
         }
-        if (event.getEntity().hasEffect(AMEffectRegistry.CLINGING) && event.getEntity().getEyeHeight() < event.getEntity().getBbHeight() * 0.45F || event.getEntity().hasEffect(AMEffectRegistry.DEBILITATING_STING) && event.getEntity().getTags().contains("arthropod") && event.getEntity().getBbWidth() > event.getEntity().getBbHeight()) {
+        if (event.getEntity().hasEffect(AMEffectRegistry.CLINGING) && EffectClinging.isUpsideDown(event.getEntity()) || event.getEntity().hasEffect(AMEffectRegistry.DEBILITATING_STING) && event.getEntity().getTags().contains("arthropod") && event.getEntity().getBbWidth() > event.getEntity().getBbHeight()) {
             event.getPoseStack().popPose();
             event.getEntity().yBodyRotO = -event.getEntity().yBodyRotO;
             event.getEntity().yBodyRot = -event.getEntity().yBodyRot;
@@ -370,13 +371,6 @@ public class ClientEvents {
                     }
                 }
                 previousLavaVision = Minecraft.getInstance().player.hasEffect(AMEffectRegistry.LAVA_VISION);
-                if (AMConfig.clingingFlipEffect) {
-                    if (Minecraft.getInstance().player.hasEffect(AMEffectRegistry.CLINGING) && Minecraft.getInstance().player.getEyeHeight() < Minecraft.getInstance().player.getBbHeight() * 0.45F) {
-                        Minecraft.getInstance().gameRenderer.loadEffect(ResourceLocation.parse("shaders/post/flip.json"));
-                    } else if (Minecraft.getInstance().gameRenderer.currentEffect() != null && Minecraft.getInstance().gameRenderer.currentEffect().getName().equals("minecraft:shaders/post/flip.json")) {
-                        Minecraft.getInstance().gameRenderer.shutdownEffect();
-                    }
-                }
             }
             if (Minecraft.getInstance().getCameraEntity() instanceof EntityBaldEagle) {
                 EntityBaldEagle eagle = (EntityBaldEagle) Minecraft.getInstance().getCameraEntity();
