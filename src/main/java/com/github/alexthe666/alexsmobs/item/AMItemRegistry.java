@@ -6,6 +6,7 @@ import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.block.AMBlockRegistry;
 import com.github.alexthe666.alexsmobs.effect.AMEffectRegistry;
 import com.github.alexthe666.alexsmobs.entity.*;
+import com.github.alexthe666.alexsmobs.misc.AMJukeboxSongs;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import com.github.alexthe666.citadel.server.block.LecternBooks;
 import net.minecraft.core.BlockPos;
@@ -216,8 +217,8 @@ public class AMItemRegistry {
     public static final DeferredHolder<Item, Item> MOSQUITO_REPELLENT_STEW = DEF_REG.register("mosquito_repellent_stew", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).alwaysEdible().saturationModifier(0.3F).effect(() -> new MobEffectInstance(AMEffectRegistry.MOSQUITO_REPELLENT, 24000), 1.0F).build()).stacksTo(1)));
     public static final DeferredHolder<Item, Item> TRIOPS_BUCKET = DEF_REG.register("triops_bucket", () -> new ItemModFishBucket(AMEntityRegistry.TRIOPS, Fluids.WATER, new Item.Properties()));
 
-    public static final DeferredHolder<Item, Item> MUSIC_DISC_THIME = DEF_REG.register("music_disc_thime", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)) /* TODO 1.21: RecordItem removed - use JukeboxPlayable component */);
-    public static final DeferredHolder<Item, Item> MUSIC_DISC_DAZE = DEF_REG.register("music_disc_daze", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)) /* TODO 1.21: RecordItem removed - use JukeboxPlayable component */);
+    public static final DeferredHolder<Item, Item> MUSIC_DISC_THIME = DEF_REG.register("music_disc_thime", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(AMJukeboxSongs.THIME)));
+    public static final DeferredHolder<Item, Item> MUSIC_DISC_DAZE = DEF_REG.register("music_disc_daze", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(AMJukeboxSongs.DAZE)));
 
     public static void initSpawnEggs() {
         DEF_REG.register("spawn_egg_grizzly_bear", () -> new DeferredSpawnEggItem(AMEntityRegistry.GRIZZLY_BEAR, 0X693A2C, 0X976144, new Item.Properties()));
