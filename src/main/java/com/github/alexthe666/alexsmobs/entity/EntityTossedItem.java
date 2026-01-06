@@ -32,11 +32,14 @@ public class EntityTossedItem extends ThrowableItemProjectile {
     }
 
     public EntityTossedItem(Level worldIn, LivingEntity throwerIn) {
-        super(AMEntityRegistry.TOSSED_ITEM.get(), throwerIn, worldIn);
+        super(AMEntityRegistry.TOSSED_ITEM.get(), worldIn);
+        this.setOwner(throwerIn);
+        this.setPos(throwerIn.getX(), throwerIn.getEyeY() - 0.1D, throwerIn.getZ());
     }
 
     public EntityTossedItem(Level worldIn, double x, double y, double z) {
-        super(AMEntityRegistry.TOSSED_ITEM.get(), x, y, z, worldIn);
+        super(AMEntityRegistry.TOSSED_ITEM.get(), worldIn);
+        this.setPos(x, y, z);
     }
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -130,6 +133,10 @@ public class EntityTossedItem extends ThrowableItemProjectile {
     }
 
     protected Item getDefaultItem() {
-        return isDart() ? AMItemRegistry.ANCIENT_DART.get() : Items.COBBLESTONE;
+        // entityData may be null during initialization when parent class calls this
+        if (this.entityData != null && isDart()) {
+            return AMItemRegistry.ANCIENT_DART.get();
+        }
+        return Items.COBBLESTONE;
     }
 }

@@ -374,9 +374,10 @@ public class EntityRhinoceros extends Animal implements IAnimatedEntity {
     }
 
     public boolean doHurtTarget(Entity entity) {
+        // Don't return true here - the actual attack is handled in tick() based on animation frames
+        // Returning true would make MeleeAttackGoal think the attack succeeded and stop approaching
         if(this.getAnimation() == NO_ANIMATION){
             this.setAnimation(random.nextBoolean() ? ANIMATION_SLASH : ANIMATION_FLING);
-            return true;
         }
         return false;
     }

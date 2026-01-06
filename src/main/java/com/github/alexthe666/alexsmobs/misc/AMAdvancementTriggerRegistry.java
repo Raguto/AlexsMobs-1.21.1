@@ -27,4 +27,5 @@ public class AMAdvancementTriggerRegistry {
     public static final DeferredHolder<CriterionTrigger<?>, AMAdvancementTrigger> UNDERMINE_UNDERMINER = TRIGGERS.register("undermine_underminer", AMAdvancementTrigger::new);
     public static final DeferredHolder<CriterionTrigger<?>, AMAdvancementTrigger> ELEPHANT_SWAG = TRIGGERS.register("elephant_swag", AMAdvancementTrigger::new);
     public static final DeferredHolder<CriterionTrigger<?>, AMAdvancementTrigger> SKUNK_SPRAY = TRIGGERS.register("skunk_spray", AMAdvancementTrigger::new);
+    public static final DeferredHolder<CriterionTrigger<?>, AMAdvancementTrigger> OPEN_ANIMAL_DICTIONARY = TRIGGERS.register("open_animal_dictionary", AMAdvancementTrigger::new);
 }

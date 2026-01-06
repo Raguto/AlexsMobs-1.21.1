@@ -21,3 +21,6 @@
 - Fixed ALL potion effects not working (renamed isDurationEffectTick to shouldApplyEffectTickThisTick for 1.21)
 - Fixed Clinging potion effect not pushing player to ceiling (improved ceiling detection logic)
 - Fixed Froststalker frost walking not working (reimplemented for 1.21 enchantment system changes)
+- Fixed Animal Dictionary not granting the "Alex's Mobs" advancement when opened for the first time (added custom trigger)
+- Fixed Capuchin Monkey causing crashes when attacking (updated MeleeAttackGoal for 1.21 API changes)
+- Fixed Rhinoceros not moving (registered missing AI goals in registerGoals method)

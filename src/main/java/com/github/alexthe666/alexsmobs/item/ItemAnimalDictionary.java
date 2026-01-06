@@ -2,6 +2,7 @@ package com.github.alexthe666.alexsmobs.item;
 
 import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.entity.*;
+import com.github.alexthe666.alexsmobs.misc.AMAdvancementTriggerRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
@@ -34,6 +35,8 @@ public class ItemAnimalDictionary extends Item {
             ServerPlayer serverplayerentity = (ServerPlayer)playerIn;
             CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, itemStackIn);
             serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
+            // Trigger the "Alex's Mobs" root advancement when opening the dictionary
+            AMAdvancementTriggerRegistry.OPEN_ANIMAL_DICTIONARY.get().trigger(serverplayerentity);
         }
         if (playerIn.level().isClientSide && target.getEncodeId() != null && target.getEncodeId().contains(AlexsMobs.MODID + ":")) {
             usedOnEntity = true;
@@ -65,6 +68,8 @@ public class ItemAnimalDictionary extends Item {
                 ServerPlayer serverplayerentity = (ServerPlayer) playerIn;
                 CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, itemStackIn);
                 serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
+                // Trigger the "Alex's Mobs" root advancement when opening the dictionary
+                AMAdvancementTriggerRegistry.OPEN_ANIMAL_DICTIONARY.get().trigger(serverplayerentity);
             }
             if (worldIn.isClientSide) {
                 AlexsMobs.PROXY.openBookGUI(itemStackIn);

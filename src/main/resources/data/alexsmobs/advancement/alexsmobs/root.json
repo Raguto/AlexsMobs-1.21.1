@@ -10,12 +10,12 @@
       "translate": "advancements.alexsmobs.root.desc"
     },
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
-    "show_toast": false,
-    "announce_to_chat": false
+    "show_toast": true,
+    "announce_to_chat": true
   },
   "criteria": {
-    "tick": {
-      "trigger": "minecraft:tick"
+    "open_dictionary": {
+      "trigger": "alexsmobs:open_animal_dictionary"
     }
   },
   "sends_telemetry_event": false
