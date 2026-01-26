@@ -1,6 +1,7 @@
 package com.github.alexthe666.alexsmobs.item;
 
 import com.github.alexthe666.alexsmobs.client.particle.AMParticleRegistry;
+import com.github.alexthe666.alexsmobs.block.BlockCapsid;
 import com.github.alexthe666.alexsmobs.entity.EntityVoidPortal;
 import com.github.alexthe666.alexsmobs.item.data.CarverPortalPos;
 import net.minecraft.core.BlockPos;
@@ -11,11 +12,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -51,6 +54,13 @@ public class ItemDimensionalCarver extends Item {
 
     public int getItemStackLimit(ItemStack stack) {
         return 1;
+    }
+
+    public InteractionResult useOn(UseOnContext context) {
+        if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof BlockCapsid) {
+            return BlockCapsid.tryInsertItem(context.getLevel(), context.getClickedPos(), context.getPlayer(), context.getHand(), context.getLevel().getBlockState(context.getClickedPos()));
+        }
+        return InteractionResult.PASS;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {

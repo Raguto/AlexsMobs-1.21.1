@@ -2,15 +2,19 @@ package com.github.alexthe666.alexsmobs.block;
 
 import com.mojang.serialization.MapCodec;
 
+import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.tileentity.AMTileEntityRegistry;
 import com.github.alexthe666.alexsmobs.tileentity.TileEntityCapsid;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -72,30 +76,82 @@ public class BlockCapsid extends BaseEntityBlock {
     }
 
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+        return tryInsertItem(worldIn, pos, player, handIn, state);
+    }
+
+    protected InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
+        if (worldIn.getBlockEntity(pos) instanceof TileEntityCapsid capsid && !capsid.getItem(0).isEmpty()) {
+            popResource(worldIn, pos, capsid.getItem(0).copy());
+            capsid.setItem(0, ItemStack.EMPTY);
+            return InteractionResult.sidedSuccess(worldIn.isClientSide);
+        }
+        return super.useWithoutItem(state, worldIn, pos, player, hit);
+    }
+
+    public static InteractionResult tryInsertItem(Level worldIn, BlockPos pos, @Nullable Player player, InteractionHand handIn, BlockState state) {
+        if (player == null) {
+            return InteractionResult.PASS;
+        }
         ItemStack heldItem = player.getItemInHand(handIn);
-        if (worldIn.getBlockEntity(pos) instanceof TileEntityCapsid && (!player.isShiftKeyDown()  && heldItem.getItem() != this.asItem())) {
-            TileEntityCapsid capsid = (TileEntityCapsid)worldIn.getBlockEntity(pos);
-            ItemStack copy = heldItem.copy();
-            copy.setCount(1);
-            if(capsid.getItem(0).isEmpty()){
-                capsid.setItem(0, copy);
-                if(!player.isCreative()){
-                    heldItem.shrink(1);
-                }
-                return InteractionResult.SUCCESS;
-            }else if(ItemStack.isSameItem(capsid.getItem(0), copy) && capsid.getItem(0).getMaxStackSize() > capsid.getItem(0).getCount() + copy.getCount()){
-                capsid.getItem(0).grow(1);
-                if(!player.isCreative()){
-                    heldItem.shrink(1);
-                }
-                return InteractionResult.SUCCESS;
-            }else{
+        if (!(worldIn.getBlockEntity(pos) instanceof TileEntityCapsid capsid)) {
+            return InteractionResult.PASS;
+        }
+        if (heldItem.isEmpty()) {
+            if (!capsid.getItem(0).isEmpty()) {
                 popResource(worldIn, pos, capsid.getItem(0).copy());
                 capsid.setItem(0, ItemStack.EMPTY);
-                return InteractionResult.SUCCESS;
+                return InteractionResult.sidedSuccess(worldIn.isClientSide);
+            }
+            return InteractionResult.PASS;
+        }
+        if (player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
+        Item capsidItem = state.getBlock().asItem();
+        if (heldItem.getItem() == capsidItem) {
+            return InteractionResult.PASS;
+        }
+        ItemStack copy = heldItem.copy();
+        copy.setCount(1);
+        if (capsid.getItem(0).isEmpty()) {
+            capsid.setItem(0, copy);
+            if (!player.isCreative()) {
+                heldItem.shrink(1);
+            }
+            triggerCapsidAdvancement(player, copy);
+            return InteractionResult.sidedSuccess(worldIn.isClientSide);
+        } else if (ItemStack.isSameItem(capsid.getItem(0), copy) && capsid.getItem(0).getMaxStackSize() > capsid.getItem(0).getCount() + copy.getCount()) {
+            capsid.getItem(0).grow(1);
+            if (!player.isCreative()) {
+                heldItem.shrink(1);
+            }
+            triggerCapsidAdvancement(player, copy);
+            return InteractionResult.sidedSuccess(worldIn.isClientSide);
+        } else {
+            popResource(worldIn, pos, capsid.getItem(0).copy());
+            capsid.setItem(0, ItemStack.EMPTY);
+            return InteractionResult.sidedSuccess(worldIn.isClientSide);
+        }
+    }
+
+    private static void triggerCapsidAdvancement(Player player, ItemStack inserted) {
+        if (!(player instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+        if (!inserted.is(AMItemRegistry.MOSQUITO_LARVA.get())) {
+            return;
+        }
+        ResourceLocation advancementId = ResourceLocation.fromNamespaceAndPath("alexsmobs", "alexsmobs/capsid");
+        var advancement = serverPlayer.server.getAdvancements().get(advancementId);
+        if (advancement == null) {
+            return;
+        }
+        var progress = serverPlayer.getAdvancements().getOrStartProgress(advancement);
+        if (!progress.isDone()) {
+            for (String criterion : progress.getRemainingCriteria()) {
+                serverPlayer.getAdvancements().award(advancement, criterion);
             }
         }
-        return InteractionResult.PASS;
     }
 
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {

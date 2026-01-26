@@ -404,7 +404,6 @@ public class ServerEvents {
     public static void onLivingTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity)) return;
         var entity = (LivingEntity) event.getEntity();
-        
         // Make pufferfish not puff up around Alex's Mobs fish
         if (entity instanceof Pufferfish pufferfish && !entity.level().isClientSide) {
             // Check if only Alex's Mobs fish are nearby (no scary entities)

@@ -498,7 +498,10 @@ public class EntityGrizzlyBear extends TamableAnimal implements NeutralMob, IAni
                 this.setSprinting(true);
             }
             if (distanceTo(attackTarget) < attackTarget.getBbWidth() + this.getBbWidth() + 2.5F) {
-                if (this.getAnimation() == ANIMATION_MAUL && this.getAnimationTick() % 5 == 0 && this.getAnimationTick() > 3) {
+                if (this.getAnimation() == NO_ANIMATION || this.getAnimation() == ANIMATION_SNIFF) {
+                    this.setAnimation(random.nextBoolean() ? ANIMATION_MAUL : random.nextBoolean() ? ANIMATION_SWIPE_L : ANIMATION_SWIPE_R);
+                }
+                if (this.getAnimation() == ANIMATION_MAUL && this.getAnimationTick() % 30 == 0 && this.getAnimationTick() > 3) {
                     doHurtTarget(attackTarget);
                 }
                 if ((this.getAnimation() == ANIMATION_SWIPE_L) && this.getAnimationTick() == 7) {
@@ -780,6 +783,7 @@ public class EntityGrizzlyBear extends TamableAnimal implements NeutralMob, IAni
         protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
             double d0 = this.getAttackReachSqr(enemy);
             if (distToEnemySqr <= d0) {
+                this.resetAttackCooldown();
                 if (getAnimation() == NO_ANIMATION || getAnimation() == ANIMATION_SNIFF) {
                     EntityGrizzlyBear.this.setAnimation(random.nextBoolean() ? ANIMATION_MAUL : random.nextBoolean() ? ANIMATION_SWIPE_L : ANIMATION_SWIPE_R);
                 }

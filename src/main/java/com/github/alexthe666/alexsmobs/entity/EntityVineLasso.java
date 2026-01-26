@@ -1,12 +1,12 @@
 package com.github.alexthe666.alexsmobs.entity;
 
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 
 import com.github.alexthe666.alexsmobs.entity.util.VineLassoUtil;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -24,12 +24,17 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 // NetworkHooks removed in NeoForge 1.21
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.UUID;
 
 public class EntityVineLasso extends Entity {
+    private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID_DATA = SynchedEntityData.defineId(EntityVineLasso.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Integer> OWNER_ID_DATA = SynchedEntityData.defineId(EntityVineLasso.class, EntityDataSerializers.INT);
+
     private UUID ownerUUID;
     private int ownerNetworkId;
     private boolean leftOwner;
@@ -73,7 +78,9 @@ public class EntityVineLasso extends Entity {
         Vec3 vector3d = this.getDeltaMovement();
         HitResult raytraceresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
         if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS) {
-            this.onImpact(raytraceresult);
+            if (!this.level().isClientSide) {
+                this.onImpact(raytraceresult);
+            }
         }
 
         this.updateRotation();
@@ -96,10 +103,20 @@ public class EntityVineLasso extends Entity {
     }
 
     protected void onEntityHit(EntityHitResult p_213868_1_) {
-        Entity entity = this.getOwner();
-        if (entity instanceof LivingEntity && p_213868_1_.getEntity() != getOwner() && p_213868_1_.getEntity() instanceof LivingEntity && !VineLassoUtil.hasLassoData((LivingEntity) p_213868_1_.getEntity())) {
+        Entity ownerEntity = this.getOwner();
+        LivingEntity lassoer = ownerEntity instanceof LivingEntity ? (LivingEntity) ownerEntity : null;
+        if (lassoer == null && !this.level().isClientSide) {
+            UUID owner = this.getOwnerUUID();
+            if (owner != null && ServerLifecycleHooks.getCurrentServer() != null) {
+                lassoer = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayer(owner);
+            }
+            if (lassoer == null) {
+                lassoer = this.level().getNearestPlayer(this, 64.0D);
+            }
+        }
+        if (lassoer != null && p_213868_1_.getEntity() != lassoer && p_213868_1_.getEntity() instanceof LivingEntity) {
+            VineLassoUtil.lassoTo(lassoer, (LivingEntity)p_213868_1_.getEntity());
             this.remove(RemovalReason.DISCARDED);
-            VineLassoUtil.lassoTo((LivingEntity) entity, (LivingEntity)p_213868_1_.getEntity());
         }
     }
 
@@ -122,27 +139,62 @@ public class EntityVineLasso extends Entity {
     }
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(OWNER_UUID_DATA, Optional.empty());
+        builder.define(OWNER_ID_DATA, 0);
     }
 
     public void setShooter(@Nullable Entity entityIn) {
         if (entityIn != null) {
             this.ownerUUID = entityIn.getUUID();
             this.ownerNetworkId = entityIn.getId();
+            this.entityData.set(OWNER_UUID_DATA, Optional.of(this.ownerUUID));
+            this.entityData.set(OWNER_ID_DATA, this.ownerNetworkId);
         }
     }
 
     @Nullable
+    private UUID getOwnerUUID() {
+        if (this.ownerUUID != null) {
+            return this.ownerUUID;
+        }
+        Optional<UUID> synced = this.entityData.get(OWNER_UUID_DATA);
+        if (synced != null && synced.isPresent()) {
+            this.ownerUUID = synced.get();
+            return this.ownerUUID;
+        }
+        return null;
+    }
+
+    private int getOwnerNetworkId() {
+        if (this.ownerNetworkId != 0) {
+            return this.ownerNetworkId;
+        }
+        int syncedId = this.entityData.get(OWNER_ID_DATA);
+        if (syncedId != 0) {
+            this.ownerNetworkId = syncedId;
+        }
+        return this.ownerNetworkId;
+    }
+
+    @Nullable
     public Entity getOwner() {
-        if (this.ownerUUID != null && this.level() instanceof ServerLevel) {
-            return ((ServerLevel) this.level()).getEntity(this.ownerUUID);
+        UUID uuid = this.getOwnerUUID();
+        int networkId = this.getOwnerNetworkId();
+        if (uuid != null && this.level() instanceof ServerLevel) {
+            Entity found = ((ServerLevel) this.level()).getEntity(uuid);
+            if (found != null) {
+                return found;
+            }
+            return networkId != 0 ? this.level().getEntity(networkId) : null;
         } else {
-            return this.ownerNetworkId != 0 ? this.level().getEntity(this.ownerNetworkId) : null;
+            return networkId != 0 ? this.level().getEntity(networkId) : null;
         }
     }
 
     protected void addAdditionalSaveData(CompoundTag compound) {
-        if (this.ownerUUID != null) {
-            compound.putUUID("Owner", this.ownerUUID);
+        UUID uuid = this.getOwnerUUID();
+        if (uuid != null) {
+            compound.putUUID("Owner", uuid);
         }
 
         if (this.leftOwner) {
@@ -157,6 +209,10 @@ public class EntityVineLasso extends Entity {
     protected void readAdditionalSaveData(CompoundTag compound) {
         if (compound.hasUUID("Owner")) {
             this.ownerUUID = compound.getUUID("Owner");
+            this.entityData.set(OWNER_UUID_DATA, Optional.of(this.ownerUUID));
+        } else {
+            this.ownerUUID = null;
+            this.entityData.set(OWNER_UUID_DATA, Optional.empty());
         }
 
         this.leftOwner = compound.getBoolean("LeftOwner");

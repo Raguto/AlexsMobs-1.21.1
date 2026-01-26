@@ -2,6 +2,7 @@ package com.github.alexthe666.alexsmobs.item;
 
 import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.entity.EntityVineLasso;
+import com.github.alexthe666.alexsmobs.entity.util.VineLassoUtil;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
@@ -15,6 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
@@ -44,7 +47,7 @@ public class ItemVineLasso extends Item {
         ItemStack itemstack = p_40673_.getItemInHand(p_40674_);
         p_40673_.startUsingItem(p_40674_);
 
-        return InteractionResultHolder.success(itemstack);
+        return InteractionResultHolder.consume(itemstack);
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
@@ -56,16 +59,28 @@ public class ItemVineLasso extends Item {
 
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity livingEntityIn, int i) {
         if (!worldIn.isClientSide) {
-            boolean left = false;
-            if (livingEntityIn.getUsedItemHand() == InteractionHand.OFF_HAND && livingEntityIn.getMainArm() == HumanoidArm.RIGHT || livingEntityIn.getUsedItemHand() == InteractionHand.MAIN_HAND && livingEntityIn.getMainArm() == HumanoidArm.LEFT) {
-                left = true;
-            }
             int power = this.getUseDuration(stack, livingEntityIn) - i;
+            float strength = getPowerForTime(power);
+            if (livingEntityIn instanceof Player player) {
+                HitResult hitResult = player.pick(15.0D, 1.0F, false);
+                if (hitResult.getType() == HitResult.Type.ENTITY) {
+                    EntityHitResult entityHit = (EntityHitResult) hitResult;
+                    if (entityHit.getEntity() instanceof LivingEntity target && target != player) {
+                        VineLassoUtil.lassoTo(player, target);
+                        if (!player.getAbilities().instabuild) {
+                            stack.shrink(1);
+                        }
+                        return;
+                    }
+                }
+            }
             EntityVineLasso lasso = new EntityVineLasso(worldIn, livingEntityIn);
             Vec3 vector3d = livingEntityIn.getViewVector(1.0F);
-            lasso.shoot((double) vector3d.x(), (double) vector3d.y(), (double) vector3d.z(), getPowerForTime(power), 1);
+            lasso.shoot((double) vector3d.x(), (double) vector3d.y(), (double) vector3d.z(), Math.max(0.1F, strength), 1);
             worldIn.addFreshEntity(lasso);
-            stack.shrink(1);
+            if (livingEntityIn instanceof Player player && !player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
         }
     }
 

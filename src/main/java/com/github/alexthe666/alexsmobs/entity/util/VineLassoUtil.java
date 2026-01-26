@@ -27,11 +27,9 @@ public class VineLassoUtil {
             lassoedTag.putInt(LASSOED_TO_ENTITY_ID_TAG, -1);
             lassoedTag.putBoolean(LASSO_REMOVED, true);
         } else {
-            if (!lassoedTag.contains(LASSOED_TO_ENTITY_ID_TAG) || lassoedTag.getInt(LASSOED_TO_ENTITY_ID_TAG) == -1) {
-                lassoedTag.putUUID(LASSOED_TO_TAG, lassoer.getUUID());
-                lassoedTag.putInt(LASSOED_TO_ENTITY_ID_TAG, lassoer.getId());
-                lassoedTag.putBoolean(LASSO_REMOVED, false);
-            }
+            lassoedTag.putUUID(LASSOED_TO_TAG, lassoer.getUUID());
+            lassoedTag.putInt(LASSOED_TO_ENTITY_ID_TAG, lassoer.getId());
+            lassoedTag.putBoolean(LASSO_REMOVED, false);
         }
         lassoedTag.putBoolean(LASSO_PACKET, true);
         CitadelEntityData.setCitadelTag(lassoed, lassoedTag);
@@ -42,7 +40,12 @@ public class VineLassoUtil {
 
     public static boolean hasLassoData(LivingEntity lasso) {
         CompoundTag lassoedTag = CitadelEntityData.getOrCreateCitadelTag(lasso);
-        return lassoedTag.contains(LASSOED_TO_ENTITY_ID_TAG) && !lassoedTag.getBoolean(LASSO_REMOVED) && lassoedTag.getInt(LASSOED_TO_ENTITY_ID_TAG) != -1;
+        if (lassoedTag.getBoolean(LASSO_REMOVED)) {
+            return false;
+        }
+        boolean hasEntityId = lassoedTag.contains(LASSOED_TO_ENTITY_ID_TAG) && lassoedTag.getInt(LASSOED_TO_ENTITY_ID_TAG) != -1;
+        boolean hasUuid = lassoedTag.hasUUID(LASSOED_TO_TAG);
+        return hasEntityId || hasUuid;
     }
 
     public static Entity getLassoedTo(LivingEntity lassoed) {
@@ -51,27 +54,24 @@ public class VineLassoUtil {
             return null;
         }
         if (hasLassoData(lassoed)) {
-            if (lassoed.level().isClientSide && lassoedTag.contains(LASSOED_TO_ENTITY_ID_TAG)) {
-                int i = lassoedTag.getInt(LASSOED_TO_ENTITY_ID_TAG);
-                if (i != -1) {
-                    Entity found = lassoed.level().getEntity(i);
-                    if (found != null) {
-                        return found;
-                    } else {
-                        UUID uuid = lassoedTag.getUUID(LASSOED_TO_TAG);
-                        if (uuid != null) {
-                            return lassoed.level().getPlayerByUUID(uuid);
-                        }
-                    }
+            int entityId = lassoedTag.contains(LASSOED_TO_ENTITY_ID_TAG) ? lassoedTag.getInt(LASSOED_TO_ENTITY_ID_TAG) : -1;
+            if (entityId != -1) {
+                Entity found = lassoed.level().getEntity(entityId);
+                if (found != null) {
+                    return found;
                 }
-            } else if (lassoed.level() instanceof ServerLevel) {
-                UUID uuid = lassoedTag.getUUID(LASSOED_TO_TAG);
-                if (uuid != null) {
-                    Entity found = ((ServerLevel) lassoed.level()).getEntity(uuid);
+            }
+            UUID uuid = lassoedTag.hasUUID(LASSOED_TO_TAG) ? lassoedTag.getUUID(LASSOED_TO_TAG) : null;
+            if (uuid != null) {
+                if (lassoed.level() instanceof ServerLevel serverLevel) {
+                    Entity found = serverLevel.getEntity(uuid);
                     if (found != null) {
                         lassoedTag.putInt(LASSOED_TO_ENTITY_ID_TAG, found.getId());
                         return found;
                     }
+                }
+                if (lassoed.level().isClientSide) {
+                    return lassoed.level().getPlayerByUUID(uuid);
                 }
             }
         }

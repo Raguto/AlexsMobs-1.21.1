@@ -7,7 +7,6 @@ import com.github.alexthe666.alexsmobs.entity.*;
 import com.github.alexthe666.alexsmobs.item.AMItemRegistry;
 import com.github.alexthe666.alexsmobs.item.ItemStinkRay;
 import com.github.alexthe666.alexsmobs.item.ItemTabIcon;
-import com.github.alexthe666.alexsmobs.item.ItemVineLasso;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -27,6 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -190,7 +190,11 @@ public class AMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
         if (itemStackIn.getItem() == AMItemRegistry.VINE_LASSO.get()) {
             matrixStackIn.translate(0.5F, 0.5f, 0.5f);
             if (transformType == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || transformType == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND || transformType == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND || transformType == ItemDisplayContext.FIRST_PERSON_LEFT_HAND) {
-                if (ItemVineLasso.isItemInUse(itemStackIn)) {
+                Player player = Minecraft.getInstance().player;
+                boolean usingLasso = player != null
+                    && player.isUsingItem()
+                    && player.getUseItem().is(AMItemRegistry.VINE_LASSO.get());
+                if (usingLasso) {
                     if (transformType.firstPerson()) {
                         matrixStackIn.translate(transformType == ItemDisplayContext.FIRST_PERSON_LEFT_HAND ? -0.3F : 0.3F, 0.0f, -0.5f);
                     }

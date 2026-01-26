@@ -95,7 +95,7 @@ public class AMItemRegistry {
     public static final DeferredHolder<Item, Item> SOPA_DE_MACACO = DEF_REG.register("sopa_de_macaco", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.4F).build()).stacksTo(1)));
     public static final DeferredHolder<Item, Item> CENTIPEDE_LEG = DEF_REG.register("centipede_leg", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CENTIPEDE_LEGGINGS = DEF_REG.register("centipede_leggings", () -> new ItemModArmor(CENTIPEDE_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS));
-    public static final DeferredHolder<Item, Item> MOSQUITO_LARVA = DEF_REG.register("mosquito_larva", () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MOSQUITO_LARVA = DEF_REG.register("mosquito_larva", () -> new ItemMosquitoLarva(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MOOSE_ANTLER = DEF_REG.register("moose_antler", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MOOSE_HEADGEAR = DEF_REG.register("moose_headgear", () -> new ItemModArmor(MOOSE_ARMOR_MATERIAL, ArmorItem.Type.HELMET));
     public static final DeferredHolder<Item, Item> MOOSE_RIBS = DEF_REG.register("moose_ribs", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build())));
