@@ -89,7 +89,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     implementation "net.neoforged:neoforge:21.1.203"
-    implementation 'com.github.alexthe666.citadel:citadel-1.21.1:2.7.5'
+    implementation 'com.github.alexthe666.citadel:citadel-1.21.1:2.7.0'
 
     compileOnly "mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${jei_mc_version}-neoforge-api:${jei_version}"
