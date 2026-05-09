@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -26,6 +27,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class EntityTossedItem extends ThrowableItemProjectile {
 
     protected static final EntityDataAccessor<Boolean> DART = SynchedEntityData.defineId(EntityTossedItem.class, EntityDataSerializers.BOOLEAN);
+
+    public static final Item DEFAULT_ITEM = Items.COBBLESTONE;
+
 
     public EntityTossedItem(EntityType p_i50154_1_, Level p_i50154_2_) {
         super(p_i50154_1_, p_i50154_2_);
@@ -53,6 +57,7 @@ public class EntityTossedItem extends ThrowableItemProjectile {
 
     public void setDart(boolean dart) {
         this.entityData.set(DART, dart);
+        this.setItem(new ItemStack(getDartItem(dart)));
     }
 
     // getAddEntityPacket is no longer needed in 1.21
@@ -132,11 +137,15 @@ public class EntityTossedItem extends ThrowableItemProjectile {
         }
     }
 
+    @Override
     protected Item getDefaultItem() {
-        // entityData may be null during initialization when parent class calls this
-        if (this.entityData != null && isDart()) {
+        return DEFAULT_ITEM;
+    }
+
+    private static Item getDartItem(boolean dart) {
+        if (dart)
             return AMItemRegistry.ANCIENT_DART.get();
-        }
-        return Items.COBBLESTONE;
+
+        return DEFAULT_ITEM;
     }
 }
